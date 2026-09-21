@@ -145,34 +145,20 @@ def render_breadcrumbs(items: list) -> str:
 
 # ---------------------------------------------------------------- layout
 
-def layout(title: str, crumbs: list, body: str, body_class: str) -> str:
+def layout_body(crumbs: list, body: str) -> str:
+    """Тело внутренней страницы: header + крошки + контент + footer/поиск.
+    Оболочку документа добавляет write_page()."""
     crumbs_html = render_breadcrumbs(crumbs) if crumbs else ''
-    css_links = '\n'.join(f'  <link rel="stylesheet" href="{p}?v={STAMP}">' for p in CSS_ORDER)
-    js_tags = '\n'.join(f'  <script src="{p}?v={STAMP}" defer></script>' for p in JS_ORDER)
     header = load(BLOCKS / 'header' / 'header.html')
     footer = load(BLOCKS / 'footer' / 'footer.html')
     search_screen = load(BLOCKS / 'search-screen' / 'search-screen.html')
     footer = footer + search_screen
-    return f'''<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="data:,">
-  <title>{title}</title>
-  <meta name="description" content="Портал карьеры Группы «Интер РАО»">
-{css_links}
-{js_tags}
-</head>
-<body class="{body_class}">
-{header}
+    return f'''{header}
 <main class="main">
 {crumbs_html}
 {body}
 </main>
 {footer}
-</body>
-</html>
 '''
 
 # ---------------------------------------------------------------- данные
@@ -584,5 +570,5 @@ for page in INNER_PAGES:
         body = body.replace(key, val)
     for old, new in page.get('replace_extra', []):
         body = body.replace(old, new)
-    body = layout(page['title'], page['crumbs'], body, 'page page--inner')
+    body = layout_body(page['crumbs'], body)
     write_page(page['out'], page['title'], body, 'page page--inner')

@@ -1,0 +1,51 @@
+<section class="section">
+  <div class="container">
+    <div class="form-page">
+      <form class="form-card" action="event-apply.html" method="post" data-mock-form novalidate>
+        <h1 class="form-card__title">Заявка на мероприятие</h1>
+
+        <div data-form-body style="display: contents;">
+          <p style="margin: 0; font-size: var(--fs-small-regular); color: var(--color-text-muted);">
+            Мероприятие: <strong>День открытых дверей в «Интер РАО – Электрогенерация»</strong>, 28.09.2026, Санкт-Петербург
+          </p>
+
+          <div class="field">
+            <label class="field__label" for="ea-email">Email <span class="req">*</span></label>
+            <input class="field__input" id="ea-email" name="email" type="email" required placeholder="you@example.ru">
+            <span class="field__error">Укажите корректный email</span>
+          </div>
+
+          <label class="checkbox">
+            <input type="checkbox" name="consent" required>
+            <span>Я даю <a href="#" onclick="return false">согласие на обработку персональных данных</a> и ознакомлен(а) с <a href="#" onclick="return false">Политикой конфиденциальности</a> <span class="req">*</span></span>
+          </label>
+
+          <button class="btn btn--accent form-card__submit" type="submit">подать заявку</button>
+        </div>
+
+        <div class="form-success" data-form-success hidden>
+          <div class="form-success__title">Заявка отправлена</div>
+          <p class="form-success__text" style="margin: 0;">Мы отправим подтверждение и детали посещения на указанный email. Повторная заявка на участие в этом мероприятии невозможна.</p>
+          <a href="events.html">К списку мероприятий</a>
+        </div>
+      </form>
+
+      <aside class="form-aside">
+        <div class="form-aside__title">День открытых дверей в «Интер РАО – Электрогенерация»</div>
+        <div class="form-aside__row">
+          <span class="form-aside__label">Дата</span>
+          <span class="form-aside__value">28.09.2026, 14:00</span>
+        </div>
+        <div class="form-aside__row">
+          <span class="form-aside__label">Город</span>
+          <span class="form-aside__value">Санкт-Петербург</span>
+        </div>
+        <div class="form-aside__row">
+          <span class="form-aside__label">Формат</span>
+          <span class="form-aside__value">Очно</span>
+        </div>
+        <a class="btn btn--outline" href="event.html">вернуться к мероприятию</a>
+      </aside>
+    </div>
+  </div>
+</section>

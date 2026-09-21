@@ -1,0 +1,130 @@
+<section class="section">
+  <div class="container">
+    <div class="form-page">
+      <form class="form-card" action="internship-apply.html" method="post" data-mock-form novalidate>
+        <h1 class="form-card__title">Заявка на стажировку</h1>
+
+        <div data-form-body style="display: contents;">
+          <p style="margin: 0; font-size: var(--fs-small-regular); color: var(--color-text-muted);">
+            Стажировка: <strong>разработчик</strong>, ООО «Интер РАО – ИТ»
+          </p>
+
+          <div class="form-grid">
+            <div class="field">
+              <label class="field__label" for="ia-lastname">Фамилия <span class="req">*</span></label>
+              <input class="field__input" id="ia-lastname" name="lastname" type="text" required placeholder="Иванов">
+            </div>
+            <div class="field">
+              <label class="field__label" for="ia-firstname">Имя <span class="req">*</span></label>
+              <input class="field__input" id="ia-firstname" name="firstname" type="text" required placeholder="Иван">
+            </div>
+            <div class="field">
+              <label class="field__label" for="ia-middlename">Отчество</label>
+              <input class="field__input" id="ia-middlename" name="middlename" type="text" placeholder="Иванович">
+            </div>
+            <div class="field">
+              <span class="field__label">Пол <span class="req">*</span></span>
+              <div class="radio-row" style="height: 52px; align-items: center;">
+                <label class="radio"><input type="radio" name="gender" value="m" required checked> Мужской</label>
+                <label class="radio"><input type="radio" name="gender" value="f"> Женский</label>
+              </div>
+            </div>
+            <div class="field">
+              <label class="field__label" for="ia-birth">Дата рождения <span class="req">*</span></label>
+              <input class="field__input" id="ia-birth" name="birth" type="text" required placeholder="ДД.ММ.ГГГГ">
+            </div>
+            <div class="field">
+              <label class="field__label" for="ia-phone">Телефон <span class="req">*</span></label>
+              <input class="field__input" id="ia-phone" name="phone" type="tel" required placeholder="+7 (___) ___-__-__">
+            </div>
+            <div class="field">
+              <label class="field__label" for="ia-email">Email <span class="req">*</span></label>
+              <input class="field__input" id="ia-email" name="email" type="email" required placeholder="you@example.ru">
+            </div>
+            <div class="field">
+              <label class="field__label" for="ia-citizenship">Гражданство <span class="req">*</span></label>
+              <input class="field__input" id="ia-citizenship" name="citizenship" type="text" required placeholder="Российская Федерация">
+            </div>
+            <div class="field">
+              <label class="field__label" for="ia-university">Учебное заведение <span class="req">*</span></label>
+              <input class="field__input" id="ia-university" name="university" type="text" required placeholder="Название вуза или колледжа">
+            </div>
+            <div class="field">
+              <label class="field__label" for="ia-speciality">Специальность <span class="req">*</span></label>
+              <input class="field__input" id="ia-speciality" name="speciality" type="text" required placeholder="Информационные технологии">
+            </div>
+            <div class="field">
+              <label class="field__label" for="ia-course">Курс обучения <span class="req">*</span></label>
+              <select class="field__select" id="ia-course" name="course" required>
+                <option value="" selected disabled>Выберите</option>
+                <option>1 курс</option><option>2 курс</option><option>3 курс</option>
+                <option>4 курс</option><option>Магистратура</option>
+              </select>
+            </div>
+            <div class="field field--wide">
+              <span class="field__label">Статус образования <span class="req">*</span></span>
+              <div class="radio-row" style="min-height: 52px; align-items: center;">
+                <label class="radio"><input type="radio" name="edustatus" value="inprogress" required checked data-edu-toggle> В процессе обучения</label>
+                <label class="radio"><input type="radio" name="edustatus" value="finished" data-edu-toggle> Завершил обучение</label>
+              </div>
+            </div>
+            <div class="field field--wide" data-experience-fields hidden>
+              <div class="form-grid">
+                <div class="field">
+                  <span class="field__label">Наличие опыта работы <span class="req">*</span></span>
+                  <div class="radio-row" style="min-height: 52px; align-items: center;">
+                    <label class="radio"><input type="radio" name="hasexp" value="yes" required> Да</label>
+                    <label class="radio"><input type="radio" name="hasexp" value="no" checked> Нет</label>
+                  </div>
+                </div>
+                <div class="field" data-exp-fields hidden>
+                  <label class="field__label" for="ia-lastjob">Последнее место работы <span class="req">*</span></label>
+                  <input class="field__input" id="ia-lastjob" name="lastjob" type="text" placeholder="Название компании">
+                </div>
+                <div class="field" data-exp-fields hidden>
+                  <label class="field__label" for="ia-lastpos">Должность <span class="req">*</span></label>
+                  <input class="field__input" id="ia-lastpos" name="lastpos" type="text" placeholder="Должность">
+                </div>
+                <div class="field" data-exp-fields hidden>
+                  <label class="field__label" for="ia-_period">Период работы <span class="req">*</span></label>
+                  <input class="field__input" id="ia-period" name="period" type="text" placeholder="2023–2026">
+                </div>
+              </div>
+            </div>
+            <div class="field field--wide">
+              <label class="field__label" for="ia-extra">Дополнительная информация</label>
+              <textarea class="field__textarea" id="ia-extra" name="extra" placeholder="О чём нам стоит знать"></textarea>
+            </div>
+          </div>
+
+          <label class="checkbox">
+            <input type="checkbox" name="consent" required>
+            <span>Я даю <a href="#" onclick="return false">согласие на обработку персональных данных</a> и ознакомлен(а) с <a href="#" onclick="return false">Политикой конфиденциальности</a> <span class="req">*</span></span>
+          </label>
+
+          <button class="btn btn--accent form-card__submit" type="submit">отправить заявку</button>
+        </div>
+
+        <div class="form-success" data-form-success hidden>
+          <div class="form-success__title">Заявка отправлена</div>
+          <p class="form-success__text" style="margin: 0;">Компания рассмотрит заявку и свяжется с вами по телефону или email в течение 10 рабочих дней. Повторная подача заявки на эту стажировку невозможна.</p>
+          <a href="internships.html">К списку стажировок</a>
+        </div>
+      </form>
+
+      <aside class="form-aside">
+        <div class="form-aside__title">Стажировка: разработчик</div>
+        <p class="form-aside__text">ООО «Интер РАО – ИТ», Москва. Гибридный график, оплачиваемая стажировка от 60 000 ₽.</p>
+        <div class="form-aside__row">
+          <span class="form-aside__label">Направление подготовки</span>
+          <span class="form-aside__value">Информационные технологии</span>
+        </div>
+        <div class="form-aside__row">
+          <span class="form-aside__label">Длительность</span>
+          <span class="form-aside__value">6 месяцев</span>
+        </div>
+        <a class="btn btn--outline" href="internship.html">вернуться к стажировке</a>
+      </aside>
+    </div>
+  </div>
+</section>

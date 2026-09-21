@@ -1,9 +1,37 @@
 # career-portal — вёрстка портала карьеры «Интер РАО»
 
-Статическая вёрстка по макету Figma **CP_Ревью** (страница «⚜️ Концепция»): два варианта главной страницы, порезанные по компонентам под интеграцию в Битрикс.
+Статическая вёрстка по макету Figma **CP_Ревью** (страница «⚜️ Концепция») и структуре ТЗ «Карьерный сайт Группы „Интер РАО“»: многостраничный сайт на мок-данных (без бэка), готовый к демонстрации и последующей интеграции в Битрикс.
 
-- **Демо:** [index-1.html](index-1.html) — «Концепт — Главная 1», [index-2.html](index-2.html) — «Концепт — Главная 2»
+- **Главная (основная):** [index-1.html](index-1.html) — «Концепт — Главная 1»
+- **Главная (вариант 2):** [index-2.html](index-2.html) — «Концепт — Главная 2»
 - Никакой сборки не требуется: чистый HTML + CSS + vanilla JS.
+
+## Карта страниц (мок-версия по ТЗ)
+
+| Страница | Файл | Макет (finals) |
+|---|---|---|
+| Вакансии — список с фильтрами | [vacancies.html](vacancies.html) | 1:20162 |
+| Карточка вакансии | [vacancy.html](vacancy.html) | 1:20341 |
+| Отклик на вакансию (форма) | [vacancy-apply.html](vacancy-apply.html) | 1:17360+ |
+| Стажировки — лендинг | [internships.html](internships.html) | 1:11240 |
+| Практики — лендинг | [practices.html](practices.html) | 1:11240 |
+| Карточка стажировки | [internship.html](internship.html) | 1:12095 |
+| Заявка на стажировку (форма) | [internship-apply.html](internship-apply.html) | 1:17360+ |
+| Целевое обучение — лендинг | [education.html](education.html) | 1:14652 |
+| Каталог предложений | [education-catalog.html](education-catalog.html) | 1:19879 |
+| Мероприятия — список | [events.html](events.html) | 1:12812 |
+| Поиск мероприятий | [events-search.html](events-search.html) | 1:13099 |
+| Страница мероприятия | [event.html](event.html) | 1:14283 |
+| Заявка на мероприятие (email) | [event-apply.html](event-apply.html) | 1:14400 |
+| Медиа-раздел | [media.html](media.html) | 1:10395 |
+| Статья | [article.html](article.html) | 1:11030 |
+| Карьерные треки + тест | [career-track.html](career-track.html) | 1:16715 |
+| Страница компании (ДО) | [company.html](company.html) | 1:15457 |
+| Компании группы | [companies.html](companies.html) | — |
+| 404 | [404.html](404.html) | — |
+
+Мок-данные повторяющихся списков лежат в `data/*.json` и вшиваются в статичный HTML при сборке (`build.py`).
+
 
 ## Структура
 

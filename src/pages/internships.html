@@ -1,0 +1,108 @@
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <div class="intern-hero">
+      <h1 class="page-title">{{PAGE_TITLE}}</h1>
+      <p class="page-subtitle">{{PAGE_SUBTITLE}}</p>
+    </div>
+
+    <nav class="intern-menu" aria-label="Разделы школьникам и студентам">
+      <a class="intern-menu__item" href="practices.html">Практики</a>
+      <a class="intern-menu__item" href="internships.html">Стажировки</a>
+      <a class="intern-menu__item" href="education.html">Целевое обучение</a>
+      <a class="intern-menu__item" href="career-track.html">Карьерный трек</a>
+      <a class="intern-menu__item" href="events.html">Мероприятия</a>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section__title">Найдите свою {{PAGE_TITLE_ACC}}</h2>
+
+    <div class="intern-filters">
+      <label class="vacancy-search__select-wrap">
+        <select class="vacancy-search__select" name="region" aria-label="Регион">
+          <option value="" selected>Регион</option>
+          <option>Москва</option><option>Санкт-Петербург</option><option>Свердловская область</option>
+        </select>
+        <svg class="vacancy-search__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 6l5 4 5-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </label>
+      <label class="vacancy-search__select-wrap">
+        <select class="vacancy-search__select" name="city" aria-label="Город">
+          <option value="" selected>Город</option>
+          <option>Москва</option><option>Санкт-Петербург</option><option>Екатеринбург</option>
+        </select>
+        <svg class="vacancy-search__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 6l5 4 5-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </label>
+      <label class="vacancy-search__select-wrap">
+        <select class="vacancy-search__select" name="study" aria-label="Направление подготовки">
+          <option value="" selected>Направление подготовки</option>
+          <option>Энергетика и электротехника</option><option>Машиностроение</option><option>Экономика и управление</option>
+        </select>
+        <svg class="vacancy-search__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 6l5 4 5-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </label>
+    </div>
+
+    <div class="cards-grid cards-grid--2">
+      <!-- INTERNSHIP_CARDS -->
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section__title">Преимущества компаний</h2>
+    <div class="company-hero" style="grid-template-columns: 480px 1fr; margin-bottom: 0;">
+      <img class="company-hero__photo" src="<!-- INTERNSHIP_ADV_IMG -->" alt="">
+      <p class="company-hero__text" style="margin: 0;"><!-- INTERNSHIP_ADV_TEXT --></p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section__title">Преимущества прохождения {{PAGE_TITLE|lower}}</h2>
+    <div class="adv-grid">
+      <article class="card card--filled adv-card"><h3 class="adv-card__title">Реальная отрасль</h3><p class="adv-card__text">Практика проходит на действующих энергетических объектах Группы «Интер РАО».</p></article>
+      <article class="card card--filled adv-card"><h3 class="adv-card__title">Официальное оформление</h3><p class="adv-card__text">Договор с компанией и все документы для учебного заведения оформляются официально.</p></article>
+      <article class="card card--filled adv-card"><h3 class="adv-card__title">Команда профессионалов</h3><p class="adv-card__text">Вы работаете рядом с опытными инженерами и специалистами отрасли.</p></article>
+      <article class="card card--filled adv-card"><h3 class="adv-card__title">Понятный старт карьеры</h3><p class="adv-card__text">После практики многие практиканты остаются работать в компании на постоянной основе.</p></article>
+      <article class="card card--filled adv-card"><h3 class="adv-card__title">Современные технологии</h3><p class="adv-card__text">Работа с актуальным оборудованием, цифровыми сервисами и стандартами.</p></article>
+      <article class="card card--filled adv-card"><h3 class="adv-card__title">Наставничество</h3><p class="adv-card__text">Закреплённый наставник помогает освоиться и разобраться в задачах.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section__title">Как попасть на {{PAGE_TITLE|lower}}</h2>
+    <div class="steps">
+      <!-- INTERNSHIP_STEPS -->
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section__title">Познакомьтесь с нашими практикантами</h2>
+    <div class="cards-grid cards-grid--3">
+      <!-- INTERNSHIP_INTERNS -->
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section__title">Наши мероприятия</h2>
+    <div class="cards-grid cards-grid--3">
+      <!-- INTERNSHIP_EVENTS -->
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section__title">Вопросы и ответы</h2>
+    <!-- INTERNSHIP_FAQ -->
+  </div>
+</section>

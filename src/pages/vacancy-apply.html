@@ -1,0 +1,111 @@
+<section class="section">
+  <div class="container">
+    <div class="form-page">
+      <form class="form-card" action="vacancy-apply.html" method="post" data-mock-form novalidate>
+        <h1 class="form-card__title">Отклик на вакансию</h1>
+
+        <div data-form-body style="display: contents;">
+          <p style="margin: 0; font-size: var(--fs-small-regular); color: var(--color-text-muted);">
+            Вакансия: <strong>Ведущий инженер по эксплуатации энергоблоков</strong>, АО «Интер РАО – Электрогенерация»
+          </p>
+
+          <div class="form-grid">
+            <div class="field">
+              <label class="field__label" for="va-lastname">Фамилия <span class="req">*</span></label>
+              <input class="field__input" id="va-lastname" name="lastname" type="text" required placeholder="Иванов">
+            </div>
+            <div class="field">
+              <label class="field__label" for="va-firstname">Имя <span class="req">*</span></label>
+              <input class="field__input" id="va-firstname" name="firstname" type="text" required placeholder="Иван">
+            </div>
+            <div class="field">
+              <label class="field__label" for="va-middlename">Отчество</label>
+              <input class="field__input" id="va-middlename" name="middlename" type="text" placeholder="Иванович">
+            </div>
+            <div class="field">
+              <span class="field__label">Пол <span class="req">*</span></span>
+              <div class="radio-row" style="height: 52px; align-items: center;">
+                <label class="radio"><input type="radio" name="gender" value="m" required checked> Мужской</label>
+                <label class="radio"><input type="radio" name="gender" value="f"> Женский</label>
+              </div>
+            </div>
+            <div class="field">
+              <label class="field__label" for="va-birth">Дата рождения <span class="req">*</span></label>
+              <input class="field__input" id="va-birth" name="birth" type="text" required placeholder="ДД.ММ.ГГГГ">
+            </div>
+            <div class="field">
+              <label class="field__label" for="va-phone">Телефон <span class="req">*</span></label>
+              <input class="field__input" id="va-phone" name="phone" type="tel" required placeholder="+7 (___) ___-__-__">
+            </div>
+            <div class="field">
+              <label class="field__label" for="va-email">Email <span class="req">*</span></label>
+              <input class="field__input" id="va-email" name="email" type="email" required placeholder="you@example.ru">
+            </div>
+            <div class="field">
+              <label class="field__label" for="va-citizenship">Гражданство <span class="req">*</span></label>
+              <input class="field__input" id="va-citizenship" name="citizenship" type="text" required placeholder="Российская Федерация">
+            </div>
+            <div class="field">
+              <label class="field__label" for="va-edu">Образование <span class="req">*</span></label>
+              <select class="field__select" id="va-edu" name="education" required>
+                <option value="" selected disabled>Выберите</option>
+                <option>Высшее</option><option>Среднее профессиональное</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="field__label" for="va-university">Учебное заведение <span class="req">*</span></label>
+              <input class="field__input" id="va-university" name="university" type="text" required placeholder="Название вуза">
+            </div>
+            <div class="field">
+              <label class="field__label" for="va-faculty">Факультет / специальность <span class="req">*</span></label>
+              <input class="field__input" id="va-faculty" name="faculty" type="text" required placeholder="Энергетика и электротехника">
+            </div>
+            <div class="field">
+              <label class="field__label" for="va-gradyear">Год окончания обучения <span class="req">*</span></label>
+              <input class="field__input" id="va-gradyear" name="gradyear" type="text" required placeholder="2024">
+            </div>
+            <div class="field field--wide">
+              <label class="field__label" for="va-extra">Дополнительная информация</label>
+              <textarea class="field__textarea" id="va-extra" name="extra" placeholder="Расскажите о релевантном опыте"></textarea>
+            </div>
+            <div class="field field--wide">
+              <span class="field__label">Резюме (doc, docx, pdf — до 5 Мб)</span>
+              <label class="field__file">
+                <input type="file" name="resume" accept=".doc,.docx,.pdf">
+                <span class="btn btn--light">прикрепить файл</span>
+                <span class="field__file-hint">файл не обязателен</span>
+              </label>
+            </div>
+          </div>
+
+          <label class="checkbox">
+            <input type="checkbox" name="consent" required>
+            <span>Я даю <a href="#" onclick="return false">согласие на обработку персональных данных</a> и ознакомлен(а) с <a href="#" onclick="return false">Политикой конфиденциальности</a> <span class="req">*</span></span>
+          </label>
+
+          <button class="btn btn--accent form-card__submit" type="submit">отправить отклик</button>
+        </div>
+
+        <div class="form-success" data-form-success hidden>
+          <div class="form-success__title">Отклик отправлен</div>
+          <p class="form-success__text" style="margin: 0;">Компания рассмотрит ваш отклик и свяжется с вами по телефону или email в течение 10 рабочих дней.</p>
+          <a href="vacancies.html">К списку вакансий</a>
+        </div>
+      </form>
+
+      <aside class="form-aside">
+        <div class="form-aside__title">Ведущий инженер по эксплуатации энергоблоков</div>
+        <p class="form-aside__text">АО «Интер РАО – Электрогенерация», Москва. Зарплата от 120 000 ₽, ДМС, корпоративное обучение.</p>
+        <div class="form-aside__row">
+          <span class="form-aside__label">Опыт работы</span>
+          <span class="form-aside__value">От 3 лет</span>
+        </div>
+        <div class="form-aside__row">
+          <span class="form-aside__label">Направление</span>
+          <span class="form-aside__value">Электрогенерация</span>
+        </div>
+        <a class="btn btn--outline" href="vacancy.html">вернуться к вакансии</a>
+      </aside>
+    </div>
+  </div>
+</section>

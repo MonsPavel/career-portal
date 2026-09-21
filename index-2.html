@@ -5,36 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="data:,">
   <title>Портал карьеры Интер РАО — вариант 2</title>
-  <meta name="description" content="Портал карьеры Группы «Интер РАО» — вёрстка по макету CP_Ревью">
-  <link rel="stylesheet" href="css/variables.css?v=1789407574">
-  <link rel="stylesheet" href="css/base.css?v=1789407574">
-  <link rel="stylesheet" href="src/blocks/header/header.css?v=1789407574">
-  <link rel="stylesheet" href="src/blocks/hero/hero.css?v=1789407574">
-  <link rel="stylesheet" href="src/blocks/production/production.css?v=1789407574">
-  <link rel="stylesheet" href="src/blocks/directions/directions.css?v=1789407574">
-  <link rel="stylesheet" href="src/blocks/holding/holding.css?v=1789407574">
-  <link rel="stylesheet" href="src/blocks/employers/employers.css?v=1789407574">
-  <link rel="stylesheet" href="src/blocks/why-us/why-us.css?v=1789407574">
-  <link rel="stylesheet" href="src/blocks/vacancy-search/vacancy-search.css?v=1789407574">
-  <link rel="stylesheet" href="src/blocks/vacancy-capsule/vacancy-capsule.css?v=1789407574">
-  <link rel="stylesheet" href="src/blocks/students/students.css?v=1789407574">
-  <link rel="stylesheet" href="src/blocks/video-block/video-block.css?v=1789407574">
-  <link rel="stylesheet" href="src/blocks/media/media.css?v=1789407574">
-  <link rel="stylesheet" href="src/blocks/mentorship/mentorship.css?v=1789407574">
-  <link rel="stylesheet" href="src/blocks/team/team.css?v=1789407574">
-  <link rel="stylesheet" href="src/blocks/cta-mail/cta-mail.css?v=1789407574">
-  <link rel="stylesheet" href="src/blocks/footer/footer.css?v=1789407574">
-  <link rel="stylesheet" href="src/blocks/search-screen/search-screen.css?v=1789407574">
-  <script src="src/blocks/header/header.js?v=1789407574" defer></script>
-  <script src="src/blocks/production/production.js?v=1789407574" defer></script>
-  <script src="src/blocks/directions/directions.js?v=1789407574" defer></script>
-  <script src="src/blocks/search-screen/search-screen.js?v=1789407574" defer></script>
+  <meta name="description" content="Портал карьеры Группы «Интер РАО»">
+  <link rel="stylesheet" href="css/variables.css?v=1790009781">
+  <link rel="stylesheet" href="css/base.css?v=1790009781">
+  <link rel="stylesheet" href="css/components.css?v=1790009781">
+  <link rel="stylesheet" href="src/blocks/header/header.css?v=1790009781">
+  <link rel="stylesheet" href="src/blocks/hero/hero.css?v=1790009781">
+  <link rel="stylesheet" href="src/blocks/production/production.css?v=1790009781">
+  <link rel="stylesheet" href="src/blocks/directions/directions.css?v=1790009781">
+  <link rel="stylesheet" href="src/blocks/holding/holding.css?v=1790009781">
+  <link rel="stylesheet" href="src/blocks/employers/employers.css?v=1790009781">
+  <link rel="stylesheet" href="src/blocks/why-us/why-us.css?v=1790009781">
+  <link rel="stylesheet" href="src/blocks/vacancy-search/vacancy-search.css?v=1790009781">
+  <link rel="stylesheet" href="src/blocks/vacancy-capsule/vacancy-capsule.css?v=1790009781">
+  <link rel="stylesheet" href="src/blocks/students/students.css?v=1790009781">
+  <link rel="stylesheet" href="src/blocks/video-block/video-block.css?v=1790009781">
+  <link rel="stylesheet" href="src/blocks/media/media.css?v=1790009781">
+  <link rel="stylesheet" href="src/blocks/mentorship/mentorship.css?v=1790009781">
+  <link rel="stylesheet" href="src/blocks/team/team.css?v=1790009781">
+  <link rel="stylesheet" href="src/blocks/cta-mail/cta-mail.css?v=1790009781">
+  <link rel="stylesheet" href="src/blocks/footer/footer.css?v=1790009781">
+  <link rel="stylesheet" href="src/blocks/search-screen/search-screen.css?v=1790009781">
+  <link rel="stylesheet" href="css/pages.css?v=1790009781">
+  <script src="src/blocks/header/header.js?v=1790009781" defer></script>
+  <script src="src/blocks/production/production.js?v=1790009781" defer></script>
+  <script src="src/blocks/directions/directions.js?v=1790009781" defer></script>
+  <script src="src/blocks/search-screen/search-screen.js?v=1790009781" defer></script>
+  <script src="js/forms.js?v=1790009781" defer></script>
+  <script src="js/faq.js?v=1790009781" defer></script>
+  <script src="js/tracks.js?v=1790009781" defer></script>
 </head>
 <body class="page page--v2">
 <header class="header">
   <div class="header__inner">
     <nav class="header__menu header__menu--left" aria-label="Основное меню">
-      <a class="header__link" href="#vacancies">Вакансии</a>
+      <a class="header__link" href="vacancies.html">Вакансии</a>
 
       <div class="header__dropdown-wrap">
         <button class="header__link header__link--toggle" type="button" data-dropdown-toggle aria-expanded="false" aria-controls="header-dropdown">
@@ -50,15 +55,15 @@
             </button>
           </div>
           <ul class="header__dropdown-list">
-            <li><a class="header__dropdown-link" href="#students">Стажировки и практики</a></li>
-            <li><a class="header__dropdown-link" href="#students">Целевое обучение</a></li>
-            <li><a class="header__dropdown-link" href="#students">Каталог мероприятий</a></li>
-            <li><a class="header__dropdown-link" href="#students">Карьерный трек</a></li>
+            <li><a class="header__dropdown-link" href="practices.html">Стажировки и практики</a></li>
+            <li><a class="header__dropdown-link" href="education.html">Целевое обучение</a></li>
+            <li><a class="header__dropdown-link" href="events.html">Каталог мероприятий</a></li>
+            <li><a class="header__dropdown-link" href="career-track.html">Карьерный трек</a></li>
           </ul>
         </div>
       </div>
 
-      <a class="header__link" href="#media">Медиа</a>
+      <a class="header__link" href="media.html">Медиа</a>
     </nav>
 
     <a class="header__logo" href="/" aria-label="Интер РАО ЕЭС — на главную">
@@ -66,7 +71,7 @@
     </a>
 
     <nav class="header__menu header__menu--right" aria-label="Дополнительное меню">
-      <a class="header__link" href="#contacts">Контакты</a>
+      <a class="header__link" href="index-1.html#contacts">Контакты</a>
       <button class="header__link header__link--search" type="button" data-search-open>
         <svg class="header__search-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="2"/><path d="M10 10l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         Поиск
@@ -83,7 +88,7 @@
   <div class="hero__content">
     <h1 class="hero__title">Зажги свет вместе с&nbsp;нами</h1>
 
-    <form class="hero__search" action="/vacancies/" method="get" role="search">
+    <form class="hero__search" action="vacancies.html" method="get" role="search">
       <svg class="hero__search-icon" width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
         <circle cx="17" cy="17" r="11" stroke="currentColor" stroke-width="2.4"/>
         <path d="M26 26l8 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
@@ -92,7 +97,7 @@
       <button class="hero__search-submit" type="submit" aria-label="Найти">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
-      <a class="hero__search-all" href="#vacancies">Все вакансии</a>
+      <a class="hero__search-all" href="vacancies.html">Все вакансии</a>
     </form>
   </div>
 
@@ -503,7 +508,7 @@
       <div class="media__lead">
         <time class="media__lead-date" datetime="2026-02-28">28.02.26</time>
         <p class="media__lead-desc">Молодые люди приобретают опыт по&nbsp;основным для&nbsp;компании направлениям: энергетика, тепловая автоматика, техническая диагностика, водоподготовка и&nbsp;экологическая станция, сети и&nbsp;подстанции, тепловые сети. Подробности — в&nbsp;материале.</p>
-        <a class="media__lead-more" href="#media">подробнее
+        <a class="media__lead-more" href="media.html">подробнее
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
       </div>
@@ -645,11 +650,12 @@
 
     <nav class="footer__nav" aria-label="Меню подвала">
       <ul class="footer__links">
-        <li><a class="footer__link" href="#vacancies">Вакансии</a></li>
-        <li><a class="footer__link" href="#students">Школьникам и студентам</a></li>
-        <li><a class="footer__link" href="#media">Медиа</a></li>
+        <li><a class="footer__link" href="vacancies.html">Вакансии</a></li>
+        <li><a class="footer__link" href="internships.html">Школьникам и студентам</a></li>
+        <li><a class="footer__link" href="media.html">Медиа</a></li>
         <li><a class="footer__link" href="#">Политика конфиденциальности</a></li>
         <li><a class="footer__link" href="#">Правила обработки персональных данных</a></li>
+        <li><a class="footer__link" href="companies.html">Компании группы</a></li>
       </ul>
     </nav>
 

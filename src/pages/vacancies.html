@@ -1,0 +1,75 @@
+<section class="section">
+  <div class="container">
+    <div class="page-head">
+      <h1 class="page-title">Вакансии</h1>
+      <p class="page-subtitle">Открытые вакансии компаний Группы «Интер РАО» — от производственных до офисных направлений.</p>
+    </div>
+
+    <form class="vac-filters" action="vacancies.html" method="get">
+      <label class="vacancy-search__select-wrap">
+        <select class="vacancy-search__select" name="region" aria-label="Регион">
+          <option value="" selected>Регион</option>
+          <option>Москва</option><option>Санкт-Петербург</option><option>Омская область</option><option>Саратовская область</option>
+        </select>
+        <svg class="vacancy-search__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 6l5 4 5-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </label>
+      <label class="vacancy-search__select-wrap">
+        <select class="vacancy-search__select" name="city" aria-label="Город">
+          <option value="" selected>Город</option>
+          <option>Москва</option><option>Санкт-Петербург</option><option>Омск</option><option>Саратов</option>
+        </select>
+        <svg class="vacancy-search__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 6l5 4 5-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </label>
+      <label class="vacancy-search__select-wrap">
+        <select class="vacancy-search__select" name="specialization" aria-label="Специализация">
+          <option value="" selected>Специализация</option>
+          <option>Энергетика и электротехника</option><option>Информационные технологии</option><option>Экономика и управление</option>
+        </select>
+        <svg class="vacancy-search__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 6l5 4 5-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </label>
+      <label class="vacancy-search__select-wrap">
+        <select class="vacancy-search__select" name="segment" aria-label="Сегмент бизнеса">
+          <option value="" selected>Сегмент бизнеса</option>
+          <option>Генерация</option><option>Розничный бизнес</option><option>Сервисы</option>
+        </select>
+        <svg class="vacancy-search__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 6l5 4 5-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </label>
+      <label class="vacancy-search__select-wrap">
+        <select class="vacancy-search__select" name="position" aria-label="Должность">
+          <option value="" selected>Должность</option>
+          <option>Инженер</option><option>Специалист</option><option>Менеджер</option>
+        </select>
+        <svg class="vacancy-search__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 6l5 4 5-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </label>
+      <label class="vacancy-search__select-wrap">
+        <select class="vacancy-search__select" name="experience" aria-label="Опыт работы">
+          <option value="" selected>Опыт работы</option>
+          <option>Без опыта</option><option>От 1 года</option><option>От 3 лет</option>
+        </select>
+        <svg class="vacancy-search__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 6l5 4 5-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </label>
+      <label class="checkbox" style="align-self: center;">
+        <input type="checkbox" name="accessible">
+        Доступно людям с инвалидностью
+      </label>
+    </form>
+
+    <div class="vac-toolbar">
+      <span class="vac-toolbar__count">На сайте {{TOTAL}} вакансий</span>
+      <div class="vac-toolbar__sort">
+        <span class="vac-toolbar__sort-label">Сортировка:</span>
+        <label class="vacancy-search__select-wrap" style="flex: none;">
+          <select class="vacancy-search__select" style="height: 44px;" name="sort" aria-label="Сортировка">
+            <option selected>По дате добавления</option>
+            <option>По зарплате</option>
+          </select>
+          <svg class="vacancy-search__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 6l5 4 5-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </label>
+      </div>
+    </div>
+
+    <div class="vac-list">
+      <!-- VACANCY_CARDS -->
+    </div>
+  </div>
+</section>

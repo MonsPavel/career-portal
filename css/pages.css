@@ -492,7 +492,6 @@
   background: #C4CDDC;
 }
 
-.step-pill.is-done .step-pill__dot,
 .step-pill.is-active .step-pill__dot { background: var(--color-accent); }
 
 .step-pill__name { font-size: var(--fs-caption); font-weight: var(--fw-caption); color: var(--color-text); }

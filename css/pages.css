@@ -416,10 +416,27 @@
 
 .article-page__meta {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 12px;
   margin-bottom: 8px;
 }
+
+/* все элементы мета-строки одной высоты — текст на одной линии */
+.article-page__meta > * {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+}
+
+.article-page__meta .media__tag {
+  position: static;
+  background: none;
+  padding: 0;
+  font-size: var(--fs-small-regular);
+  letter-spacing: 0.02em;
+}
+
+.article-page__meta time { font-size: var(--fs-small-regular); color: var(--color-text-muted); }
 
 .article-page__meta time { line-height: 1; }
 

@@ -25,7 +25,7 @@ JS_ORDER = [
     f'src/blocks/{b}/{b}.js' for b in [
         'header', 'production', 'directions', 'search-screen',
     ]
-] + ['js/forms.js', 'js/faq.js', 'js/tracks.js']
+] + ['js/forms.js', 'js/faq.js', 'js/tracks.js', 'js/dropdowns.js']
 
 # ---------------------------------------------------------------- утилиты
 

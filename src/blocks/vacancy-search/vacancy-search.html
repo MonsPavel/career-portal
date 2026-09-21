@@ -1,0 +1,47 @@
+<div class="vacancy-search" id="vacancies">
+  <div class="container">
+    <div class="vacancy-search__wrap">
+      <form class="vacancy-search__panel" action="/vacancies/" method="get">
+        <h2 class="vacancy-search__title">Найди свою вакансию</h2>
+        <div class="vacancy-search__fields">
+          <label class="vacancy-search__select-wrap">
+            <select class="vacancy-search__select" name="city" aria-label="Город">
+              <option value="" selected>Город</option>
+              <option>Москва</option>
+              <option>Санкт-Петербург</option>
+              <option>Екатеринбург</option>
+            </select>
+            <svg class="vacancy-search__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 6l5 4 5-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </label>
+          <label class="vacancy-search__select-wrap">
+            <select class="vacancy-search__select" name="position" aria-label="Должность">
+              <option value="" selected>Должность</option>
+              <option>Инженер</option>
+              <option>Электромонтёр</option>
+              <option>Специалист</option>
+            </select>
+            <svg class="vacancy-search__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 6l5 4 5-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </label>
+          <label class="vacancy-search__select-wrap">
+            <select class="vacancy-search__select" name="experience" aria-label="Опыт">
+              <option value="" selected>Опыт</option>
+              <option>Без опыта</option>
+              <option>От 1 года</option>
+              <option>От 3 лет</option>
+            </select>
+            <svg class="vacancy-search__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 6l5 4 5-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </label>
+          <button class="vacancy-search__submit" type="submit">найти
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </form>
+
+      <a class="vacancy-search__all" href="/vacancies/">
+        <span class="vacancy-search__all-text">Все 140 вакансий</span>
+        <svg class="vacancy-search__all-arrow" width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true"><path d="M8 26L26 8M12 8h14v14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+

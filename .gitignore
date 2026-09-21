@@ -1,0 +1,8 @@
+.figma-token
+.figma-auth/
+node_modules/
+.playwright-mcp/
+.shots/
+.figma-cache/
+shots-*.png
+v1-hero.png

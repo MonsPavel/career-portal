@@ -1,0 +1,55 @@
+/* Дизайн-токены макета CP_Ревью (Интер РАО), страница «Концепция» */
+:root {
+  /* Цвета */
+  --color-primary: #002856;      /* основной тёмно-синий */
+  --color-primary-deep: #152A4F; /* тёмно-синий фоновых панелей */
+  --color-accent: #F26722;       /* оранжевый (кнопки, акценты) */
+  --color-accent-light: #F37131;
+  --color-accent-bright: #F28B00;
+  --color-text: #1F1F1F;         /* основной текст */
+  --color-text-muted: #808080;   /* вторичный текст */
+  --color-text-on-dark: #FFFFFF;
+  --color-text-on-dark-muted: #8F9CBF;
+  --color-surface: #FFFFFF;
+  --color-surface-blue-50: #F1F5FE;  /* светло-голубой фон карточек */
+  --color-surface-blue-100: #E8EEFE; /* фон карточки при наведении */
+  --color-blue-700: #164B89;     /* синий карточек «почему мы» */
+  --color-blue-800: #164B89;
+  --color-peach-100: #FFD3B7;
+  --color-peach-200: #FFCEAC;
+  --color-peach-300: #FFAB72;
+  --color-plum: #511D59;
+
+  /* Стеклянные поверхности (glass) */
+  --glass-light: rgba(255, 255, 255, 0.8);
+  --glass-dark: rgba(255, 255, 255, 0.1);
+  --glass-blue: rgba(0, 40, 86, 0.5);
+
+  /* Типографика */
+  --font-family: 'Golos Text', Arial, sans-serif;
+
+  --fs-h1: 80px;      --lh-h1: 1.1;    --fw-h1: 400;
+  --fs-h2: 60px;      --lh-h2: 1.1;    --fw-h2: 400;
+  --fs-h3: 42px;      --lh-h3: 1.3;    --fw-h3: 500;
+  --fs-h4: 28px;      --lh-h4: 1.25;   --fw-h4: 500;
+  --fs-lead: 24px;    --lh-lead: 1.35; --fw-lead: 400;
+  --fs-body: 20px;    --lh-body: 1.35; --fw-body: 400;
+  --fs-body-bold: 20px; --lh-body-bold: 1.35; --fw-body-bold: 500;
+  --fs-small: 14px;   --lh-small: 1.35; --fw-small: 500;
+  --fs-small-regular: 14px; --lh-small-regular: 1.35; --fw-small-regular: 400;
+  --fs-caption: 13px; --lh-caption: 1.1; --fw-caption: 500;
+  --fs-micro: 12px;   --lh-micro: 1.35; --fw-micro: 400;
+
+  /* Радиусы */
+  --radius-card: 16px;
+  --radius-pill: 100px;
+  --radius-small: 8px;
+  --radius-big: 24px;
+
+  /* Сетка: контейнер 1360 внутри 1440, желоб 20 */
+  --container-max: 1360px;
+  --container-pad: 40px;
+
+  /* Анимации */
+  --transition: 0.25s ease;
+}

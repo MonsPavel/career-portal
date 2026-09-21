@@ -1,0 +1,131 @@
+.why-us {
+  position: relative;
+  padding: 140px 0 40px;
+  overflow: hidden;
+}
+
+.why-us__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--color-primary);
+}
+
+.why-us__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Как в макете: IMAGE fill LUMINOSITY @ 40% поверх синей заливки */
+  mix-blend-mode: luminosity;
+  opacity: 0.4;
+}
+
+.why-us__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 36px;
+  margin-bottom: 36px;
+}
+
+.why-us__title {
+  max-width: 894px;
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-h2);
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--color-text-on-dark);
+}
+
+.why-us__row {
+  display: flex;
+  gap: 36px;
+  margin-bottom: 48px;
+}
+
+/* Панель «Найди свою вакансию» внутри тёмной секции */
+.why-us .vacancy-search { padding: 0; }
+
+.why-us__card {
+  position: relative;
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 36px;
+  min-height: 320px;
+  padding: 20px;
+  background: var(--color-blue-700);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.why-us__top .why-us__card {
+  flex: 0 0 429px;
+  min-height: 320px;
+}
+
+.why-us__card-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity var(--transition);
+}
+
+.why-us__card:hover .why-us__card-photo { opacity: 0.15; }
+
+.why-us__card-title {
+  position: relative;
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-h4);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--color-text-on-dark);
+}
+
+.why-us__card-text {
+  position: relative;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-text-on-dark);
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity var(--transition), max-height 0.3s ease;
+}
+
+.why-us__card:hover .why-us__card-text {
+  opacity: 1;
+  max-height: 220px;
+}
+
+.why-us__card-num {
+  position: absolute;
+  right: 20px;
+  bottom: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-body);
+  color: var(--color-text-on-dark);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.why-us__card:hover .why-us__card-num { opacity: 1; }
+
+@media (max-width: 1023px) {
+  .why-us { padding: 96px 0 48px; }
+  .why-us__top { flex-direction: column; }
+  .why-us__top .why-us__card { flex-basis: auto; width: 100%; }
+  .why-us__row { flex-direction: column; }
+  .why-us__card-text { opacity: 1; max-height: none; }
+  .why-us__card-num { opacity: 1; }
+}

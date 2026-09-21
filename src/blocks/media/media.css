@@ -1,0 +1,169 @@
+.media {
+  padding: 64px 0;
+}
+
+.media__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.media__title {
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-h2);
+  line-height: var(--lh-h2);
+  color: var(--color-primary);
+}
+
+.media__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 52px;
+  padding: 20px;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-small);
+  letter-spacing: 0.01em;
+  color: var(--color-primary);
+  transition: background var(--transition);
+}
+
+.media__more:hover { background: var(--color-surface-blue-100); }
+
+.media__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 36px;
+}
+
+.media__card--big {
+  grid-row: 1 / span 2;
+}
+
+.media__card-link {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+}
+
+.media__card-photo-wrap {
+  position: relative;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.media__card-photo {
+  width: 100%;
+  height: 374px;
+  object-fit: cover;
+  transition: transform var(--transition);
+}
+
+.media__card:not(.media__card--big) .media__card-photo { height: 177px; }
+
+.media__card-link:hover .media__card-photo { transform: scale(1.04); }
+
+.media__tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--color-surface);
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: var(--fw-caption);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.media__tag-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.media__tag-dot--article { background: var(--color-primary); }
+.media__tag-dot--video   { background: var(--color-accent); }
+.media__tag-dot--podcast { background: #2BA841; }
+
+.media__card-caption {
+  font-size: var(--fs-lead);
+  font-weight: var(--fw-body-bold);
+  line-height: 1.3;
+  color: var(--color-text);
+}
+
+.media__card-caption--small {
+  font-size: var(--fs-small);
+  font-weight: var(--fw-small);
+  line-height: 1.35;
+}
+
+.media__card-desc {
+  font-size: var(--fs-small-regular);
+  line-height: var(--lh-small-regular);
+  color: var(--color-text-muted);
+}
+
+.media__card-date {
+  margin-top: auto;
+  font-size: var(--fs-small-regular);
+  color: var(--color-text-muted);
+}
+
+.media__lead { display: none; }
+
+.media__card--extra { display: none; }
+
+/* Модификатор: расширенный (вариант 2) */
+.media--wide .media__card--extra { display: block; }
+.media--wide .media__grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.media--wide .media__card--big { grid-column: 1 / span 2; }
+.media--wide .media__lead {
+  grid-column: 3 / span 2;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-left: 24px;
+}
+
+.media--wide .media__lead-date { font-size: var(--fs-small-regular); color: var(--color-text-muted); }
+.media--wide .media__lead-desc { font-size: var(--fs-small-regular); line-height: 1.35; color: var(--color-text); }
+.media--wide .media__lead-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-caption);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+@media (max-width: 1279px) {
+  .media__grid { grid-template-columns: 1fr 1fr; }
+  .media__card--big { grid-row: auto; grid-column: 1 / -1; }
+  .media--wide .media__grid { grid-template-columns: 1fr 1fr; }
+  .media--wide .media__card--big { grid-column: 1 / -1; }
+  .media--wide .media__lead { grid-column: 1 / -1; padding-left: 0; }
+}
+
+@media (max-width: 767px) {
+  .media { padding: 40px 0; }
+  .media__head { flex-direction: column; align-items: flex-start; margin-bottom: 24px; }
+  .media__grid { grid-template-columns: 1fr; gap: 24px; }
+  .media__card-photo, .media__card:not(.media__card--big) .media__card-photo { height: 220px; }
+  .media__card-caption { font-size: 18px; }
+}

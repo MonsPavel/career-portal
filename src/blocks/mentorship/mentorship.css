@@ -1,0 +1,120 @@
+.mentorship {
+  position: relative;
+  padding: 72px 0 48px;
+  overflow: hidden;
+}
+
+.mentorship__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: var(--color-primary);
+}
+
+.mentorship__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Как в макете: IMAGE fill LUMINOSITY @ 40% поверх синей заливки */
+  mix-blend-mode: luminosity;
+  opacity: 0.4;
+}
+
+.mentorship__photo {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 156px;
+  width: 62%;
+  z-index: -1;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 22%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 22%);
+}
+
+.mentorship__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mentorship__inner {
+  min-height: 470px;
+}
+
+.mentorship__title {
+  max-width: 894px;
+  margin-bottom: 48px;
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-h2);
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--color-text-on-dark);
+}
+
+.mentorship__text {
+  max-width: 514px;
+  font-size: var(--fs-lead);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--color-text-on-dark);
+}
+
+/* Лента карточек-тегов */
+.mentorship__rail {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  padding-left: max(var(--container-pad), (100vw - var(--container-max)) / 2);
+  padding-right: 16px;
+  scrollbar-width: none;
+}
+
+.mentorship__rail::-webkit-scrollbar { display: none; }
+
+.mentorship__card {
+  flex: 0 0 429px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 108px;
+  padding: 20px;
+  background: var(--color-blue-700);
+  border-radius: var(--radius-card);
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.mentorship__card.is-active,
+.mentorship__card:hover {
+  background: linear-gradient(100deg, #E88A2C 0%, #D9A441 100%);
+}
+
+.mentorship__card-title {
+  font-size: var(--fs-body);
+  font-weight: var(--fw-body-bold);
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  color: var(--color-text-on-dark);
+}
+
+.mentorship__card-thumb {
+  flex: 0 0 auto;
+  width: 88px;
+  height: 68px;
+  object-fit: cover;
+  border-radius: var(--radius-small);
+}
+
+@media (max-width: 1023px) {
+  .mentorship__inner { min-height: 380px; }
+  .mentorship__photo { bottom: 140px; width: 80%; }
+}
+
+@media (max-width: 767px) {
+  .mentorship { padding: 40px 0 32px; }
+  .mentorship__title { font-size: 34px; margin-bottom: 24px; }
+  .mentorship__text { font-size: 18px; }
+  .mentorship__inner { min-height: 300px; }
+  .mentorship__card { flex-basis: 300px; }
+}

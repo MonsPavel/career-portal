@@ -1,0 +1,268 @@
+.production {
+  position: relative;
+  min-height: 760px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  background: var(--color-primary);
+}
+
+.production__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.production__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.production__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* Тонировка из макета: SOLID #002856 @ 90% поверх фото завода */
+  background: rgba(0, 40, 86, 0.9);
+}
+
+.production__glow {
+  position: absolute;
+  z-index: 1;
+  left: 42%;
+  top: 8%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(closest-side, rgba(84, 155, 237, 0.35), rgba(84, 155, 237, 0) 75%);
+  pointer-events: none;
+}
+
+.production__photo {
+  position: absolute;
+  z-index: 2;
+  left: 43.5%;
+  top: 71px;
+  width: 585px;
+  height: 674px;
+  /* Вырезки персонажей вписываем целиком с привязкой к низу (по умолчанию);
+     для фото с фоном слайд переопределяет на cover через data-fit */
+  object-fit: contain;
+  object-position: bottom center;
+  transition: opacity var(--transition);
+}
+
+.production__body {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  max-width: 545px;
+  padding: 0 0 72px 56px;
+}
+
+.production__title {
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--color-text-on-dark);
+  transition: opacity var(--transition);
+}
+
+.production__text {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.22;
+  color: var(--color-text-on-dark);
+  transition: opacity var(--transition);
+}
+
+.production__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  padding: 20px;
+  background: #FFFFFF;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-caption);
+  color: var(--color-text);
+  transition: background var(--transition);
+}
+
+.production__btn:hover { background: var(--color-peach-100); }
+
+.production__arrow {
+  position: absolute;
+  z-index: 4;
+  top: 311px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  color: var(--color-text-on-dark);
+  opacity: 0.9;
+  transition: opacity var(--transition);
+}
+
+.production__arrow:hover { opacity: 0.6; }
+
+.production__arrow--prev { left: 0; }
+.production__arrow--next { right: 0; }
+
+/* Нижний степпер (вариант 1) */
+.production__stepper {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  width: 100%;
+  margin-top: auto;
+  align-self: flex-end;
+}
+
+.production__tab {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 68px;
+  padding: 16px;
+  text-align: left;
+  background: rgba(232, 238, 254, 0.3);
+  border-radius: 0;
+  transition: background var(--transition), min-height var(--transition);
+}
+
+.production__tab.is-active {
+  min-height: 82px;
+  background: rgba(232, 238, 254, 0.5);
+}
+
+.production__tab-num {
+  display: none;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-caption);
+  color: var(--color-text-on-dark);
+}
+
+.production__tab.is-active .production__tab-num { display: inline-flex; }
+
+.production__tab-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.production__tab-title {
+  font-size: var(--fs-small);
+  font-weight: var(--fw-small);
+  line-height: 1.35;
+  color: var(--color-text-on-dark);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.production__tab-count {
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-micro);
+  line-height: 1.35;
+  color: var(--color-text-on-dark);
+}
+
+/* Модификатор: вариант 2 — чипы сверху, фото слева, текст справа */
+.production--v2 { min-height: 740px; align-items: stretch; }
+
+.production--v2 .production__photo {
+  left: 22px;
+  top: 72px;
+}
+
+.production--v2 .production__body {
+  margin-left: auto;
+  padding: 0 56px 72px 0;
+  justify-content: flex-end;
+}
+
+.production--v2 .production__title {
+  font-size: 48px;
+  margin-bottom: 26px;
+}
+
+.production--v2 .production__text { margin-bottom: 24px; }
+
+.production--v2 .production__stepper {
+  position: absolute;
+  z-index: 4;
+  top: 42px;
+  right: 56px;
+  flex-wrap: wrap;
+  width: 700px;
+  gap: 19px;
+  background: none;
+}
+
+.production--v2 .production__tab {
+  flex: 0 0 auto;
+  min-height: 59px;
+  padding: 12px 16px;
+  border-radius: 32px;
+  background: rgba(232, 238, 254, 0.5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.production--v2 .production__tab.is-active {
+  min-height: 59px;
+  background: rgba(21, 42, 79, 0.9);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+.production--v2 .production__tab-num { display: inline-flex; }
+
+@media (max-width: 1279px) {
+  .production__photo { left: auto; right: 40px; width: 460px; height: 540px; }
+  .production--v2 .production__photo { left: 0; }
+  .production__stepper { flex-wrap: wrap; }
+  .production__tab { flex: 1 1 30%; }
+}
+
+@media (max-width: 1023px) {
+  .production { min-height: 640px; }
+  .production__photo { width: 360px; height: 430px; top: auto; bottom: 90px; }
+  .production__body { max-width: 440px; padding-left: 40px; }
+  .production__title { font-size: 38px; }
+  .production--v2 .production__stepper { position: static; width: auto; padding: 24px 40px 0; }
+}
+
+@media (max-width: 767px) {
+  .production { min-height: 620px; }
+  .production__photo {
+    position: static;
+    width: 100%;
+    max-width: 420px;
+    height: 320px;
+    margin: 24px auto 0;
+    order: 2;
+  }
+  .production { flex-direction: column; align-items: stretch; }
+  .production__body { padding: 24px 16px 0; max-width: none; }
+  .production__title { font-size: 30px; }
+  .production__arrow { top: auto; bottom: 190px; width: 48px; height: 48px; }
+  .production__arrow svg { width: 14px; height: 28px; }
+  .production__stepper { position: static !important; width: auto !important; padding: 16px !important; order: 3; }
+  .production__tab { flex: 1 1 100%; }
+  .production__tab-title { white-space: normal; }
+}

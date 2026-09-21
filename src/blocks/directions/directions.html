@@ -1,0 +1,113 @@
+<section class="directions" id="directions">
+  <div class="container">
+    <h2 class="directions__title">Направления деятельности</h2>
+
+    <ul class="directions__grid">
+      <li>
+        <button class="directions__card" type="button" data-direction="0">
+          <img class="directions__icon" src="../../assets/icons/dir-1.svg" alt="" width="76" height="76" loading="lazy">
+          <span class="directions__name">Электрогенерация
+            <svg class="directions__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </button>
+      </li>
+      <li>
+        <button class="directions__card" type="button" data-direction="1">
+          <img class="directions__icon" src="../../assets/icons/dir-2.svg" alt="" width="76" height="76" loading="lazy">
+          <span class="directions__name">Теплогенерация
+            <svg class="directions__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </button>
+      </li>
+      <li>
+        <button class="directions__card" type="button" data-direction="2">
+          <img class="directions__icon" src="../../assets/icons/dir-3.svg" alt="" width="76" height="76" loading="lazy">
+          <span class="directions__name">Энергосбыт, ЕРЦП, НЭСК
+            <svg class="directions__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </button>
+      </li>
+      <li>
+        <button class="directions__card" type="button" data-direction="3">
+          <img class="directions__icon" src="../../assets/icons/dir-4.svg" alt="" width="76" height="76" loading="lazy">
+          <span class="directions__name">Инжиниринг
+            <svg class="directions__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </button>
+      </li>
+      <li>
+        <button class="directions__card" type="button" data-direction="4">
+          <img class="directions__icon" src="../../assets/icons/dir-5.svg" alt="" width="76" height="76" loading="lazy">
+          <span class="directions__name">Энергомашиностроение
+            <svg class="directions__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </button>
+      </li>
+      <li>
+        <button class="directions__card" type="button" data-direction="5">
+          <img class="directions__icon" src="../../assets/icons/dir-6.svg" alt="" width="76" height="76" loading="lazy">
+          <span class="directions__name">Сервисные компании
+            <svg class="directions__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </button>
+      </li>
+      <li>
+        <button class="directions__card" type="button" data-direction="6">
+          <img class="directions__icon" src="../../assets/icons/dir-7.svg" alt="" width="76" height="76" loading="lazy">
+          <span class="directions__name">ИТ
+            <svg class="directions__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </button>
+      </li>
+      <li>
+        <button class="directions__card" type="button" data-direction="7">
+          <img class="directions__icon" src="../../assets/icons/dir-8.svg" alt="" width="76" height="76" loading="lazy">
+          <span class="directions__name">Управляющая компания
+            <svg class="directions__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Попап направления -->
+  <div class="directions__modal" data-directions-modal hidden>
+    <div class="directions__modal-dim" data-directions-close></div>
+    <div class="directions__modal-panel" role="dialog" aria-modal="true" aria-labelledby="directions-modal-title">
+      <div class="directions__modal-head">
+        <h3 class="directions__modal-title" id="directions-modal-title" data-directions-title>Теплогенерация</h3>
+        <button class="directions__modal-close" type="button" data-directions-close aria-label="Закрыть">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="directions__modal-body">
+        <img class="directions__modal-photo" src="../../assets/images/popup-teplogen.jpg" alt="" data-directions-photo width="590" height="400">
+        <div class="directions__modal-nav">
+          <button class="directions__modal-arrow" type="button" data-directions-prev aria-label="Предыдущее направление">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H3M8 3L3 8l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="directions__modal-arrow" type="button" data-directions-next aria-label="Следующее направление">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M8 3l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <p class="directions__modal-subtitle" data-directions-subtitle>Теплогенерация Группы «Интер РАО»</p>
+        <p class="directions__modal-text" data-directions-text>Теплогенерация Группы «Интер РАО» — это 6&nbsp;крупных региональных энергокомпаний, 22&nbsp;электростанции.</p>
+        <a class="directions__modal-btn" href="#vacancies">Смотреть вакансии</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Данные направлений (в Битриксе — из инфоблока) -->
+  <script type="application/json" data-directions-data>
+    [
+      {"title": "Электрогенерация", "subtitle": "Электрогенерация Группы «Интер РАО»", "text": "Производство электрической энергии — основа энергетической системы страны.", "photo": "assets/images/popup-teplogen.jpg"},
+      {"title": "Теплогенерация", "subtitle": "Теплогенерация Группы «Интер РАО»", "text": "Теплогенерация Группы «Интер РАО» — это 6 крупных региональных энергокомпаний, 22 электростанции.", "photo": "assets/images/popup-teplogen.jpg"},
+      {"title": "Энергосбыт, ЕРЦП, НЭСК", "subtitle": "Энергосбыт Группы «Интер РАО»", "text": "Продажа электрической и тепловой энергии потребителям по всей стране.", "photo": "assets/images/popup-teplogen.jpg"},
+      {"title": "Инжиниринг", "subtitle": "Инжиниринг Группы «Интер РАО»", "text": "Комплексные инженерные решения для объектов энергетики.", "photo": "assets/images/popup-teplogen.jpg"},
+      {"title": "Энергомашиностроение", "subtitle": "Энергомашиностроение Группы «Интер РАО»", "text": "Производство и сервисное обслуживание энергетического оборудования.", "photo": "assets/images/popup-teplogen.jpg"},
+      {"title": "Сервисные компании", "subtitle": "Сервисные компании Группы «Интер РАО»", "text": "Обеспечение деятельности предприятий Группы: ремонт, логистика, сервис.", "photo": "assets/images/popup-teplogen.jpg"},
+      {"title": "ИТ", "subtitle": "ИТ Группы «Интер РАО»", "text": "Цифровые продукты и решения для энергетической отрасли.", "photo": "assets/images/popup-teplogen.jpg"},
+      {"title": "Управляющая компания", "subtitle": "Управляющая компания Группы «Интер РАО»", "text": "Стратегическое управление и развитие Группы «Интер РАО».", "photo": "assets/images/popup-teplogen.jpg"}
+    ]
+  </script>
+</section>

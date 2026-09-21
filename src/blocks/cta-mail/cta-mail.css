@@ -1,0 +1,62 @@
+.cta-mail {
+  padding: 40px 0 0;
+}
+
+.cta-mail__card {
+  position: relative;
+  min-height: 292px;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  /* Градиент по стопам макета: #164B89 → #8F9CBF (53%) → #FFD3B7 */
+  background: linear-gradient(100deg, #164B89 0%, #8F9CBF 53%, #FFD3B7 100%);
+}
+
+.cta-mail__body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 28px;
+  min-height: 292px;
+}
+
+.cta-mail__title {
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-h2);
+  line-height: var(--lh-h2);
+  letter-spacing: -0.02em;
+  color: var(--color-text-on-dark);
+}
+
+.cta-mail__text {
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
+  color: var(--color-text-on-dark);
+}
+
+.cta-mail__email {
+  margin-top: auto;
+  align-self: flex-end;
+  font-size: var(--fs-h2);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--color-primary);
+  transition: opacity var(--transition);
+}
+
+.cta-mail__email:hover { opacity: 0.75; }
+
+/* Хвост «облачка» под карточкой: белый прямоугольник + персиковый треугольник из макета */
+.cta-mail__tail {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  line-height: 0;
+}
+
+@media (max-width: 767px) {
+  .cta-mail__title { font-size: 24px; }
+  .cta-mail__email { font-size: 24px; align-self: flex-start; }
+  .cta-mail__body { min-height: 220px; }
+}

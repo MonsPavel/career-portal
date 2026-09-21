@@ -1,0 +1,33 @@
+.team {
+  padding: 64px 0 40px;
+}
+
+.team__title {
+  margin-bottom: 36px;
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-h2);
+  line-height: var(--lh-h2);
+  color: var(--color-primary);
+}
+
+.team__gallery {
+  display: flex;
+  gap: 36px;
+}
+
+.team__photo {
+  width: 100%;
+  height: 530px;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+}
+
+@media (max-width: 1023px) {
+  .team__photo { height: 360px; }
+}
+
+@media (max-width: 767px) {
+  .team { padding: 40px 0 24px; }
+  .team__title { margin-bottom: 16px; }
+  .team__photo { height: 200px; }
+}

@@ -1,0 +1,71 @@
+<section class="production production--v1" data-production>
+  <div class="production__bg" aria-hidden="true">
+    <img src="../../assets/images/factory-big.jpg" alt="" loading="lazy">
+  </div>
+  <div class="production__glow" aria-hidden="true"></div>
+
+  <img class="production__photo" src="../../assets/images/worker-production.png"
+       alt="Сотрудник на производстве" width="585" height="674" data-production-photo loading="lazy">
+
+  <div class="production__body">
+    <h2 class="production__title" data-production-title>Производство</h2>
+    <p class="production__text" data-production-text>Вклад каждого сотрудника на&nbsp;производстве&nbsp;— это основа нашего успеха. Нам важно, чтобы каждый чувствовал свою значимость и&nbsp;был уверен в&nbsp;завтрашнем дне.</p>
+    <a class="production__btn" href="#vacancies" data-production-link>Подробнее о вакансии</a>
+  </div>
+
+  <button class="production__arrow production__arrow--prev" type="button" data-production-prev aria-label="Предыдущий слайд">
+    <svg width="25" height="50" viewBox="0 0 25 50" fill="none" aria-hidden="true"><path d="M23 2L3 25l20 23" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <button class="production__arrow production__arrow--next" type="button" data-production-next aria-label="Следующий слайд">
+    <svg width="25" height="50" viewBox="0 0 25 50" fill="none" aria-hidden="true"><path d="M2 2l20 23L2 48" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <!-- Слайды: данные для JS (в Битриксе — из инфоблока) -->
+  <script type="application/json" data-production-slides>
+    [
+      {"title": "Производство", "text": "Вклад каждого сотрудника на производстве — это основа нашего успеха. Нам важно, чтобы каждый чувствовал свою значимость и был уверен в завтрашнем дне.", "photo": "assets/images/worker-production.png", "fit": "contain", "count": "25 вакансий"},
+      {"title": "Женские вакансии на производстве", "text": "Мы создаём комфортные условия для работы женщин на производстве: удобный график, современное оборудование и поддержка команды.", "photo": "assets/images/carousel-woman.png", "fit": "contain", "count": "13 вакансий"},
+      {"title": "Административная работа", "text": "Организационная поддержка ключевых процессов компании. Работа в команде профессионалов и широкие возможности для развития.", "photo": "assets/images/carousel-openspace.png", "fit": "cover", "count": "16 вакансий"},
+      {"title": "Металлообработка", "text": "Работа на современном высокотехнологичном оборудовании. Стабильная занятость и достойная оплата труда.", "photo": "assets/images/media-8.jpg", "fit": "cover", "count": "8 вакансий"},
+      {"title": "IT сфера", "text": "Цифровые решения для энергетики: разработка, поддержка и развитие информационных систем компании.", "photo": "assets/images/carousel-itman.png", "fit": "contain", "count": "10 вакансий"}
+    ]
+  </script>
+
+  <div class="production__stepper" role="tablist" aria-label="Направления производства" data-production-tabs>
+    <button class="production__tab is-active" type="button" role="tab" aria-selected="true">
+      <span class="production__tab-num">1</span>
+      <span class="production__tab-body">
+        <span class="production__tab-title">Производство</span>
+        <span class="production__tab-count">25 вакансий</span>
+      </span>
+    </button>
+    <button class="production__tab" type="button" role="tab" aria-selected="false">
+      <span class="production__tab-num">2</span>
+      <span class="production__tab-body">
+        <span class="production__tab-title">Женские вакансии на производстве</span>
+        <span class="production__tab-count">13 вакансий</span>
+      </span>
+    </button>
+    <button class="production__tab" type="button" role="tab" aria-selected="false">
+      <span class="production__tab-num">3</span>
+      <span class="production__tab-body">
+        <span class="production__tab-title">Административная работа</span>
+        <span class="production__tab-count">16 вакансий</span>
+      </span>
+    </button>
+    <button class="production__tab" type="button" role="tab" aria-selected="false">
+      <span class="production__tab-num">4</span>
+      <span class="production__tab-body">
+        <span class="production__tab-title">Металлообработка</span>
+        <span class="production__tab-count">8 вакансий</span>
+      </span>
+    </button>
+    <button class="production__tab" type="button" role="tab" aria-selected="false">
+      <span class="production__tab-num">5</span>
+      <span class="production__tab-body">
+        <span class="production__tab-title">IT сфера</span>
+        <span class="production__tab-count">10 вакансий</span>
+      </span>
+    </button>
+  </div>
+</section>

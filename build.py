@@ -2,6 +2,7 @@
 """Сборка мок-версии сайта: главные + внутренние страницы по ТЗ.
 Запуск: python build.py"""
 import json
+import re
 import time
 from pathlib import Path
 
@@ -323,6 +324,9 @@ def write_page(fname: str, title: str, body: str, body_class: str) -> None:
 </body>
 </html>
 '''
+    # версионирование картинок: браузер не отдаёт устаревший кэш после пересборки
+    img_re = '(assets/(?:images|icons|logos)/[^"?]+?\\.(?:png|jpe?g|svg|woff2))'
+    html = re.sub(img_re, lambda m: m.group(1) + "?v=" + STAMP, html)
     (ROOT / fname).write_text(html, encoding='utf-8')
     print('built', fname, f'({len(html)//1024} KB)')
 

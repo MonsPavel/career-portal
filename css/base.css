@@ -50,6 +50,9 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
+/* Атрибут hidden всегда сильнее любых display-правил */
+[hidden] { display: none !important; }
+
 html { scroll-behavior: smooth; }
 
 body {

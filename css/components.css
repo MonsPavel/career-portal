@@ -278,14 +278,27 @@
 .faq__item.is-open .faq__q svg { transform: rotate(180deg); }
 
 .faq__a {
-  display: none;
-  padding: 0 24px 20px;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+}
+
+.faq__item.is-open .faq__a { grid-template-rows: 1fr; }
+
+.faq__a-inner {
+  overflow: hidden;
+  min-height: 0;
+  padding: 0 24px;
   font-size: var(--fs-small-regular);
   line-height: 1.45;
   color: var(--color-text);
 }
 
-.faq__item.is-open .faq__a { display: block; }
+.faq__item.is-open .faq__a-inner { padding-bottom: 20px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .faq__a { transition: none; }
+}
 
 /* Секция внутренних страниц */
 .section { padding: 40px 0; }

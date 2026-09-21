@@ -99,3 +99,13 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 @media (max-width: 767px) {
   :root { --container-pad: 16px; --fs-h1: 34px; --fs-h2: 28px; --fs-h3: 24px; --fs-h4: 20px; --fs-lead: 18px; --fs-body: 16px; }
 }
+
+/* Уважение к настройке «уменьшить движение» */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

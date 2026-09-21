@@ -2,14 +2,6 @@
   'use strict';
 
   document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('[data-faq]').forEach(function (faq) {
-      faq.addEventListener('click', function (e) {
-        var q = e.target.closest('.faq__q');
-        if (!q) return;
-        q.closest('.faq__item').classList.toggle('is-open');
-      });
-    });
-
     var root = document.querySelector('[data-tracks]');
     if (!root) return;
     var data = window.__TRACKS_DATA__;

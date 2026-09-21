@@ -130,7 +130,7 @@ def render_faq(faq_items: list) -> str:
   <button class="faq__q" type="button">{item['q']}
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 6l5 4 5-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
-  <div class="faq__a">{item['a']}</div>
+  <div class="faq__a"><div class="faq__a-inner">{item['a']}</div></div>
 </div>''')
     return '<div class="faq" data-faq>' + '\n'.join(items) + '</div>'
 

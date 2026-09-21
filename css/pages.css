@@ -414,7 +414,14 @@
 
 .article-page__title { font-size: var(--fs-h2); font-weight: var(--fw-h2); line-height: var(--lh-h2); letter-spacing: -0.02em; color: var(--color-primary); }
 
-.article-page__meta { display: flex; align-items: center; gap: 16px; }
+.article-page__meta {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.article-page__meta time { line-height: 1; }
 
 .article-page__gallery { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; }
 

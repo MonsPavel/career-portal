@@ -64,9 +64,9 @@
   top: calc(100% + 16px);
   left: -40px;
   width: 372px;
-  padding: 16px 24px 24px;
+  padding: 24px;
   background: var(--color-primary);
-  border-radius: 0 0 16px 16px;
+  border-radius: 16px;
   z-index: 50;
 }
 
@@ -85,9 +85,8 @@
 .header__dropdown-head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 60px;
+  justify-content: flex-end;
+  margin-bottom: 36px;
 }
 
 .header__dropdown-title {

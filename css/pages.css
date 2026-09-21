@@ -410,7 +410,7 @@
 
 /* ---------------------------------------------------------------- статья */
 
-.article-page { max-width: 880px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+.article-page { display: flex; flex-direction: column; gap: 24px; }
 
 .article-page__title { font-size: var(--fs-h2); font-weight: var(--fw-h2); line-height: var(--lh-h2); letter-spacing: -0.02em; color: var(--color-primary); }
 
@@ -422,12 +422,7 @@
 
 .article-page__text { display: flex; flex-direction: column; gap: 16px; font-size: var(--fs-body); line-height: 1.5; color: var(--color-text); }
 
-.article-related {
-  max-width: 880px;
-  margin: 40px auto 0;
-}
-
-.article-related .cards-grid--3 { grid-template-columns: repeat(2, 1fr); }
+.article-related { margin-top: 40px; }
 
 .article-related .section__title--sm { font-size: var(--fs-h3); }
 

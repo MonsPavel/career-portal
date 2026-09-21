@@ -6,3 +6,5 @@ node_modules/
 .figma-cache/
 shots-*.png
 v1-hero.png
+.zcode/
+.zcodeignore

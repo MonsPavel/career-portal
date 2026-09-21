@@ -538,6 +538,7 @@ INNER_PAGES = [
             '<!-- COMPANY_EVENTS -->': '\n'.join(render_event_card(e) for e in EVT['upcoming'][:3]),
             '<!-- COMPANY_ARTICLES -->': '\n'.join(render_article_card(a) for a in ART['items'][:3]),
             '<!-- COMPANY_INTERNSHIPS -->': internship_cards(True),
+            '<!-- COMPANY_PRACTICES -->': internship_cards(False),
         },
     },
     {

@@ -70,17 +70,7 @@
   z-index: 50;
 }
 
-/* На внутренних страницах хедер «прилип» к контенту — панель
-   должна выходить из-под нижней кромки полосы хедера */
-.page--inner .header { position: relative; }
 
-.page--inner .header__dropdown-wrap { position: static; }
-
-.page--inner .header__dropdown {
-  top: 100%;
-  left: 40px;
-  box-shadow: 0 24px 48px rgba(0, 40, 86, 0.18);
-}
 
 .header__dropdown-head {
   display: flex;

@@ -2,47 +2,52 @@
   'use strict';
 
   document.addEventListener('DOMContentLoaded', function () {
-    var forms = document.querySelectorAll('form[data-mock-form]');
+    var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-    forms.forEach(function (form) {
+    document.querySelectorAll('form[data-mock-form]').forEach(function (form) {
       var success = form.querySelector('[data-form-success]');
       var fields = form.querySelectorAll('[required]');
 
+      function isVisible(field) {
+        return !field.closest('[hidden]');
+      }
+
       function validateField(field) {
+        // скрытые условные ветки не валидируем (поля появляются по статусу)
+        if (!isVisible(field)) return true;
         var wrap = field.closest('.field') || field.closest('.checkbox');
         if (!wrap) return true;
-        var ok = field.type === 'checkbox' ? field.checked : field.value.trim() !== '';
+        var ok;
+        if (field.type === 'checkbox') {
+          ok = field.checked;
+        } else if (field.type === 'email') {
+          ok = EMAIL_RE.test(field.value.trim());
+        } else {
+          ok = field.value.trim() !== '';
+        }
         wrap.classList.toggle('field--error', !ok);
         return ok;
       }
 
       fields.forEach(function (field) {
         field.addEventListener('input', function () {
-          if (field.closest('.field')) field.closest('.field').classList.remove('field--error');
+          var wrap = field.closest('.field');
+          if (wrap) wrap.classList.remove('field--error');
         });
         field.addEventListener('change', function () { validateField(field); });
-      });
-
-      // условные поля: «Завершил обучение» -> блок опыта работы
-      var eduToggles = form.querySelectorAll('[data-edu-toggle]');
-      var expBlocks = form.querySelectorAll('[data-exp-fields]');
-      var expWrap = form.querySelector('[data-experience-fields]');
-      eduToggles.forEach(function (t) {
-        t.addEventListener('change', function () {
-          var finished = t.value === 'finished' && t.checked;
-          if (expWrap) expWrap.hidden = !finished;
-          expBlocks.forEach(function (b) { b.hidden = !finished; });
-        });
       });
 
       form.addEventListener('submit', function (e) {
         e.preventDefault();
         var valid = true;
+        var firstError = null;
         fields.forEach(function (field) {
-          if (!validateField(field)) valid = false;
+          if (!validateField(field)) {
+            valid = false;
+            if (!firstError && isVisible(field)) firstError = field;
+          }
         });
         if (!valid) {
-          var firstError = form.querySelector('.field--error input, .field--error select, .field--error textarea');
           if (firstError) firstError.focus();
           return;
         }

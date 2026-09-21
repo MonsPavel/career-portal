@@ -1,8 +1,8 @@
 /* Статичный хедер для внутренних страниц */
 .page--inner .header {
   position: static;
-  background: #F5F8FC;
-  border-bottom: 1px solid #E8EEF6;
+  background: var(--color-page-head-bg);
+  border-bottom: 1px solid var(--color-page-head-border);
 }
 
 /* Хлебные крошки */
@@ -89,9 +89,9 @@
 }
 
 .tag--blue { background: var(--color-surface-blue-100); color: var(--color-primary); }
-.tag--orange { background: #FFE3D3; color: #B34A10; }
-.tag--green { background: #DDF3E1; color: #1E7A34; }
-.tag--gray { background: #F0F1F3; color: var(--color-text-muted); }
+.tag--orange { background: var(--tag-orange-bg); color: var(--tag-orange-text); }
+.tag--green { background: var(--tag-green-bg); color: var(--tag-green-text); }
+.tag--gray { background: var(--tag-gray-bg); color: var(--color-text-muted); }
 .tag--navy { background: var(--color-primary); color: var(--color-text-on-dark); }
 
 /* Карточка-основа */
@@ -159,12 +159,12 @@
 
 .field--error .field__input,
 .field--error .field__select,
-.field--error .field__textarea { border-color: #D8402C; background: #FFF6F4; }
+.field--error .field__textarea { border-color: var(--color-error); background: var(--color-error-bg); }
 
 .field__error {
   display: none;
   font-size: var(--fs-micro);
-  color: #D8402C;
+  color: var(--color-error);
 }
 
 .field--error .field__error { display: block; }

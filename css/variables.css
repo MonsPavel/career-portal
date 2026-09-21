@@ -25,6 +25,23 @@
   --glass-dark: rgba(255, 255, 255, 0.1);
   --glass-blue: rgba(0, 40, 86, 0.5);
 
+  /* Статусы */
+  --color-error: #D8402C;
+  --color-error-bg: #FFF6F4;
+  --color-success: #1E7A34;
+  --color-success-bg: #DDF3E1;
+
+  /* Палитра тегов */
+  --tag-orange-bg: #FFE3D3;
+  --tag-orange-text: #B34A10;
+  --tag-green-bg: #DDF3E1;
+  --tag-green-text: #1E7A34;
+  --tag-gray-bg: #F0F1F3;
+
+  /* Фон внутренних страниц */
+  --color-page-head-bg: #F5F8FC;
+  --color-page-head-border: #E8EEF6;
+
   /* Типографика */
   --font-family: 'Golos Text', Arial, sans-serif;
 

@@ -188,11 +188,11 @@
   flex-direction: column;
   gap: 12px;
   padding: 28px;
-  background: #DDF3E1;
+  background: var(--color-success-bg);
   border-radius: var(--radius-card);
 }
 
-.form-success__title { font-size: var(--fs-h4); font-weight: var(--fw-h4); color: #1E7A34; }
+.form-success__title { font-size: var(--fs-h4); font-weight: var(--fw-h4); color: var(--color-success); }
 
 .form-success__text { font-size: var(--fs-small-regular); color: var(--color-text); }
 
@@ -604,3 +604,53 @@
 .page-404__title { font-size: var(--fs-h3); font-weight: var(--fw-h3); color: var(--color-primary); }
 
 .page-404__text { font-size: var(--fs-body); color: var(--color-text-muted); }
+
+
+/* Утилиты (замена инлайнов) */
+.section-title--h3 { font-size: var(--fs-h3); line-height: 1.3; }
+.mb-48 { margin-bottom: 48px; }
+.mb-56 { margin-bottom: 56px; }
+
+.company-section-gap { margin-bottom: 56px; }
+
+.company-photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+.company-photos img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+}
+
+/* Адаптив внутренних страниц (десктоп-first) */
+@media (max-width: 1279px) {
+  .cards-grid--4 { grid-template-columns: repeat(3, 1fr); }
+  .vacancy, .form-page, .internship-page { grid-template-columns: 1fr; }
+  .vacancy__aside, .form-aside, .internship__aside { position: static; }
+  .adv-grid { grid-template-columns: repeat(2, 1fr); }
+  .steps { grid-template-columns: repeat(2, 1fr); }
+  .company-hero { grid-template-columns: 1fr; }
+  .company-hero__photo { height: 260px; }
+  .company-adv { grid-template-columns: repeat(2, 1fr); }
+  .org-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 1023px) {
+  .vac-list { grid-template-columns: 1fr; }
+  .cards-grid--2, .cards-grid--3, .cards-grid--4 { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .intern-card { flex-direction: column; }
+  .intern-card__photo { width: 100%; height: 200px; }
+  .where-we-work { grid-template-columns: 1fr; }
+  .article-page__gallery { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 767px) {
+  .cards-grid--2, .cards-grid--3, .cards-grid--4 { grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .adv-grid, .steps, .company-stats, .company-adv, .org-grid, .company-photos { grid-template-columns: 1fr; }
+  .vac-filters, .intern-filters { flex-direction: column; }
+  .intern-filters .vacancy-search__select-wrap { flex-basis: auto; }
+  .event-card__photo { height: 200px; }
+  .internship__photo { height: 260px; }
+  .article-card__photo { height: 180px; }
+}

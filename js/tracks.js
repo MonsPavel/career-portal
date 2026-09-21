@@ -1,27 +1,43 @@
 (function () {
   'use strict';
 
-  var TRACKS = {
-    colledge: null,
-    univ: null
-  };
-
   document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('[data-faq]').forEach(function (faq) {
+      faq.addEventListener('click', function (e) {
+        var q = e.target.closest('.faq__q');
+        if (!q) return;
+        q.closest('.faq__item').classList.toggle('is-open');
+      });
+    });
+
     var root = document.querySelector('[data-tracks]');
     if (!root) return;
-
     var data = window.__TRACKS_DATA__;
     if (!data) return;
 
     var tabButtons = root.querySelectorAll('[data-track-tab]');
     var trackList = root.querySelector('[data-track-list]');
     var trackName = root.querySelector('[data-track-name]');
-    var trackImage = root.querySelector('[data-track-image]');
     var stepsBar = root.querySelector('[data-steps]');
     var info = root.querySelector('[data-step-info]');
     var tabIndex = 0;
     var trackIndex = 0;
     var stepIndex = 0;
+
+    function renderChips() {
+      if (trackName) trackName.textContent = data.tabs[tabIndex].tracks[trackIndex].name;
+      var tracks = data.tabs[tabIndex].tracks;
+      if (tracks.length < 2) {
+        trackList.hidden = true;
+        trackList.innerHTML = '';
+        return;
+      }
+      trackList.hidden = false;
+      trackList.innerHTML = tracks.map(function (t, i) {
+        return '<button class="track-chip' + (i === trackIndex ? ' is-active' : '') +
+          '" type="button" data-track-index="' + i + '">' + t.name + '</button>';
+      }).join('');
+    }
 
     function renderSteps() {
       var track = data.tabs[tabIndex].tracks[trackIndex];
@@ -42,27 +58,26 @@
         '<span class="step-info__value">' + s.desc + '</span></div>' +
         '<div class="step-info__row"><span class="step-info__label">Образование</span>' +
         '<span class="step-info__value">' + s.education + '</span></div>' +
-        '<div class="step-info__row"><span class="step-info__label">Развитие</span>' +
+        '<div class="step-info__row"><span class="step-info__label">Повышение квалификации</span>' +
         '<span class="step-info__value">' + s.growth + '</span></div>' +
         '<div class="step-info__row"><span class="step-info__label">Соцпакет</span>' +
         '<span class="step-info__value">' + s.benefits + '</span></div>';
     }
 
-    function renderTrack() {
-      var track = data.tabs[tabIndex].tracks[trackIndex];
-      trackName.textContent = track.name;
-      if (trackImage) trackImage.src = track.image;
-      stepIndex = 0;
+    function renderAll() {
+      renderChips();
       renderSteps();
       renderInfo();
     }
 
     tabButtons.forEach(function (btn, i) {
       btn.addEventListener('click', function () {
+        if (tabIndex === i) return;
         tabIndex = i;
         trackIndex = 0;
+        stepIndex = 0;
         tabButtons.forEach(function (b) { b.classList.toggle('is-active', b === btn); });
-        renderTrack();
+        renderAll();
       });
     });
 
@@ -71,12 +86,11 @@
         var t = e.target.closest('[data-track-index]');
         if (!t) return;
         trackIndex = parseInt(t.getAttribute('data-track-index'), 10) || 0;
-        renderTrack();
+        stepIndex = 0;
+        renderChips();
+        renderSteps();
+        renderInfo();
       });
-      trackList.innerHTML = data.tabs[0].tracks.map(function (t, i) {
-        return '<button class="track-chip' + (i === 0 ? ' is-active' : '') +
-          '" type="button" data-track-index="' + i + '">' + t.name + '</button>';
-      }).join('');
     }
 
     if (stepsBar) {
@@ -89,13 +103,12 @@
       });
     }
 
-    renderTrack();
+    renderAll();
 
-    // Тест профориентации (мок)
+    // Тест профориентации (мок: без бэкенда, результат — демонстрационный)
     var testBlock = document.querySelector('[data-career-test]');
     if (testBlock && data.test) {
       var qIndex = 0;
-      var answers = [];
       var qEl = testBlock.querySelector('[data-test-question]');
       var optsEl = testBlock.querySelector('[data-test-options]');
       var progressEl = testBlock.querySelector('[data-test-progress]');
@@ -113,11 +126,11 @@
       optsEl.addEventListener('click', function (e) {
         var btn = e.target.closest('[data-option]');
         if (!btn) return;
-        answers.push(parseInt(btn.getAttribute('data-option'), 10));
         qIndex += 1;
         if (qIndex >= data.test.questions.length) {
           testBlock.querySelector('[data-test-quiz]').hidden = true;
           resultEl.hidden = false;
+          resultEl.querySelector('.test-result__title').textContent = data.test.result.title;
           resultEl.querySelector('[data-test-directions]').innerHTML =
             data.test.result.directions.map(function (d) {
               return '<span class="tag tag--blue">' + d + '</span>';

@@ -97,7 +97,7 @@ def render_event_card(e: dict) -> str:
   </div>
   <div class="event-card__body">
     <time class="event-card__date">{e['date']}</time>
-    <h3 class="event-card__title">{e['title']}</h3>
+    <h3 class="event-card__title"><a href="event.html">{e['title']}</a></h3>
     <div class="event-card__meta">
       <span class="tag tag--blue">{e['city']}</span>
       <span class="tag tag--gray">{e['format']}</span>
@@ -235,7 +235,7 @@ def offer_card(o: dict) -> str:
   <p class="offer-card__short">{o['short']}</p>
   <div class="offer-card__tags"><span class="tag tag--blue">{o['orgTag']}</span><span class="tag tag--gray">{o['form']}</span></div>
   <div class="offer-card__meta"><span class="offer-card__company">{o['company']}</span><span class="offer-card__city">{o['city']}</span></div>
-  <a class="btn btn--accent" href="#" onclick="return false">сайт «Работа России»</a>
+  <a class="btn btn--accent" href="https://trudvsem.ru/" target="_blank" rel="noopener">сайт «Работа России»</a>
 </article>'''
 
 
@@ -306,10 +306,6 @@ def apply_variant2(html: str) -> str:
                         '<div class="students__grid students__grid--illu" hidden>')
     html = html.replace('<div class="students__grid students__grid--photo" hidden>',
                         '<div class="students__grid students__grid--photo">')
-    html = html.replace('class="students__more" href="#students">подробнее',
-                        'class="students__more" href="#students">все мероприятия')
-    html = html.replace('class="media__more" href="#media">подробнее',
-                        'class="media__more" href="#media">все медиа')
     html = html.replace('hero-city-1.png', 'hero-city-2.png')
     html = html.replace('<h1 class="hero__title">Зажигай свет и&nbsp;дари тепло вместе с&nbsp;нами</h1>',
                         '<h1 class="hero__title">Зажги свет вместе с&nbsp;нами</h1>')
@@ -353,7 +349,7 @@ def company_segments() -> str:
     for seg, names in groups.items():
         cards = '\n'.join(
             f'<a class="card card--hover" style="padding:20px 24px; font-size: var(--fs-small-regular); '
-            f'font-weight: var(--fw-small); color: var(--color-text);" href="company.html">{n}</a>'
+            f'font-weight: var(--fw-small); color: var(--color-text);" href="company.html" target="_blank" rel="noopener">{n}</a>'
             for n in names)
         out.append(f'<h2 class="section__title" style="font-size: var(--fs-h3); line-height: 1.3;">{seg}</h2>'
                    f'<div class="cards-grid cards-grid--3" style="margin-bottom: 48px;">{cards}</div>')
@@ -396,11 +392,12 @@ INNER_PAGES = [
             '<!-- INTERNSHIP_CARDS -->': internship_cards(True),
             '<!-- INTERNSHIP_ADV_IMG -->': INT['internship']['advantages_companies']['image'],
             '<!-- INTERNSHIP_ADV_TEXT -->': INT['internship']['advantages_companies']['text'],
+            '<!-- INTERNSHIP_ADVANTAGES -->': '\n'.join(adv_card(a) for a in INT['internship']['advantages']),
+            '<!-- INTERN_TITLE -->': 'стажёрами',
             '<!-- INTERNSHIP_STEPS -->': steps_html(INT['internship']['steps']),
             '<!-- INTERNSHIP_INTERNS -->': interns_html(INT['internship']['interns']),
             '<!-- INTERNSHIP_FAQ -->': render_faq(INT['faq']),
             '<!-- INTERNSHIP_EVENTS -->': '\n'.join(render_event_card(e) for e in EVT['upcoming'][:3]),
-            '<!-- PAGE_MENU -->': 'internships',
         },
     },
     {
@@ -416,11 +413,12 @@ INNER_PAGES = [
             '<!-- INTERNSHIP_CARDS -->': internship_cards(False),
             '<!-- INTERNSHIP_ADV_IMG -->': INT['practice']['advantages_companies']['image'],
             '<!-- INTERNSHIP_ADV_TEXT -->': INT['practice']['advantages_companies']['text'],
+            '<!-- INTERNSHIP_ADVANTAGES -->': '\n'.join(adv_card(a) for a in INT['practice']['advantages']),
+            '<!-- INTERN_TITLE -->': 'практикантами',
             '<!-- INTERNSHIP_STEPS -->': steps_html(INT['practice']['steps']),
             '<!-- INTERNSHIP_INTERNS -->': interns_html(INT['practice']['interns']),
             '<!-- INTERNSHIP_FAQ -->': render_faq(INT['faq']),
             '<!-- INTERNSHIP_EVENTS -->': '\n'.join(render_event_card(e) for e in EVT['upcoming'][:3]),
-            '<!-- PAGE_MENU -->': 'practices',
         },
     },
     {
@@ -503,7 +501,9 @@ INNER_PAGES = [
         'frag': 'article.html',
         'replaces': {
             '<!-- ARTICLE_RELATED_VACANCIES -->': '\n'.join(render_vacancy_card(v) for v in VAC['items'][:3]),
+            '<!-- ARTICLE_RELATED_PRACTICES -->': internship_cards(False),
             '<!-- ARTICLE_RELATED_INTERNSHIPS -->': internship_cards(True),
+            '<!-- ARTICLE_RELATED_EDUCAT -->': '\n'.join(offer_card(o) for o in EDU['offers'][:3]),
         },
     },
     {
@@ -531,7 +531,10 @@ INNER_PAGES = [
         'crumbs': [('Главная', 'index-1.html'), ('Компании группы', None), ('АО «Интер РАО – Электрогенерация»', None)],
         'frag': 'company.html',
         'replaces': {
-            '<!-- COMPANY_VACANCIES -->': '\n'.join(render_vacancy_card(v) for v in VAC['items'][:4]),
+            '<!-- COMPANY_VACANCIES -->': '\n'.join(
+                render_vacancy_card(v) for v in (
+                    [x for x in VAC['items'] if x['company'] == 'АО «Интер РАО – Электрогенерация»'] +
+                    [x for x in VAC['items'] if x['company'] != 'АО «Интер РАО – Электрогенерация»' and x['segment'] == 'Генерация'])[:4]),
             '<!-- COMPANY_EVENTS -->': '\n'.join(render_event_card(e) for e in EVT['upcoming'][:3]),
             '<!-- COMPANY_ARTICLES -->': '\n'.join(render_article_card(a) for a in ART['items'][:3]),
             '<!-- COMPANY_INTERNSHIPS -->': internship_cards(True),
@@ -559,15 +562,18 @@ for fname, frags in INDEX_FRAGS.items():
     for marker, slot_fragment in SLOTS.items():
         if marker in body:
             body = body.replace(marker, load(BLOCKS / slot_fragment))
-    if fname == 'index-2.html':
-        body = apply_variant2(body)
-    # перелинковка главной на страницы-моки
-    body = body.replace('<a class="hero__search-all" href="#vacancies">Все вакансии</a>',
-                        '<a class="hero__search-all" href="vacancies.html">Все вакансии</a>')
-    body = body.replace('href="#vacancies">Все 140 вакансий', 'href="vacancies.html">Все 140 вакансий')
+    # перелинковка главной на страницы-моки (до применения варианта 2)
+    body = body.replace('href="/vacancies/"', 'href="vacancies.html"')
     body = body.replace('action="/vacancies/"', 'action="vacancies.html"')
-    body = body.replace('href="#students">подробнее', 'href="practices.html">подробнее')
-    body = body.replace('href="#media">подробнее', 'href="media.html">подробнее')
+    body = body.replace('href="#vacancies"', 'href="vacancies.html"')
+    body = body.replace('href="#media"', 'href="article.html"')
+    is_v2 = fname == 'index-2.html'
+    if is_v2:
+        body = apply_variant2(body)
+    body = body.replace('class="students__more" href="#students">подробнее',
+                        'class="students__more" href="practices.html">' + ('все мероприятия' if is_v2 else 'подробнее'))
+    body = body.replace('class="media__more" href="#media">подробнее',
+                        'class="media__more" href="media.html">' + ('все медиа' if is_v2 else 'подробнее'))
     variant = 'вариант 1' if '1' in fname else 'вариант 2'
     write_page(fname, f'Портал карьеры Интер РАО — {variant}', body, f'page page--{"v1" if "1" in fname else "v2"}')
 

@@ -125,7 +125,8 @@
         if (q.image) { imageEl.src = q.image; imageEl.hidden = false; }
         else { imageEl.hidden = true; }
         optsEl.innerHTML = q.options.map(function (o, i) {
-          return '<button class="btn btn--light test-option" type="button" data-option="' + i + '">' + o.text + '</button>';
+          var text = typeof o === 'string' ? o : o.text;
+          return '<button class="btn btn--light test-option" type="button" data-option="' + i + '">' + text + '</button>';
         }).join('');
       }
 

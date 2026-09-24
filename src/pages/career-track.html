@@ -1,9 +1,11 @@
 <section class="section" style="padding-top: 0;">
   <div class="container">
-    <div class="page-head">
+    <div class="intern-hero">
       <h1 class="page-title">Карьерные треки</h1>
       <p class="page-subtitle">Просмотрите карьерные траектории в компаниях Группы «Интер РАО»: от первой ступени до руководителя направления.</p>
     </div>
+
+    <!-- STUDENT_SUBNAV -->
 
     <!-- TRACK_BANNER -->
   </div>
@@ -32,14 +34,30 @@
 <section class="section">
   <div class="container">
     <h2 class="section__title section-title--h3">Тест на профориентацию</h2>
-    <div class="test-quiz" data-career-test>
-      <p class="test-progress" data-test-progress></p>
-      <p class="test-question" data-test-question style="margin: 0;"></p>
-      <div class="test-options" data-test-options></div>
-      <div class="test-result" data-test-result hidden>
-        <div class="test-result__title" style="font-size: var(--fs-h4); font-weight: var(--fw-h4); color: var(--color-primary);"></div>
+    <div class="test" data-career-test>
+      <div class="test__intro" data-test-intro>
+        <img class="test__intro-photo" src="assets/images/students-photo-2.jpg" alt="">
+        <div class="test__intro-body">
+          <h3 class="test__intro-title" data-test-intro-title></h3>
+          <p class="test__intro-text" data-test-intro-text style="margin: 0;"></p>
+          <button class="btn btn--primary" type="button" data-test-start></button>
+        </div>
+      </div>
+
+      <div class="test__quiz" data-test-quiz hidden>
+        <p class="test-progress" data-test-progress style="margin: 0 0 16px;"></p>
+        <img class="test__photo" data-test-image src="assets/images/media-4.jpg" alt="" style="margin-bottom: 20px;">
+        <p class="test-question" data-test-question style="margin: 0 0 24px;"></p>
+        <div class="test-options" data-test-options></div>
+      </div>
+
+      <div class="test__result" data-test-result hidden>
+        <img class="test__result-photo" data-result-image src="assets/images/media-4.jpg" alt="">
+        <h3 class="test__result-title" data-result-title style="margin: 24px 0 12px;"></h3>
         <div class="test-result__directions" data-test-directions></div>
-        <p class="test-result__text" data-test-text style="margin: 0; font-size: var(--fs-small-regular); color: var(--color-text);"></p>
+        <p class="test__result-text" data-result-text style="margin: 16px 0 24px;"></p>
+        <div class="test-result__links" data-result-links></div>
+        <button class="btn btn--light" type="button" data-test-restart style="margin-top: 24px;">пройти тест ещё раз</button>
       </div>
     </div>
   </div>

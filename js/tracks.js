@@ -97,43 +97,95 @@
 
     renderAll();
 
-    // Тест профориентации (мок: без бэкенда, результат — демонстрационный)
+    // Тест на профориентацию: интро → вопросы с баллами → результат с переходами
     var testBlock = document.querySelector('[data-career-test]');
     if (testBlock && data.test) {
-      var qIndex = 0;
+      var intro = testBlock.querySelector('[data-test-intro]');
+      var quiz = testBlock.querySelector('[data-test-quiz]');
+      var result = testBlock.querySelector('[data-test-result]');
+      var progressEl = testBlock.querySelector('[data-test-progress]');
+      var imageEl = testBlock.querySelector('[data-test-image]');
       var qEl = testBlock.querySelector('[data-test-question]');
       var optsEl = testBlock.querySelector('[data-test-options]');
-      var progressEl = testBlock.querySelector('[data-test-progress]');
-      var resultEl = testBlock.querySelector('[data-test-result]');
+
+      // интро из данных
+      testBlock.querySelector('[data-test-intro-title]').textContent = data.test.intro.title;
+      testBlock.querySelector('[data-test-intro-text]').textContent = data.test.intro.text;
+      testBlock.querySelector('[data-test-start]').textContent = data.test.intro.button;
+      testBlock.querySelector('.test__intro-photo').src = data.test.intro.image;
+
+      var qIndex = 0;
+      var scores = {};
+      var directions = data.test.directions;
 
       function renderQuestion() {
         var q = data.test.questions[qIndex];
         progressEl.textContent = 'Вопрос ' + (qIndex + 1) + ' из ' + data.test.questions.length;
         qEl.textContent = q.q;
+        if (q.image) { imageEl.src = q.image; imageEl.hidden = false; }
+        else { imageEl.hidden = true; }
         optsEl.innerHTML = q.options.map(function (o, i) {
-          return '<button class="btn btn--light" type="button" data-option="' + i + '">' + o + '</button>';
+          return '<button class="btn btn--light test-option" type="button" data-option="' + i + '">' + o.text + '</button>';
         }).join('');
+      }
+
+      function renderResult() {
+        var top = null;
+        Object.keys(scores).forEach(function (k) {
+          if (!top || scores[k] > scores[top]) top = k;
+        });
+        var dir = directions[top];
+        if (!dir) { dir = directions[Object.keys(directions)[0]]; }
+        testBlock.querySelector('[data-result-image]').src = dir.image;
+        testBlock.querySelector('[data-result-title]').textContent = 'Ваше направление: ' + dir.title;
+        testBlock.querySelector('[data-result-text]').textContent = dir.text;
+        var links = testBlock.querySelector('[data-result-links]');
+        links.innerHTML = '';
+        [['education.html', 'целевое обучение'], ['internships.html', 'стажировки'],
+         ['practices.html', 'практики'], ['vacancies.html', 'вакансии'],
+         ['events.html', 'мероприятия']].forEach(function (pair) {
+          var a = document.createElement('a');
+          a.className = 'btn btn--light';
+          a.href = pair[0];
+          a.textContent = pair[1];
+          links.appendChild(a);
+        });
+        intro.hidden = true;
+        quiz.hidden = true;
+        result.hidden = false;
+        result.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
 
       optsEl.addEventListener('click', function (e) {
         var btn = e.target.closest('[data-option]');
         if (!btn) return;
-        qIndex += 1;
-        if (qIndex >= data.test.questions.length) {
-          testBlock.querySelector('[data-test-quiz]').hidden = true;
-          resultEl.hidden = false;
-          resultEl.querySelector('.test-result__title').textContent = data.test.result.title;
-          resultEl.querySelector('[data-test-directions]').innerHTML =
-            data.test.result.directions.map(function (d) {
-              return '<span class="tag tag--blue">' + d + '</span>';
-            }).join('');
-          resultEl.querySelector('[data-test-text]').textContent = data.test.result.text;
-          return;
+        var q = data.test.questions[qIndex];
+        var opt = q.options[parseInt(btn.getAttribute('data-option'), 10)];
+        if (opt.points) {
+          Object.keys(opt.points).forEach(function (k) {
+            scores[k] = (scores[k] || 0) + opt.points[k];
+          });
         }
+        qIndex += 1;
+        if (qIndex >= data.test.questions.length) { renderResult(); return; }
         renderQuestion();
       });
 
-      renderQuestion();
+      testBlock.querySelector('[data-test-start]').addEventListener('click', function () {
+        qIndex = 0;
+        scores = {};
+        intro.hidden = true;
+        result.hidden = true;
+        quiz.hidden = false;
+        renderQuestion();
+      });
+
+      testBlock.querySelector('[data-test-restart]').addEventListener('click', function () {
+        result.hidden = true;
+        quiz.hidden = true;
+        intro.hidden = false;
+        intro.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
     }
   });
 })();

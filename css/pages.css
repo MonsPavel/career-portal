@@ -36,6 +36,7 @@
 .vac-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 36px; }
 
 .vac-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -45,6 +46,11 @@
 .vac-card__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
 
 .vac-card__title { font-size: var(--fs-body); font-weight: var(--fw-body-bold); line-height: 1.3; color: var(--color-text); }
+
+.vac-card__title a { color: inherit; }
+.vac-card__title a::after { content: ''; position: absolute; inset: 0; border-radius: var(--radius-card); }
+.vac-card__title a:focus-visible::after { outline: 3px solid var(--color-primary); outline-offset: 2px; }
+.vac-card:hover .vac-card__title a { color: var(--color-primary); }
 
 .vac-card__date { flex: 0 0 auto; font-size: var(--fs-small-regular); color: var(--color-text-muted); }
 
@@ -60,7 +66,7 @@
   font-size: var(--fs-small-regular);
 }
 
-.vac-card__company { font-weight: var(--fw-small); color: var(--color-primary); }
+.vac-card__company { position: relative; z-index: 1; font-weight: var(--fw-small); color: var(--color-primary); }
 .vac-card__company:hover { color: var(--color-accent); }
 .vac-card__city { color: var(--color-text-muted); }
 
@@ -73,6 +79,8 @@
 }
 
 .vac-card__salary { font-size: 18px; font-weight: var(--fw-body-bold); color: var(--color-primary); }
+
+.vac-card__foot .btn { position: relative; z-index: 1; }
 
 /* ---------------------------------------------------------------- карточка вакансии */
 
@@ -238,6 +246,7 @@
 /* ---------------------------------------------------------------- стажировки/практики */
 
 .intern-hero { display: flex; flex-direction: column; gap: 24px; margin-bottom: 40px; }
+.intern-hero .page-subtitle { min-height: 4.05em; }
 
 .intern-menu {
   display: flex;
@@ -259,6 +268,7 @@
 }
 
 .intern-menu__item.is-active,
+.intern-menu__item[aria-current="page"],
 .intern-menu__item:hover { background: var(--color-primary); color: var(--color-text-on-dark); }
 
 .intern-filters { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 40px; }
@@ -533,21 +543,67 @@
 .step-info__value { font-size: var(--fs-body); line-height: 1.4; color: var(--color-text); }
 
 /* тест */
-.test-quiz { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+.test__intro {
+  display: grid;
+  grid-template-columns: 480px 1fr;
+  gap: 48px;
+  align-items: center;
+  padding: 32px;
+  background: var(--color-surface-blue-50);
+  border-radius: var(--radius-card);
+}
+
+.test__intro-photo { width: 100%; height: 320px; object-fit: cover; border-radius: var(--radius-card); }
+
+.test__intro-body { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+
+.test__intro-title { font-size: var(--fs-h3); line-height: 1.3; color: var(--color-primary); }
+
+.test__intro-text { font-size: var(--fs-body); line-height: 1.45; color: var(--color-text); }
+
+.test__quiz { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; padding: 32px; background: var(--color-surface-blue-50); border-radius: var(--radius-card); }
+
+.test__photo { width: 100%; height: 280px; object-fit: cover; border-radius: var(--radius-card); }
 
 .test-progress { font-size: var(--fs-small-regular); color: var(--color-text-muted); }
 
 .test-question { font-size: var(--fs-h4); font-weight: var(--fw-h4); color: var(--color-primary); }
 
-.test-options { display: flex; flex-wrap: wrap; gap: 16px; }
+.test-options { display: flex; flex-direction: column; align-items: stretch; gap: 12px; width: 100%; }
 
-.test-result { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 28px; background: var(--color-surface-blue-50); border-radius: var(--radius-card); }
+.test-option { justify-content: flex-start; text-align: left; background: var(--color-surface); }
+
+.test-option:hover { background: var(--color-surface-blue-100); }
+
+.test__result {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0;
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.test__result-photo { width: 100%; height: 320px; object-fit: cover; }
+
+.test__result-title { font-size: var(--fs-h3); line-height: 1.3; color: var(--color-primary); }
+
+.test-result__directions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.test-result__links { display: flex; flex-wrap: wrap; gap: 12px; }
+
+@media (max-width: 1023px) {
+  .test__intro { grid-template-columns: 1fr; }
+  .test__intro-photo { height: 240px; }
+}
 
 .test-result__directions { display: flex; flex-wrap: wrap; gap: 8px; }
 
 /* ---------------------------------------------------------------- компания */
 
 .company-hero { display: grid; grid-template-columns: 400px 1fr; gap: 48px; align-items: center; margin-bottom: 40px; }
+.company-hero--wide { grid-template-columns: 480px minmax(0, 1fr); }
 
 .company-hero__photo { width: 100%; height: 320px; object-fit: cover; border-radius: var(--radius-card); }
 
@@ -652,7 +708,7 @@
   .vacancy__aside, .form-aside, .internship__aside { position: static; }
   .adv-grid { grid-template-columns: repeat(2, 1fr); }
   .steps { grid-template-columns: repeat(2, 1fr); }
-  .company-hero { grid-template-columns: 1fr; }
+  .company-hero, .company-hero--wide { grid-template-columns: minmax(0, 1fr); }
   .company-hero__photo { height: 260px; }
   .company-adv { grid-template-columns: repeat(2, 1fr); }
   .org-grid { grid-template-columns: repeat(2, 1fr); }
@@ -668,7 +724,16 @@
 }
 
 @media (max-width: 767px) {
-  .cards-grid--2, .cards-grid--3, .cards-grid--4 { grid-template-columns: 1fr; }
+  .intern-hero .page-subtitle { min-height: 8.1em; }
+  .intern-menu { flex-wrap: wrap; gap: 8px; }
+  .intern-menu__item { height: 44px; padding: 10px 12px; font-size: var(--fs-small); white-space: nowrap; }
+  .steps-bar { flex-wrap: wrap; }
+  .step-pill { flex: 1 1 140px; min-width: 0; }
+  .track-tabs { flex-wrap: wrap; }
+  .track-tabs .btn { max-width: 100%; }
+  .cards-grid--2, .cards-grid--3, .cards-grid--4 { grid-template-columns: minmax(0, 1fr); }
+  .offer-card { min-width: 0; }
+  .offer-card__head { flex-wrap: wrap; }
   .form-grid { grid-template-columns: 1fr; }
   .adv-grid, .steps, .company-stats, .company-adv, .org-grid, .company-photos { grid-template-columns: 1fr; }
   .vac-filters, .intern-filters { flex-direction: column; }
@@ -676,4 +741,8 @@
   .event-card__photo { height: 200px; }
   .internship__photo { height: 260px; }
   .article-card__photo { height: 180px; }
+}
+
+@media (max-width: 359px) {
+  .intern-hero .page-subtitle { min-height: 9.45em; }
 }

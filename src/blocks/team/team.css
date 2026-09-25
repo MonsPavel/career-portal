@@ -1,9 +1,9 @@
 .team {
-  padding: 64px 0 40px;
+  padding: 72px 0 0;
 }
 
 .team__title {
-  margin-bottom: 36px;
+  margin-bottom: 48px;
   font-size: var(--fs-h2);
   font-weight: var(--fw-h2);
   line-height: var(--lh-h2);

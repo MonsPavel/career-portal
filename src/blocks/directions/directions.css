@@ -21,7 +21,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 36px;
+  gap: 34px;
   width: 100%;
   min-height: 179px;
   padding: 20px;
@@ -73,14 +73,22 @@
   z-index: 90;
   display: flex;
   justify-content: flex-end;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .directions__modal[hidden] { display: none; }
+.directions__modal:not([hidden]) {
+  visibility: visible;
+  pointer-events: auto;
+}
 
 .directions__modal-dim {
   position: absolute;
   inset: 0;
   background: rgba(5, 13, 20, 0.25);
+  opacity: 0;
+  transition: opacity 0.25s ease;
 }
 
 .directions__modal-panel {
@@ -95,7 +103,12 @@
   padding: 36px;
   background: var(--color-blue-700);
   overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+.directions__modal.is-open .directions__modal-dim { opacity: 1; }
+.directions__modal.is-open .directions__modal-panel { transform: translateX(0); }
 
 .directions__modal-head {
   display: flex;
@@ -192,7 +205,14 @@
 
 .directions__modal-btn:hover { background: var(--color-peach-100); }
 
-body.directions-modal-open { overflow: hidden; }
+body.directions-modal-open {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .directions__modal-dim,
+  .directions__modal-panel { transition-duration: 0.01ms; }
+}
 
 @media (max-width: 1279px) {
   .directions__grid { gap: 24px; }

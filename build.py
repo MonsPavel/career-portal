@@ -4,6 +4,7 @@
 import json
 import re
 import time
+from html import escape
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -46,11 +47,13 @@ ARROW = ('<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidde
 
 
 def render_vacancy_card(v: dict) -> str:
+    detail_href = vacancy_href(v)
+    apply_href = vacancy_href(v, apply_form=True)
     pin = '<span class="tag tag--navy">закреплена</span>' if v.get('pinned') else ''
     acc = '<span class="tag tag--green">доступно людям с инвалидностью</span>' if v.get('accessible') else ''
     return f'''<article class="vac-card card card--hover">
   <div class="vac-card__head">
-    <h3 class="vac-card__title">{v['title']}</h3>
+    <h3 class="vac-card__title"><a href="{detail_href}">{escape(v['title'])}</a></h3>
     <time class="vac-card__date">{v['date']}</time>
   </div>
   <div class="vac-card__tags">{pin}<span class="tag tag--gray">{v['experience']}</span>{acc}</div>
@@ -61,7 +64,7 @@ def render_vacancy_card(v: dict) -> str:
   </div>
   <div class="vac-card__foot">
     <span class="vac-card__salary">{v['salary']}</span>
-    <a class="btn btn--primary" href="vacancy-apply.html">откликнуться</a>
+    <a class="btn btn--primary" href="{apply_href}">откликнуться</a>
   </div>
 </article>'''
 
@@ -173,6 +176,83 @@ TRK = json_data('tracks')
 COMP = json_data('companies')
 
 # ---------------------------------------------------------------- карточки-списки
+
+def vacancy_href(v: dict, apply_form: bool = False) -> str:
+    index = VAC['items'].index(v)
+    suffix = '' if index == 0 else f'-{index + 1}'
+    return f'vacancy{"-apply" if apply_form else ""}{suffix}.html'
+
+
+def render_vacancy_detail(v: dict) -> str:
+    """Деталка для карточек без отдельного редакционного описания."""
+    title = escape(v['title'])
+    company = escape(v['company'])
+    return f'''<section class="section">
+  <div class="container">
+    <div class="vacancy">
+      <div class="vacancy__main">
+        <div class="vacancy__head">
+          <h1 class="vacancy__title">{title}</h1>
+          <span class="vacancy__salary">{escape(v['salary'])}</span>
+          <div class="vacancy__tags">
+            <span class="tag tag--gray">{escape(v['experience'])}</span>
+            <span class="tag tag--blue">{escape(v['direction'])}</span>
+            <span class="tag tag--gray">{escape(v['specialization'])}</span>
+          </div>
+          <a class="vacancy__company" href="company.html">{company}</a>
+        </div>
+        <div class="vacancy__section">
+          <h2>Что предстоит</h2>
+          <p>{escape(v['short'])}</p>
+        </div>
+        <div class="vacancy__section">
+          <h2>О вакансии</h2>
+          <ul>
+            <li>Компания: {company}</li>
+            <li>Направление: {escape(v['direction'])}</li>
+            <li>Специализация: {escape(v['specialization'])}</li>
+            <li>Опыт: {escape(v['experience'])}</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="vacancy__aside">
+        <div class="vacancy__aside-title">Место работы</div>
+        <div class="vacancy__address">
+          <span>{escape(v['city'])}</span>
+          <span>{escape(v['region'])}</span>
+        </div>
+        <a class="btn btn--accent" href="{vacancy_href(v, apply_form=True)}">откликнуться</a>
+        <p style="font-size: var(--fs-micro); color: var(--color-text-muted); margin: 0;">
+          Нажимая «откликнуться», вы заполните анкету и согласитесь на обработку персональных данных.
+        </p>
+      </aside>
+    </div>
+  </div>
+</section>'''
+
+
+def render_vacancy_apply(v: dict) -> str:
+    body = load(PAGESRC / 'vacancy-apply.html')
+    body = body.replace('vacancy-apply.html', vacancy_href(v, apply_form=True))
+    body = body.replace('Ведущий инженер по эксплуатации энергоблоков', escape(v['title']))
+    body = body.replace('АО «Интер РАО – Электрогенерация»', escape(v['company']))
+    aside = f'''      <aside class="form-aside">
+        <div class="form-aside__title">{escape(v['title'])}</div>
+        <p class="form-aside__text">{escape(v['company'])}, {escape(v['city'])}. Зарплата {escape(v['salary'])}.</p>
+        <div class="form-aside__row">
+          <span class="form-aside__label">Опыт работы</span>
+          <span class="form-aside__value">{escape(v['experience'])}</span>
+        </div>
+        <div class="form-aside__row">
+          <span class="form-aside__label">Направление</span>
+          <span class="form-aside__value">{escape(v['direction'])}</span>
+        </div>
+        <a class="btn btn--outline" href="{vacancy_href(v)}">вернуться к вакансии</a>
+      </aside>'''
+    body = re.sub(r'      <aside class="form-aside">.*?</aside>', aside, body,
+                  count=1, flags=re.S)
+    return body
+
 
 def vacancy_cards() -> str:
     return '\n'.join(render_vacancy_card(v) for v in VAC['items'])
@@ -286,13 +366,13 @@ INDEX_FRAGS = {
 def apply_variant2(html: str) -> str:
     html = html.replace('class="hero hero--default"', 'class="hero hero--marquee"')
     html = html.replace('class="production production--v1"', 'class="production production--v2"')
+    html = html.replace('class="holding"', 'class="holding holding--compact"', 1)
     html = html.replace('class="media"', 'class="media media--wide"', 1)
     html = html.replace('class="employers"', 'class="employers employers--mosaic"')
-    html = html.replace('class="students"', 'class="students students--photo"')
-    html = html.replace('<div class="students__grid students__grid--illu">',
-                        '<div class="students__grid students__grid--illu" hidden>')
-    html = html.replace('<div class="students__grid students__grid--photo" hidden>',
-                        '<div class="students__grid students__grid--photo">')
+    html = html.replace('<section class="students students--illustrated" id="students">',
+                        '<section class="students students--illustrated" hidden>')
+    html = html.replace('<section class="students students--photographic">',
+                        '<section class="students students--photographic students--v2" id="students">')
     html = html.replace('hero-city-1.png', 'hero-city-2.png')
     html = html.replace('<h1 class="hero__title">Зажигай свет и&nbsp;дари тепло вместе с&nbsp;нами</h1>',
                         '<h1 class="hero__title">Зажги свет вместе с&nbsp;нами</h1>')
@@ -306,6 +386,12 @@ def apply_variant2(html: str) -> str:
 
 
 def write_page(fname: str, title: str, body: str, body_class: str) -> None:
+    font_preloads = '\n'.join(
+        f'  <link rel="preload" href="assets/fonts/golos-{weight}-{script}.woff2" '
+        'as="font" type="font/woff2" crossorigin>'
+        for weight in (400, 500)
+        for script in ('cyr', 'lat')
+    )
     css_links = '\n'.join(f'  <link rel="stylesheet" href="{p}?v={STAMP}">' for p in CSS_ORDER)
     js_tags = '\n'.join(f'  <script src="{p}?v={STAMP}" defer></script>' for p in JS_ORDER)
     html = f'''<!DOCTYPE html>
@@ -316,6 +402,7 @@ def write_page(fname: str, title: str, body: str, body_class: str) -> None:
   <link rel="icon" href="data:,">
   <title>{title}</title>
   <meta name="description" content="Портал карьеры Группы «Интер РАО»">
+{font_preloads}
 {css_links}
 {js_tags}
 </head>
@@ -344,6 +431,31 @@ def company_segments() -> str:
         out.append(f'<h2 class="section__title" style="font-size: var(--fs-h3); line-height: 1.3;">{seg}</h2>'
                    f'<div class="cards-grid cards-grid--3" style="margin-bottom: 48px;">{cards}</div>')
     return '\n'.join(out)
+
+
+STUDENT_SUBNAV_ITEMS = [
+    ('Практики', 'practices.html'),
+    ('Стажировки', 'internships.html'),
+    ('Целевое обучение', 'education.html'),
+    ('Карьерный трек', 'career-track.html'),
+    ('Мероприятия', 'events.html'),
+]
+
+
+def student_subnav(active_label: str) -> str:
+    links = []
+    for label, href in STUDENT_SUBNAV_ITEMS:
+        is_active = label == active_label
+        active_class = ' is-active' if is_active else ''
+        current = ' aria-current="page"' if is_active else ''
+        links.append(
+            f'<a class="intern-menu__item{active_class}" href="{href}"{current}>{label}</a>'
+        )
+    return (
+        '<nav class="intern-menu" aria-label="Разделы школьникам и студентам">\n'
+        + '\n'.join(links)
+        + '\n</nav>'
+    )
 
 # ---------------------------------------------------------------- внутренние страницы
 
@@ -374,6 +486,7 @@ INNER_PAGES = [
         'title': 'Стажировки — Портал карьеры Интер РАО',
         'crumbs': [('Главная', 'index-1.html'), ('Школьникам и студентам', None), ('Стажировки', None)],
         'frag': 'internships.html',
+        'student_subnav': 'Стажировки',
         'replaces': {
             '{{PAGE_TITLE}}': 'Стажировки',
             '{{PAGE_TITLE|lower}}': 'стажировки',
@@ -383,7 +496,7 @@ INNER_PAGES = [
             '<!-- INTERNSHIP_ADV_IMG -->': INT['internship']['advantages_companies']['image'],
             '<!-- INTERNSHIP_ADV_TEXT -->': INT['internship']['advantages_companies']['text'],
             '<!-- INTERNSHIP_ADVANTAGES -->': '\n'.join(adv_card(a) for a in INT['internship']['advantages']),
-            '<!-- INTERN_TITLE -->': 'стажёрами',
+            '{{INTERN_TITLE}}': 'стажёрами',
             '<!-- INTERNSHIP_STEPS -->': steps_html(INT['internship']['steps']),
             '<!-- INTERNSHIP_INTERNS -->': interns_html(INT['internship']['interns']),
             '<!-- INTERNSHIP_FAQ -->': render_faq(INT['faq']),
@@ -395,6 +508,7 @@ INNER_PAGES = [
         'title': 'Практики — Портал карьеры Интер РАО',
         'crumbs': [('Главная', 'index-1.html'), ('Школьникам и студентам', None), ('Практики', None)],
         'frag': 'internships.html',
+        'student_subnav': 'Практики',
         'replaces': {
             '{{PAGE_TITLE}}': 'Практики',
             '{{PAGE_TITLE|lower}}': 'практики',
@@ -404,7 +518,7 @@ INNER_PAGES = [
             '<!-- INTERNSHIP_ADV_IMG -->': INT['practice']['advantages_companies']['image'],
             '<!-- INTERNSHIP_ADV_TEXT -->': INT['practice']['advantages_companies']['text'],
             '<!-- INTERNSHIP_ADVANTAGES -->': '\n'.join(adv_card(a) for a in INT['practice']['advantages']),
-            '<!-- INTERN_TITLE -->': 'практикантами',
+            '{{INTERN_TITLE}}': 'практикантами',
             '<!-- INTERNSHIP_STEPS -->': steps_html(INT['practice']['steps']),
             '<!-- INTERNSHIP_INTERNS -->': interns_html(INT['practice']['interns']),
             '<!-- INTERNSHIP_FAQ -->': render_faq(INT['faq']),
@@ -427,8 +541,10 @@ INNER_PAGES = [
     {
         'out': 'education.html',
         'title': 'Целевое обучение — Портал карьеры Интер РАО',
-        'crumbs': [('Главная', 'index-1.html'), ('Целевое обучение', None)],
+        'crumbs': [('Главная', 'index-1.html'), ('Школьникам и студентам', None),
+                   ('Целевое обучение', None)],
         'frag': 'education.html',
+        'student_subnav': 'Целевое обучение',
         'replaces': {
             '<!-- EDUCAT_ORGS -->': '\n'.join(org_card(o) for o in EDU['orgs']),
             '<!-- EDUCAT_ADVANTAGES -->': '\n'.join(adv_card(a) for a in EDU['advantages']),
@@ -446,8 +562,10 @@ INNER_PAGES = [
     {
         'out': 'events.html',
         'title': 'Мероприятия — Портал карьеры Интер РАО',
-        'crumbs': [('Главная', 'index-1.html'), ('Мероприятия', None)],
+        'crumbs': [('Главная', 'index-1.html'), ('Школьникам и студентам', None),
+                   ('Мероприятия', None)],
         'frag': 'events.html',
+        'student_subnav': 'Мероприятия',
         'replaces': {
             '<!-- EVENTS_UPCOMING -->': events_upcoming(),
             '<!-- EVENTS_PAST -->': events_past(),
@@ -499,8 +617,10 @@ INNER_PAGES = [
     {
         'out': 'career-track.html',
         'title': 'Карьерные треки — Портал карьеры Интер РАО',
-        'crumbs': [('Главная', 'index-1.html'), ('Карьерные треки', None)],
+        'crumbs': [('Главная', 'index-1.html'), ('Школьникам и студентам', None),
+                   ('Карьерные треки', None)],
         'frag': 'career-track.html',
+        'student_subnav': 'Карьерный трек',
         'replaces': {
             '<!-- TRACK_BANNER -->': (
                 f'''<div class="banner-card">
@@ -546,6 +666,27 @@ INNER_PAGES = [
     },
 ]
 
+for vacancy in VAC['items'][1:]:
+    detail_href = vacancy_href(vacancy)
+    apply_href = vacancy_href(vacancy, apply_form=True)
+    title = escape(vacancy['title'])
+    INNER_PAGES.extend([
+        {
+            'out': detail_href,
+            'title': f'{title} — Портал карьеры Интер РАО',
+            'crumbs': [('Главная', 'index-1.html'), ('Вакансии', 'vacancies.html'),
+                       (title, None)],
+            'body': render_vacancy_detail(vacancy),
+        },
+        {
+            'out': apply_href,
+            'title': f'Отклик на вакансию «{title}» — Портал карьеры Интер РАО',
+            'crumbs': [('Главная', 'index-1.html'), ('Вакансии', 'vacancies.html'),
+                       (title, detail_href), ('Отклик', None)],
+            'body': render_vacancy_apply(vacancy),
+        },
+    ])
+
 # ---------------------------------------------------------------- сборка
 
 for fname, frags in INDEX_FRAGS.items():
@@ -569,7 +710,9 @@ for fname, frags in INDEX_FRAGS.items():
     write_page(fname, f'Портал карьеры Интер РАО — {variant}', body, f'page page--{"v1" if "1" in fname else "v2"}')
 
 for page in INNER_PAGES:
-    body = load(PAGESRC / f"{page['frag']}")
+    body = page.get('body') or load(PAGESRC / f"{page['frag']}")
+    if '<!-- STUDENT_SUBNAV -->' in body:
+        body = body.replace('<!-- STUDENT_SUBNAV -->', student_subnav(page['student_subnav']))
     for key, val in (page.get('replaces') or {}).items():
         body = body.replace(key, val)
     for old, new in page.get('replace_extra', []):

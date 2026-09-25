@@ -71,7 +71,7 @@
   </div>
 
   <!-- Попап направления -->
-  <div class="directions__modal" data-directions-modal hidden>
+  <div class="directions__modal" data-directions-modal aria-hidden="true" hidden>
     <div class="directions__modal-dim" data-directions-close></div>
     <div class="directions__modal-panel" role="dialog" aria-modal="true" aria-labelledby="directions-modal-title">
       <div class="directions__modal-head">
@@ -83,10 +83,10 @@
       <div class="directions__modal-body">
         <img class="directions__modal-photo" src="../../assets/images/popup-teplogen.jpg" alt="" data-directions-photo width="590" height="400">
         <div class="directions__modal-nav">
-          <button class="directions__modal-arrow" type="button" data-directions-prev aria-label="Предыдущее направление">
+          <button class="directions__modal-arrow" type="button" data-directions-prev aria-label="Предыдущее фото">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H3M8 3L3 8l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
-          <button class="directions__modal-arrow" type="button" data-directions-next aria-label="Следующее направление">
+          <button class="directions__modal-arrow" type="button" data-directions-next aria-label="Следующее фото">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M8 3l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
         </div>
@@ -100,14 +100,14 @@
   <!-- Данные направлений (в Битриксе — из инфоблока) -->
   <script type="application/json" data-directions-data>
     [
-      {"title": "Электрогенерация", "subtitle": "Электрогенерация Группы «Интер РАО»", "text": "Производство электрической энергии — основа энергетической системы страны.", "photo": "assets/images/popup-teplogen.jpg"},
-      {"title": "Теплогенерация", "subtitle": "Теплогенерация Группы «Интер РАО»", "text": "Теплогенерация Группы «Интер РАО» — это 6 крупных региональных энергокомпаний, 22 электростанции.", "photo": "assets/images/popup-teplogen.jpg"},
-      {"title": "Энергосбыт, ЕРЦП, НЭСК", "subtitle": "Энергосбыт Группы «Интер РАО»", "text": "Продажа электрической и тепловой энергии потребителям по всей стране.", "photo": "assets/images/popup-teplogen.jpg"},
-      {"title": "Инжиниринг", "subtitle": "Инжиниринг Группы «Интер РАО»", "text": "Комплексные инженерные решения для объектов энергетики.", "photo": "assets/images/popup-teplogen.jpg"},
-      {"title": "Энергомашиностроение", "subtitle": "Энергомашиностроение Группы «Интер РАО»", "text": "Производство и сервисное обслуживание энергетического оборудования.", "photo": "assets/images/popup-teplogen.jpg"},
-      {"title": "Сервисные компании", "subtitle": "Сервисные компании Группы «Интер РАО»", "text": "Обеспечение деятельности предприятий Группы: ремонт, логистика, сервис.", "photo": "assets/images/popup-teplogen.jpg"},
-      {"title": "ИТ", "subtitle": "ИТ Группы «Интер РАО»", "text": "Цифровые продукты и решения для энергетической отрасли.", "photo": "assets/images/popup-teplogen.jpg"},
-      {"title": "Управляющая компания", "subtitle": "Управляющая компания Группы «Интер РАО»", "text": "Стратегическое управление и развитие Группы «Интер РАО».", "photo": "assets/images/popup-teplogen.jpg"}
+      {"title": "Электрогенерация", "subtitle": "Электрогенерация Группы «Интер РАО»", "text": "Производство электрической энергии — основа энергетической системы страны.", "photos": ["assets/images/popup-teplogen.jpg", "assets/images/media-main.jpg", "assets/images/factory-big.jpg"]},
+      {"title": "Теплогенерация", "subtitle": "Теплогенерация Группы «Интер РАО»", "text": "Теплогенерация Группы «Интер РАО» — это 6 крупных региональных энергокомпаний, 22 электростанции.", "photos": ["assets/images/popup-teplogen.jpg", "assets/images/about-holding.jpg", "assets/images/factory-big.jpg"]},
+      {"title": "Энергосбыт, ЕРЦП, НЭСК", "subtitle": "Энергосбыт Группы «Интер РАО»", "text": "Продажа электрической и тепловой энергии потребителям по всей стране.", "photos": ["assets/images/popup-teplogen.jpg", "assets/images/carousel-openspace.png", "assets/images/about-holding.jpg"]},
+      {"title": "Инжиниринг", "subtitle": "Инжиниринг Группы «Интер РАО»", "text": "Комплексные инженерные решения для объектов энергетики.", "photos": ["assets/images/popup-teplogen.jpg", "assets/images/factory-big.jpg", "assets/images/about-holding.jpg"]},
+      {"title": "Энергомашиностроение", "subtitle": "Энергомашиностроение Группы «Интер РАО»", "text": "Производство и сервисное обслуживание энергетического оборудования.", "photos": ["assets/images/factory-big.jpg", "assets/images/popup-teplogen.jpg", "assets/images/about-holding.jpg"]},
+      {"title": "Сервисные компании", "subtitle": "Сервисные компании Группы «Интер РАО»", "text": "Обеспечение деятельности предприятий Группы: ремонт, логистика, сервис.", "photos": ["assets/images/about-holding.jpg", "assets/images/factory-big.jpg", "assets/images/popup-teplogen.jpg"]},
+      {"title": "ИТ", "subtitle": "ИТ Группы «Интер РАО»", "text": "Цифровые продукты и решения для энергетической отрасли.", "photos": ["assets/images/carousel-openspace.png", "assets/images/media-main.jpg", "assets/images/about-holding.jpg"]},
+      {"title": "Управляющая компания", "subtitle": "Управляющая компания Группы «Интер РАО»", "text": "Стратегическое управление и развитие Группы «Интер РАО».", "photos": ["assets/images/carousel-openspace.png", "assets/images/about-holding.jpg", "assets/images/factory-big.jpg"]}
     ]
   </script>
 </section>

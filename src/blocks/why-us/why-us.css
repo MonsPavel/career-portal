@@ -1,6 +1,6 @@
 .why-us {
   position: relative;
-  padding: 140px 0 40px;
+  padding: 140px 0 80px;
   overflow: hidden;
 }
 
@@ -40,7 +40,7 @@
 .why-us__row {
   display: flex;
   gap: 36px;
-  margin-bottom: 48px;
+  margin-bottom: 144px;
 }
 
 /* Панель «Найди свою вакансию» внутри тёмной секции */

@@ -8,3 +8,7 @@ shots-*.png
 v1-hero.png
 .zcode/
 .zcodeignore
+/*.html
+tests/__pycache__/
+/*.html
+tests/__pycache__/

@@ -21,12 +21,29 @@
 .breadcrumbs a:hover { color: var(--color-accent); }
 .breadcrumbs .breadcrumbs__sep { color: #C4CDDC; }
 
+@media (max-width: 767px) {
+  .breadcrumbs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+  }
+
+  .breadcrumbs::-webkit-scrollbar { display: none; }
+}
+
 /* Заголовок страницы */
 .page-head {
   display: flex;
   flex-direction: column;
   gap: 16px;
   margin-bottom: 40px;
+}
+
+.page-head--split { flex-direction: row; align-items: flex-end; justify-content: space-between; }
+
+@media (max-width: 767px) {
+  .page-head--split { flex-direction: column; align-items: flex-start; }
 }
 
 .page-title {

@@ -15,28 +15,72 @@
     var subtitle = modal.querySelector('[data-directions-subtitle]');
     var text = modal.querySelector('[data-directions-text]');
     var photo = modal.querySelector('[data-directions-photo]');
-    var current = 0;
+    var panel = modal.querySelector('.directions__modal-panel');
+    var closeButton = modal.querySelector('.directions__modal-close');
+    var currentDirection = 0;
+    var currentPhoto = 0;
+    var closeTimer = null;
+    var lastFocused = null;
 
-    function render(i) {
+    function getPhotos(direction) {
+      if (Array.isArray(direction.photos) && direction.photos.length) {
+        return direction.photos;
+      }
+      return direction.photo ? [direction.photo] : [];
+    }
+
+    function renderPhoto(i) {
+      var photos = getPhotos(data[currentDirection]);
+      if (!photos.length) return;
+      currentPhoto = (i + photos.length) % photos.length;
+      photo.src = photos[currentPhoto];
+    }
+
+    function renderDirection(i) {
       var d = data[i];
       if (!d) return;
+      currentDirection = i;
+      currentPhoto = 0;
       title.textContent = d.title;
       subtitle.textContent = d.subtitle;
       text.textContent = d.text;
-      photo.src = d.photo;
-      current = i;
+      renderPhoto(currentPhoto);
     }
 
     function open(i) {
-      render(i);
-      modal.hidden = false;
+      window.clearTimeout(closeTimer);
+      renderDirection(i);
+      lastFocused = document.activeElement;
       document.body.classList.add('directions-modal-open');
+      modal.hidden = false;
+      modal.setAttribute('aria-hidden', 'false');
+      modal.classList.remove('is-open');
+      void modal.offsetWidth;
+      modal.classList.add('is-open');
+      closeButton.focus({ preventScroll: true });
+    }
+
+    function finishClose() {
+      window.clearTimeout(closeTimer);
+      modal.hidden = true;
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('directions-modal-open');
+      if (lastFocused && typeof lastFocused.focus === 'function') {
+        lastFocused.focus({ preventScroll: true });
+      }
     }
 
     function close() {
-      modal.hidden = true;
-      document.body.classList.remove('directions-modal-open');
+      if (modal.hidden) return;
+      modal.classList.remove('is-open');
+      closeTimer = window.setTimeout(finishClose, 400);
     }
+
+    panel.addEventListener('transitionend', function (event) {
+      if (event.propertyName === 'transform' && !modal.classList.contains('is-open')) {
+        finishClose();
+      }
+    });
 
     section.querySelectorAll('[data-direction]').forEach(function (card) {
       card.addEventListener('click', function () {
@@ -49,10 +93,10 @@
     });
 
     modal.querySelector('[data-directions-prev]').addEventListener('click', function () {
-      render((current - 1 + data.length) % data.length);
+      renderPhoto(currentPhoto - 1);
     });
     modal.querySelector('[data-directions-next]').addEventListener('click', function () {
-      render((current + 1) % data.length);
+      renderPhoto(currentPhoto + 1);
     });
 
     document.addEventListener('keydown', function (e) {

@@ -1,5 +1,5 @@
 .cta-mail {
-  padding: 40px 0 0;
+  padding: 72px 0 0;
 }
 
 .cta-mail__card {
@@ -51,6 +51,7 @@
 .cta-mail__tail {
   display: flex;
   justify-content: center;
+  min-height: 32px;
   margin: 0 auto;
   line-height: 0;
 }

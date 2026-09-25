@@ -63,8 +63,8 @@
   --radius-small: 8px;
   --radius-big: 24px;
 
-  /* Сетка: контейнер 1360 внутри 1440, желоб 20 */
-  --container-max: 1360px;
+  /* Сетка: 1360px контента внутри фрейма 1440px */
+  --container-max: 1440px;
   --container-pad: 40px;
 
   /* Анимации */

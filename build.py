@@ -709,6 +709,11 @@ for fname, frags in INDEX_FRAGS.items():
     variant = 'вариант 1' if '1' in fname else 'вариант 2'
     write_page(fname, f'Портал карьеры Интер РАО — {variant}', body, f'page page--{"v1" if "1" in fname else "v2"}')
 
+# index.html — копия главной, чтобы корень GitLab Pages открывался
+import shutil
+shutil.copyfile(ROOT / 'index-1.html', ROOT / 'index.html')
+print('built index.html (copy of index-1)')
+
 for page in INNER_PAGES:
     body = page.get('body') or load(PAGESRC / f"{page['frag']}")
     if '<!-- STUDENT_SUBNAV -->' in body:

@@ -30,7 +30,7 @@ jobs:
       - name: Assemble public/
         run: |
           mkdir -p public
-          cp -R *.html assets css js public/
+          cp -R *.html assets css js src public/
           touch public/.nojekyll
 
       - uses: actions/configure-pages@v5

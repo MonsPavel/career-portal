@@ -137,3 +137,17 @@
     width: min(312px, calc(100vw - 32px));
   }
 }
+
+/* Кнопка «Версия для слабовидящих» — заметная пилюля с крупной иконкой */
+.header__link--vi {
+  gap: 10px;
+  padding: 10px 18px;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.55);
+  font-size: 15px;
+}
+
+.header__link--vi:hover { background: #FFFFFF; opacity: 1; }
+
+.header__link--vi svg { flex: 0 0 auto; }

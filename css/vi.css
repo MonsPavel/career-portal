@@ -93,7 +93,10 @@
    Режим: body.vi (+ модификаторы vi-size--, vi-theme--, vi-img--, vi-kern--)
    ------------------------------------------------------------------ */
 
-body.vi { padding-top: 62px; } /* место под панель */
+body.vi { padding-top: 66px; } /* место под панель */
+
+/* хедер в потоке: на главных он абсолютный и оказался под фиксированной панелью */
+body.vi .header { position: relative; top: auto; left: auto; right: auto; }
 
 /* Размер шрифта: масштаб всей вёрстки (в режиме по умолчанию — средний) */
 body.vi.vi-size--sm { zoom: 1; }
@@ -107,10 +110,11 @@ body.vi.vi-size--lg { zoom: 1.45; }
 body.vi.vi-theme--wb { background: #000000; }
 body.vi.vi-theme--wb:not(.vi-img--off) img,
 body.vi.vi-theme--wb video {
-  filter: invert(1) hue-rotate(180deg);
+  filter: invert(1) grayscale(1);
 }
 
-html:has(body.vi.vi-theme--wb) { filter: invert(1) hue-rotate(180deg); }
+/* монохром: цвета интерфейса и фото становятся ч/б, без «цветастости» */
+html:has(body.vi.vi-theme--wb) { filter: invert(1) grayscale(1); }
 
 body.vi.vi-theme--bb { background: #9DD1FF; }
 

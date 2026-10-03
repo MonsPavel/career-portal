@@ -71,6 +71,7 @@
 .vi-swatch--wb { background: #000000; color: #FFFFFF; }
 .vi-swatch--bb { background: #9DD1FF; color: #063462; }
 .vi-swatch--beige { background: #F5E7CE; color: #4A3728; border: 1px solid #C9B48F; }
+.vi-swatch--green { background: #3B2716; color: #4DFF00; border: 1px solid #4DFF00; }
 
 .vi-exit {
   margin-left: auto;
@@ -150,6 +151,22 @@ body.vi.vi-theme--beige .btn--primary,
 body.vi.vi-theme--beige .btn--accent {
   background-color: #4A3728 !important;
   color: #FFFFFF !important;
+}
+
+/* Зелёная тема: зелёный текст на тёмно-коричневом */
+body.vi.vi-theme--green { background: #3B2716; }
+body.vi.vi-theme--green *:not(.vi-bar):not(.vi-bar *):not(svg):not(img):not(video) {
+  background-color: #3B2716 !important;
+  color: #4DFF00 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+body.vi.vi-theme--green .btn,
+body.vi.vi-theme--green .btn--primary,
+body.vi.vi-theme--green .btn--accent {
+  background-color: #4DFF00 !important;
+  color: #1A2E0A !important;
 }
 
 /* Изображения: скрыть растровые фото и декоративные фоны, иконцы-интерфейс остаются */

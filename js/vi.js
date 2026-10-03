@@ -14,7 +14,7 @@
   } catch (e) { /* нет доступа к localStorage — режим без сохранения */ }
 
   var SIZE_CLASSES = ['vi-size--sm', 'vi-size--md', 'vi-size--lg'];
-  var THEME_CLASSES = ['vi-theme--baw', 'vi-theme--wb', 'vi-theme--bb'];
+  var THEME_CLASSES = ['vi-theme--baw', 'vi-theme--wb', 'vi-theme--bb', 'vi-theme--beige', 'vi-theme--green'];
 
   function save() {
     try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* ignore */ }
@@ -27,6 +27,7 @@
     b.classList.add('vi-size--' + state.size);
     THEME_CLASSES.forEach(function (c) { b.classList.remove(c); });
     b.classList.add('vi-theme--' + state.theme);
+    b.classList.toggle('vi-img--gray', state.img === 'gray');
     b.classList.toggle('vi-img--off', state.img === 'off');
     b.classList.toggle('vi-kern--wide', state.kern === 'wide');
 

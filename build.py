@@ -20,13 +20,13 @@ CSS_ORDER = ['css/variables.css', 'css/base.css', 'css/components.css'] + [
         'why-us', 'vacancy-search', 'vacancy-capsule', 'students', 'video-block',
         'media', 'mentorship', 'team', 'cta-mail', 'footer', 'search-screen',
     ]
-] + ['css/pages.css']
+] + ['css/pages.css', 'css/vi.css']
 
 JS_ORDER = [
     f'src/blocks/{b}/{b}.js' for b in [
         'header', 'production', 'directions', 'search-screen',
     ]
-] + ['js/forms.js', 'js/faq.js', 'js/tracks.js', 'js/dropdowns.js']
+] + ['js/forms.js', 'js/faq.js', 'js/tracks.js', 'js/dropdowns.js', 'js/vi.js']
 
 # ---------------------------------------------------------------- утилиты
 
@@ -154,6 +154,8 @@ def layout_body(crumbs: list, body: str) -> str:
     Оболочку документа добавляет write_page()."""
     crumbs_html = render_breadcrumbs(crumbs) if crumbs else ''
     header = load(BLOCKS / 'header' / 'header.html')
+    vi_panel = load(BLOCKS / 'vi' / 'vi-panel.html')
+    header = header + vi_panel
     footer = load(BLOCKS / 'footer' / 'footer.html')
     search_screen = load(BLOCKS / 'search-screen' / 'search-screen.html')
     footer = footer + search_screen
@@ -328,6 +330,7 @@ SLOTS = {
 INDEX_FRAGS = {
     'index-1.html': [
         'header/header.html',
+        'vi/vi-panel.html',
         'hero/hero.html',
         'production/production.html',
         'directions/directions.html',
@@ -344,6 +347,7 @@ INDEX_FRAGS = {
     ],
     'index-2.html': [
         'header/header.html',
+        'vi/vi-panel.html',
         'hero/hero.html',
         'production/production.html',
         'directions/directions.html',

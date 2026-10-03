@@ -1,0 +1,163 @@
+/* ------------------------------------------------------------------
+   Версия для слабовидящих (ГОСТ Р 52872): панель настроек и режимы
+   ------------------------------------------------------------------ */
+
+/* Панель настроек */
+.vi-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: #FFFFFF;
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.vi-bar__inner {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 10px 40px;
+}
+
+.vi-group { display: flex; align-items: center; gap: 10px; }
+
+.vi-group__label {
+  font-size: 13px;
+  font-weight: var(--fw-small);
+  color: var(--color-text);
+}
+
+.vi-seg { display: inline-flex; border: 1px solid var(--color-primary); border-radius: 8px; overflow: hidden; }
+
+.vi-seg__btn {
+  min-width: 40px;
+  height: 36px;
+  padding: 0 12px;
+  background: #FFFFFF;
+  color: var(--color-primary);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: var(--fw-small);
+  border-left: 1px solid var(--color-primary);
+  cursor: pointer;
+}
+
+.vi-seg__btn:first-child { border-left: none; }
+
+.vi-seg__btn:hover { background: var(--color-surface-blue-50); }
+
+.vi-seg__btn[aria-pressed="true"] { background: var(--color-primary); color: #FFFFFF; }
+
+.vi-seg__btn--sm { font-size: 13px; }
+.vi-seg__btn--md { font-size: 16px; }
+.vi-seg__btn--lg { font-size: 19px; }
+
+.vi-swatch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 22px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: var(--fw-body-bold);
+}
+
+.vi-swatch--baw { background: #FFFFFF; color: #000000; border: 1px solid #C4CDDC; }
+.vi-swatch--wb { background: #000000; color: #FFFFFF; }
+.vi-swatch--bb { background: #9DD1FF; color: #063462; }
+
+.vi-exit {
+  margin-left: auto;
+  height: 36px;
+  padding: 0 20px;
+  background: var(--color-primary);
+  border-radius: var(--radius-pill);
+  color: #FFFFFF;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: var(--fw-small);
+  cursor: pointer;
+}
+
+.vi-exit:hover { background: var(--color-blue-700); }
+
+/* Кнопка входа в шапке */
+.header__link--vi svg { flex: 0 0 auto; }
+
+/* ------------------------------------------------------------------
+   Режим: body.vi (+ модификаторы vi-size--, vi-theme--, vi-img--, vi-kern--)
+   ------------------------------------------------------------------ */
+
+body.vi { padding-top: 62px; } /* место под панель */
+
+/* Размер шрифта: масштаб всей вёрстки (в режиме по умолчанию — средний) */
+body.vi.vi-size--sm { zoom: 1; }
+body.vi.vi-size--md { zoom: 1.2; }
+body.vi.vi-size--lg { zoom: 1.45; }
+
+/* Цветовые темы.
+   Ч/Б — базовая: дизайн уже тёмное на светлом, без преобразований.
+   Б/Ч — инверсия корня с возвратом фото к исходному виду.
+   С/Б — явная перекраска: тёмно-синий #063462 на голубом #9DD1FF. */
+body.vi.vi-theme--wb { background: #000000; }
+body.vi.vi-theme--wb:not(.vi-img--off) img,
+body.vi.vi-theme--wb video {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+html:has(body.vi.vi-theme--wb) { filter: invert(1) hue-rotate(180deg); }
+
+body.vi.vi-theme--bb { background: #9DD1FF; }
+
+/* перекраска всех элементов, кроме панели настроек и графики */
+body.vi.vi-theme--bb *:not(.vi-bar):not(.vi-bar *):not(svg):not(path):not(circle):not(rect):not(img):not(video) {
+  background-color: #9DD1FF !important;
+  color: #063462 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/* кнопки — тёмно-синие с белым текстом для контраста */
+body.vi.vi-theme--bb .btn,
+body.vi.vi-theme--bb .btn--primary,
+body.vi.vi-theme--bb .btn--accent {
+  background-color: #063462 !important;
+  color: #FFFFFF !important;
+}
+
+/* Изображения: скрыть растровые фото и декоративные фоны, иконцы-интерфейс остаются */
+body.vi.vi-img--off img,
+body.vi.vi-img--off [class*="__bg"],
+body.vi.vi-img--off [class*="__photo"],
+body.vi.vi-img--off [class*="-photo"],
+body.vi.vi-img--off video {
+  display: none !important;
+}
+
+/* Интервал */
+body.vi.vi-kern--wide,
+body.vi.vi-kern--wide * {
+  letter-spacing: 0.06em !important;
+}
+
+/* В режиме — без анимаций и декоративных затемнений */
+body.vi *,
+body.vi *::before,
+body.vi *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+
+
+/* Панель не инвертируется повторно (она внутри html-фильтра) */
+@media (max-width: 1023px) {
+  .vi-bar__inner { padding: 8px 16px; gap: 10px 20px; }
+  .vi-group__label { display: none; }
+  .header__vi-label { display: none; }
+}

@@ -45,6 +45,10 @@
       btn.setAttribute('aria-pressed', String(state.on));
     });
 
+    // отступ сверху = реальная высота панели (она фиксирована)
+    var panel = document.querySelector('[data-vi-panel]');
+    document.body.style.paddingTop = state.on && panel ? panel.offsetHeight + 'px' : '';
+
     save();
   }
 

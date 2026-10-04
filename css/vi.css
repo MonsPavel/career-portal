@@ -200,6 +200,10 @@ body.vi *::after {
 
 
 /* Панель не инвертируется повторно (она внутри html-фильтра) */
+/* Плейсхолдеры и поля ввода перекрашиваются вместе с темой */
+body.vi ::placeholder { color: currentColor !important; opacity: 0.65 !important; }
+body.vi input, body.vi textarea { color: inherit; }
+
 @media (max-width: 1023px) {
   .vi-bar__inner { padding: 8px 16px; gap: 10px 20px; }
   .vi-group__label { display: none; }

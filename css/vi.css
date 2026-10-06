@@ -169,6 +169,44 @@ body.vi.vi-theme--green .btn--accent {
   color: #1A2E0A !important;
 }
 
+/* Фото-слои и контент секций: фото видно над фоном секции, текст над фото */
+body.vi [class*="__bg"],
+body.vi [class*="__photo"] {
+  z-index: 0 !important;
+}
+
+body.vi section > *:not([class*="__bg"]):not([class*="__photo"]),
+body.vi [class*="__content"],
+body.vi [class*="__body"] {
+  position: relative;
+  z-index: 1;
+}
+
+/* Тонирование фото под цветовую схему */
+body.vi.vi-theme--green [class*="__bg"] img,
+body.vi.vi-theme--green [class*="__photo"] img,
+body.vi.vi-theme--green .test__photo {
+  filter: grayscale(1) brightness(0.65) sepia(1) saturate(2) hue-rotate(-18deg);
+}
+
+body.vi.vi-theme--beige [class*="__bg"] img,
+body.vi.vi-theme--beige [class*="__photo"] img,
+body.vi.vi-theme--beige .test__photo {
+  filter: grayscale(1) brightness(1.06) sepia(0.45);
+}
+
+body.vi.vi-theme--bb [class*="__bg"] img,
+body.vi.vi-theme--bb [class*="__photo"] img,
+body.vi.vi-theme--bb .test__photo {
+  filter: grayscale(1);
+}
+
+/* Оверлеи фото-слоев — в цвет темы */
+body.vi.vi-theme--green .hero__bg::after,
+body.vi.vi-theme--beige .hero__bg::after {
+  background: rgba(74, 55, 40, 0.35) !important;
+}
+
 /* Изображения: скрыть растровые фото и декоративные фоны, иконцы-интерфейс остаются */
 body.vi.vi-img--off img,
 body.vi.vi-img--off [class*="__bg"],

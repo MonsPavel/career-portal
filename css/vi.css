@@ -120,8 +120,9 @@ html:has(body.vi.vi-theme--wb) { filter: invert(1) grayscale(1); }
 
 body.vi.vi-theme--bb { background: #9DD1FF; }
 
-/* перекраска всех элементов, кроме панели настроек и графики */
-body.vi.vi-theme--bb *:not(.vi-bar):not(.vi-bar *):not(svg):not(path):not(circle):not(rect):not(img):not(video) {
+/* перекраска всех элементов, кроме панели настроек и графики;
+   .production__body исключён — на десктопе это прозрачный слой-композиция поверх фото */
+body.vi.vi-theme--bb *:not(.vi-bar):not(.vi-bar *):not(svg):not(path):not(circle):not(rect):not(img):not(video):not(.production__body) {
   background-color: #9DD1FF !important;
   color: #063462 !important;
   box-shadow: none !important;
@@ -138,7 +139,7 @@ body.vi.vi-theme--bb .btn--accent {
 
 /* Бежевая тема: бежевый фон, коричневый текст */
 body.vi.vi-theme--beige { background: #F5E7CE; }
-body.vi.vi-theme--beige *:not(.vi-bar):not(.vi-bar *):not(svg):not(img):not(video) {
+body.vi.vi-theme--beige *:not(.vi-bar):not(.vi-bar *):not(svg):not(img):not(video):not(.production__body) {
   background-color: #F5E7CE !important;
   color: #4A3728 !important;
   border-color: #4A3728 !important;
@@ -155,7 +156,7 @@ body.vi.vi-theme--beige .btn--accent {
 
 /* Зелёная тема: зелёный текст на тёмно-коричневом */
 body.vi.vi-theme--green { background: #3B2716; }
-body.vi.vi-theme--green *:not(.vi-bar):not(.vi-bar *):not(svg):not(img):not(video) {
+body.vi.vi-theme--green *:not(.vi-bar):not(.vi-bar *):not(svg):not(img):not(video):not(.production__body) {
   background-color: #3B2716 !important;
   color: #4DFF00 !important;
   box-shadow: none !important;
@@ -167,6 +168,12 @@ body.vi.vi-theme--green .btn--primary,
 body.vi.vi-theme--green .btn--accent {
   background-color: #4DFF00 !important;
   color: #1A2E0A !important;
+}
+
+/* Декоративные свечения (полупрозрачные градиенты поверх фото) в VI-режиме
+   отключаются: универсальная перекраска зальёт их цветом темы непрозрачным пятном */
+body.vi [class*="__glow"] {
+  display: none !important;
 }
 
 /* Фото-слои и контент секций: фото видно над фоном секции, текст над фото */
@@ -182,29 +189,55 @@ body.vi [class*="__body"] {
   z-index: 1;
 }
 
+/* Десктопная композиция «Производства»: заголовок/текст/кнопка наложены на фото
+   абсолютами внутри растянутого контейнера — relative схлопывает его в 0×0 */
+@media (min-width: 1280px) {
+  body.vi section.production--v1 .production__body {
+    position: absolute;
+    inset: 0;
+    display: block;
+    max-width: none;
+    padding: 0;
+    background-color: transparent !important;
+  }
+}
+
 /* Тонирование фото под цветовую схему */
 body.vi.vi-theme--green [class*="__bg"] img,
 body.vi.vi-theme--green [class*="__photo"] img,
+body.vi.vi-theme--green img[class*="__photo"],
 body.vi.vi-theme--green .test__photo {
   filter: grayscale(1) brightness(0.65) sepia(1) saturate(2) hue-rotate(-18deg);
 }
 
 body.vi.vi-theme--beige [class*="__bg"] img,
 body.vi.vi-theme--beige [class*="__photo"] img,
+body.vi.vi-theme--beige img[class*="__photo"],
 body.vi.vi-theme--beige .test__photo {
   filter: grayscale(1) brightness(1.06) sepia(0.45);
 }
 
 body.vi.vi-theme--bb [class*="__bg"] img,
 body.vi.vi-theme--bb [class*="__photo"] img,
+body.vi.vi-theme--bb img[class*="__photo"],
 body.vi.vi-theme--bb .test__photo {
   filter: grayscale(1);
 }
 
 /* Оверлеи фото-слоев — в цвет темы */
 body.vi.vi-theme--green .hero__bg::after,
-body.vi.vi-theme--beige .hero__bg::after {
+body.vi.vi-theme--beige .hero__bg::after,
+body.vi.vi-theme--green .production__bg::after,
+body.vi.vi-theme--beige .production__bg::after,
+body.vi.vi-theme--green .holding__bg::after,
+body.vi.vi-theme--beige .holding__bg::after {
   background: rgba(74, 55, 40, 0.35) !important;
+}
+
+/* Синяя тема: тёмные тонировки фото меняем на светлые, иначе тёмный текст не читается */
+body.vi.vi-theme--bb .production__bg::after,
+body.vi.vi-theme--bb .holding__bg::after {
+  background: rgba(157, 209, 255, 0.55) !important;
 }
 
 /* Изображения: скрыть растровые фото и декоративные фоны, иконцы-интерфейс остаются */

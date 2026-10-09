@@ -13,8 +13,8 @@
 <section class="section" style="padding-top: 24px;">
   <div class="container">
     <div class="tabs-pill" role="tablist" aria-label="Практика или стажировка">
-      <a class="tabs-pill__tab{{TAB_PRACTICE_ACTIVE}}" href="practices.html" role="tab" aria-selected="{{TAB_PRACTICE_SELECTED}}">практика</a>
-      <a class="tabs-pill__tab{{TAB_INTERNSHIP_ACTIVE}}" href="internships.html" role="tab" aria-selected="{{TAB_INTERNSHIP_SELECTED}}">стажировка</a>
+      <button class="tabs-pill__tab{{TAB_PRACTICE_ACTIVE}}" type="button" role="tab" aria-selected="{{TAB_PRACTICE_SELECTED}}" data-tab="practice">практика</button>
+      <button class="tabs-pill__tab{{TAB_INTERNSHIP_ACTIVE}}" type="button" role="tab" aria-selected="{{TAB_INTERNSHIP_SELECTED}}" data-tab="internship">стажировка</button>
     </div>
   </div>
 </section>
@@ -24,30 +24,32 @@
     <div class="dir-head">
       <h2 class="section__title" style="margin-bottom: 0;">Выбери свой город и направление</h2>
       <label class="vac-side__dd">
-        <select name="city" aria-label="Город">
-          <option selected>все города</option>
-          <option>Москва</option>
-          <option>Санкт-Петербург</option>
-          <option>Екатеринбург</option>
-          <option>Омск</option>
+        <select data-filter-select="city" aria-label="Город">
+          <option value="" selected>все города</option>
+          <option value="Москва">Москва</option>
+          <option value="Санкт-Петербург">Санкт-Петербург</option>
+          <option value="Екатеринбург">Екатеринбург</option>
         </select>
       </label>
     </div>
 
-    <div class="chip-row">
-      <a class="chip{{CHIP_ALL_ACTIVE}}" href="internships.html">все направления</a>
-      <a class="chip" href="internships.html">экономика и финансы</a>
-      <a class="chip" href="internships.html">атомная энергетика и энергостроительство</a>
-      <a class="chip" href="internships.html">электроэнергетика и электрика</a>
-      <a class="chip" href="internships.html">химические технологии</a>
-      <a class="chip" href="internships.html">теплоэнергетика и теплотехника</a>
-      <a class="chip" href="internships.html">конструирование</a>
-      <a class="chip" href="internships.html">автоматизация технологических процессов и производств</a>
-      <a class="chip" href="internships.html">общие направления</a>
+    <div class="chip-row" data-filter-group="direction">
+      <button class="chip{{CHIP_ALL_ACTIVE}}" type="button" data-filter-value="">все направления</button>
+      <button class="chip" type="button" data-filter-value="экономика и финансы">экономика и финансы</button>
+      <button class="chip" type="button" data-filter-value="атомная энергетика и энергостроительство">атомная энергетика и энергостроительство</button>
+      <button class="chip" type="button" data-filter-value="электроэнергетика и электрика">электроэнергетика и электрика</button>
+      <button class="chip" type="button" data-filter-value="химические технологии">химические технологии</button>
+      <button class="chip" type="button" data-filter-value="теплоэнергетика и теплотехника">теплоэнергетика и теплотехника</button>
+      <button class="chip" type="button" data-filter-value="конструирование">конструирование</button>
+      <button class="chip" type="button" data-filter-value="автоматизация технологических процессов и производств">автоматизация технологических процессов и производств</button>
+      <button class="chip" type="button" data-filter-value="общие направления">общие направления</button>
     </div>
 
-    <div class="cards-grid cards-grid--3">
+    <div class="cards-grid cards-grid--3 dir-set" data-set="practice">
       <!-- INTERNSHIP_CARDS -->
+    </div>
+    <div class="cards-grid cards-grid--3 dir-set" data-set="internship" hidden>
+      <!-- INTERNSHIP_CARDS_ALT -->
     </div>
   </div>
 </section>
@@ -71,7 +73,7 @@
 
 <section class="section">
   <div class="container">
-    <h2 class="section__title">Преимущества прохождения {{PAGE_TITLE|lower}}</h2>
+    <h2 class="section__title">Преимущества прохождения <span data-word="gen">{{PAGE_TITLE|lower}}</span></h2>
     <div class="adv-grid">
       <!-- INTERNSHIP_ADVANTAGES -->
     </div>
@@ -80,7 +82,7 @@
 
 <section class="section">
   <div class="container">
-    <h2 class="section__title">Как попасть на {{PAGE_TITLE_ACC}}</h2>
+    <h2 class="section__title">Как попасть на <span data-word="acc">{{PAGE_TITLE_ACC}}</span></h2>
     <div class="timeline">
       <!-- INTERNSHIP_STEPS -->
     </div>
@@ -89,7 +91,7 @@
 
 <section class="section">
   <div class="container">
-    <h2 class="section__title">Познакомьтесь с нашими {{INTERN_TITLE}}</h2>
+    <h2 class="section__title">Познакомьтесь с нашими <span data-word="who">{{INTERN_TITLE}}</span></h2>
     <div class="cards-grid cards-grid--3">
       <!-- INTERNSHIP_INTERNS -->
     </div>
@@ -113,5 +115,7 @@
 </section>
 
 <!-- INTERNSHIP_DIR_MODALS -->
+
+<!-- INTERNSHIP_DIR_MODALS_ALT -->
 
 <!-- INTERNSHIP_APPLY_MODAL -->

@@ -26,7 +26,7 @@ JS_ORDER = [
     f'src/blocks/{b}/{b}.js' for b in [
         'header', 'production', 'directions', 'search-screen',
     ]
-] + ['js/forms.js', 'js/faq.js', 'js/tracks.js', 'js/dropdowns.js', 'js/modals.js', 'js/vi.js']
+] + ['js/forms.js', 'js/faq.js', 'js/tracks.js', 'js/dropdowns.js', 'js/modals.js', 'js/filters.js', 'js/vi.js']
 
 # ---------------------------------------------------------------- утилиты
 
@@ -56,37 +56,57 @@ CAL = ('<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden=
 
 def pill_btn(text: str, href: str = '', extra: str = '') -> str:
     """Контурная пилюля с круглой стрелкой (варфрейм: «откликнуться →»)."""
-    tag = 'button' if not href else 'a'
-    attrs = f'type="submit"' if not href else f'href="{href}"'
+    if href:
+        tag, attrs = 'a', f'href="{href}"'
+    else:
+        tag, attrs = 'button', 'type="button"'
     return (f'<{tag} class="pill-btn"{attrs} {extra}>'
             f'<span class="pill-btn__label">{text}</span>'
             f'<span class="pill-btn__icon">{ARROW}</span></{tag}>')
 
 
 def render_vacancy_card(v: dict) -> str:
-    """Строка списка вакансий (варфрейм desktop/offers): заголовок, объект, тизер, дата, «откликнуться»."""
+    """Строка списка вакансий (варфрейм desktop/offers): клик по строке — деталка,
+    «откликнуться» — анкета отклика. data-* — для мок-фильтрации js/filters.js."""
     href = vacancy_href(v)
-    return f'''<article class="vac-row card card--hover">
-  <div class="vac-row__main">
-    <h2 class="vac-row__title"><a href="{href}">{escape(v['title'])}</a></h2>
-    <span class="vac-row__place">{PLACE_PIN}{escape(v['place'])}</span>
-    <p class="vac-row__short">{escape(v['short'])}</p>
-    <time class="vac-row__date">{CAL}{v['date']}</time>
-  </div>
-  {pill_btn('откликнуться', href)}
-</article>'''
+    salary_num = re.sub(r'[^\d]', '', v['salary'])
+    return (f'<article class="vac-row card card--hover" '
+            f'data-region="{escape(v["region"])}" data-city="{escape(v["city"])}" '
+            f'data-spec="{escape(v["specialization"])}" data-segment="{escape(v["segment"])}" '
+            f'data-company="{escape(v["company"])}" data-exp="{escape(v["experience"])}" '
+            f'data-position="{escape(v["title"]).split()[0]}" '
+            f'data-accessible="{"1" if v.get("accessible") else "0"}" '
+            f'data-salary="{salary_num}" data-date="{v["date"][-4:]}{v["date"][3:5]}{v["date"][:2]}">\n'
+            f'  <div class="vac-row__main">\n'
+            f'    <h2 class="vac-row__title"><a href="{href}">{escape(v["title"])}</a></h2>\n'
+            f'    <span class="vac-row__place">{PLACE_PIN}{escape(v["place"])}</span>\n'
+            f'    <p class="vac-row__short">{escape(v["short"])}</p>\n'
+            f'    <time class="vac-row__date">{CAL}{v["date"]}</time>\n'
+            f'  </div>\n'
+            f'  {pill_btn("откликнуться", extra="data-modal-open=\"vac-apply\"")}\n'
+            f'</article>')
 
 
 def render_internship_card(i: dict, with_schedule: bool = False) -> str:
+    """Карточка направления (варфрейм desktop/internships): один бейдж в правом верхнем
+    углу, клик открывает модалку. data-* — для мок-фильтрации."""
     source = INT['internship']['items'] if with_schedule else INT['practice']['items']
     idx = source.index(i)
-    paid = '<span class="tag tag--orange">оплачиваемая</span>' if i.get('paid') else ''
-    sched = f'<span class="tag tag--blue">{i["schedule"]}</span>' if with_schedule and i.get('schedule') else ''
-    return f'''<button class="dir-card card card--hover" type="button" data-modal-open="intern-dir-{idx + 1}">
-  <div class="dir-card__tags">{paid}{sched}</div>
-  <h3 class="dir-card__title">{i['title']}</h3>
-  <p class="dir-card__short">{i['short']}</p>
-</button>'''
+    suffix = 'i' if with_schedule else 'p'
+    badge_parts = []
+    if i.get('paid'):
+        badge_parts.append('оплачиваемая')
+    if with_schedule and i.get('schedule'):
+        short = {'Гибридный график': 'гибрид'}.get(i['schedule'], i['schedule'].lower())
+        badge_parts.append(short)
+    badge = f'<div class="dir-card__tags"><span class="tag tag--orange">{" · ".join(badge_parts)}</span></div>' if badge_parts else ''
+    return (f'<button class="dir-card card card--hover" type="button" '
+            f'data-modal-open="intern-dir-{suffix}-{idx + 1}" '
+            f'data-direction="{i.get("direction", "")}" data-city="{i["city"]}">\n'
+            f'  {badge}\n'
+            f'  <h3 class="dir-card__title">{i["title"]}</h3>\n'
+            f'  <p class="dir-card__short">{i["short"]}</p>\n'
+            f'</button>')
 
 
 def render_internship_related(i: dict, with_schedule: bool = False) -> str:
@@ -117,6 +137,7 @@ DIR_TASKS = [
 def internship_dir_modal(i: dict, with_schedule: bool) -> str:
     source = INT['internship']['items'] if with_schedule else INT['practice']['items']
     idx = source.index(i)
+    suffix = 'i' if with_schedule else 'p'
     tasks = ''.join(
         f'''<div class="faq__item">
   <button class="faq__q" type="button" aria-expanded="false"><span>{t}</span></button>
@@ -125,10 +146,10 @@ def internship_dir_modal(i: dict, with_schedule: bool) -> str:
     <ul class="dir-modal__skills">{''.join(f'<li>{s}</li>' for s in skills)}</ul>
   </div></div>
 </div>''' for t, skills in DIR_TASKS)
-    return f'''<div class="modal" id="intern-dir-{idx + 1}" hidden>
-  <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="intern-dir-{idx + 1}-title">
+    return f'''<div class="modal" id="intern-dir-{suffix}-{idx + 1}" hidden>
+  <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="intern-dir-{suffix}-{idx + 1}-title">
     <button class="modal__close" type="button" data-modal-close aria-label="Закрыть">&times;</button>
-    <h2 class="modal__title" id="intern-dir-{idx + 1}-title">{i['title']}</h2>
+    <h2 class="modal__title" id="intern-dir-{suffix}-{idx + 1}-title">{i['title']}</h2>
     <div class="dir-modal">
       <img class="dir-modal__photo" src="{i['image']}" alt="" loading="lazy">
       <p class="dir-modal__text">{i['short']}</p>
@@ -143,72 +164,6 @@ def internship_dir_modal(i: dict, with_schedule: bool) -> str:
   </div>
 </div>'''
 
-
-INTERNSHIP_APPLY_MODAL = '''<div class="modal" id="intern-apply" hidden>
-  <div class="modal__dialog modal__dialog--form" role="dialog" aria-modal="true" aria-labelledby="intern-apply-title">
-    <button class="modal__close" type="button" data-modal-close aria-label="Закрыть">&times;</button>
-    <h2 class="modal__title" id="intern-apply-title">Анкета отклика</h2>
-    <form class="apply-form" data-mock-form>
-      <div class="apply-form__body" data-form-body>
-        <div class="apply-form__grid">
-          <label class="field"><span class="field__label">Фамилия*</span>
-            <input class="field__input" name="lastname" required></label>
-          <label class="field"><span class="field__label">Имя*</span>
-            <input class="field__input" name="firstname" required></label>
-          <label class="field"><span class="field__label">Отчество*</span>
-            <input class="field__input" name="middlename" required></label>
-          <fieldset class="field field--radios"><legend class="field__label">Пол*</legend>
-            <label class="radio"><input type="radio" name="gender" value="m" required>Мужской</label>
-            <label class="radio"><input type="radio" name="gender" value="f">Женский</label>
-          </fieldset>
-          <label class="field"><span class="field__label">Дата рождения*</span>
-            <input class="field__input" name="birthday" type="date" required></label>
-          <label class="field"><span class="field__label">Телефон*</span>
-            <input class="field__input" name="phone" type="tel" required></label>
-          <label class="field"><span class="field__label">Email*</span>
-            <input class="field__input" name="email" type="email" required></label>
-          <label class="field"><span class="field__label">Гражданство*</span>
-            <input class="field__input" name="citizenship" required></label>
-          <label class="field"><span class="field__label">Образование*</span>
-            <input class="field__input" name="education" required></label>
-          <label class="field"><span class="field__label">Учебное заведение*</span>
-            <input class="field__input" name="university" required></label>
-          <label class="field"><span class="field__label">Факультет*</span>
-            <input class="field__input" name="faculty" required></label>
-          <label class="field"><span class="field__label">Год окончания обучения*</span>
-            <input class="field__input" name="gradyear" required></label>
-        </div>
-        <label class="field"><span class="field__label">Дополнительная информация*</span>
-          <textarea class="field__input field__textarea" name="about" required></textarea>
-          <span class="field__hint">Здесь можно написать про курсы, специальности или что-то важное о себе.</span>
-        </label>
-        <div class="field">
-          <span class="field__label">Резюме (файлом/ссылкой)</span>
-          <label class="drop-zone">
-            <input type="file" name="resume" accept=".docx,.pdf">
-            <span class="drop-zone__hint">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 13V3m0 0L6 7m4-4 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 13v2.5A1.5 1.5 0 0 0 5.5 17h9a1.5 1.5 0 0 0 1.5-1.5V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-              Перетащите файл
-            </span>
-          </label>
-          <span class="field__hint">Максимальный размер файла до 4 Мб. Разрешённые форматы: .docx .pdf</span>
-        </div>
-        <label class="checkbox">
-          <input type="checkbox" name="agreement" required>
-          Я даю согласие на обработку персональных данных
-        </label>
-        <div class="apply-form__foot">
-          <button class="btn btn--accent" type="submit">отправить отклик</button>
-        </div>
-      </div>
-      <div class="apply-form__success" data-form-success hidden>
-        <h3>Спасибо, мы получили Ваш отклик!</h3>
-        <p>Ответим на почту, как только закончим его рассматривать.</p>
-        <a class="btn btn--outline" href="index-1.html">вернуться на главную</a>
-      </div>
-    </form>
-  </div>
-</div>'''
 
 
 def render_event_card(e: dict) -> str:
@@ -309,11 +264,130 @@ def vacancy_href(v: dict, apply_form: bool = False) -> str:
     return f'vacancy{"-apply" if apply_form else ""}{suffix}.html'
 
 
+def _apply_success(note: str) -> str:
+    return f'''<div class="apply-form__success" data-form-success hidden>
+        <h3>Спасибо, мы получили Ваш отклик!</h3>
+        <p>{note}</p>
+        <a class="btn btn--outline" href="index-1.html">вернуться на главную</a>
+      </div>'''
+
+
+AGREE = '''<label class="checkbox">
+          <input type="checkbox" name="agreement" required>
+          Ознакомлен(а) с <a href="#" style="color: inherit;">Политикой конфиденциальности</a>.
+          Продолжая формирование анкеты-резюме, я соглашаюсь на обработку персональных данных.
+        </label>'''
+
+
+def field(label: str, name: str, type_: str = 'text', required: bool = True, hint: str = '') -> str:
+    req = ' required' if required else ''
+    return (f'<label class="field"><span class="field__label">{label}{"*" if required else ""}</span>\n'
+            f'<input class="field__input" name="{name}" type="{type_}"{req}></label>'
+            + (f'<span class="field__hint">{hint}</span>' if hint else ''))
+
+
+def radio_group(label: str, name: str, options: list, required: bool = True) -> str:
+    req = ' required' if required else ''
+    radios = ''.join(f'<label class="radio"><input type="radio" name="{name}" value="{v}"{req}>{t}</label>'
+                     for t, v in options)
+    return (f'<fieldset class="field field--radios field--stack"><legend class="field__label">{label}*</legend>\n'
+            f'{radios}</fieldset>')
+
+
+# Анкета отклика на вакансию (варфрейм 1:17360 — «вариант с персональными данными»)
+VACANCY_APPLY_MODAL = f'''<div class="modal" id="vac-apply" hidden>
+  <div class="modal__dialog modal__dialog--form" role="dialog" aria-modal="true" aria-labelledby="vac-apply-title">
+    <button class="modal__close" type="button" data-modal-close aria-label="Закрыть">&times;</button>
+    <h2 class="modal__title" id="vac-apply-title">Анкета отклика</h2>
+    <form class="apply-form" data-mock-form>
+      <div class="apply-form__body" data-form-body>
+        <div class="apply-form__grid">
+          {field('Фамилия', 'lastname')}
+          {field('Имя', 'firstname')}
+          {field('Отчество', 'middlename')}
+          {radio_group('Пол', 'gender', [('Мужской', 'm'), ('Женский', 'f')])}
+          {field('Дата рождения', 'birthday', 'date')}
+          {field('Телефон', 'phone', 'tel')}
+          {field('Email', 'email', 'email')}
+          {field('Гражданство', 'citizenship')}
+          {field('Образование', 'education')}
+          {field('Учебное заведение', 'university')}
+          {field('Факультет', 'faculty')}
+          {field('Год окончания обучения', 'gradyear')}
+        </div>
+        <label class="field"><span class="field__label">Дополнительная информация*</span>
+          <textarea class="field__input field__textarea" name="about" required></textarea>
+          <span class="field__hint">Здесь можно написать про курсы, специальности или что-то важное о себе, если работаете и учитесь.</span>
+        </label>
+        <div class="field">
+          <span class="field__label">Резюме (файлом/ссылкой)</span>
+          <label class="drop-zone">
+            <input type="file" name="resume" accept=".docx,.pdf">
+            <span class="drop-zone__hint">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 13V3m0 0L6 7m4-4 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 13v2.5A1.5 1.5 0 0 0 5.5 17h9a1.5 1.5 0 0 0 1.5-1.5V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              Перетащите файл
+            </span>
+          </label>
+          <span class="field__hint">Максимальный размер файла до 4 Мб. Разрешённые форматы файлов: .docx .pdf</span>
+        </div>
+        {AGREE}
+        <div class="apply-form__foot">
+          <button class="btn btn--accent" type="submit">отправить отклик</button>
+        </div>
+      </div>
+      {_apply_success('Ответим на почту, как только закончим его рассматривать.')}
+    </form>
+  </div>
+</div>'''
+
+
+# Анкета заявки на практику/стажировку (варфреймы 1:18201/1:18628/1:19063 —
+# условные ветки «Статус образования» и «Наличие опыта работы»)
+INTERNSHIP_APPLY_MODAL = f'''<div class="modal" id="intern-apply" hidden>
+  <div class="modal__dialog modal__dialog--form" role="dialog" aria-modal="true" aria-labelledby="intern-apply-title">
+    <button class="modal__close" type="button" data-modal-close aria-label="Закрыть">&times;</button>
+    <h2 class="modal__title" id="intern-apply-title">Анкета отклика</h2>
+    <form class="apply-form" data-mock-form>
+      <div class="apply-form__body" data-form-body>
+        <div class="apply-form__grid">
+          {field('Фамилия', 'lastname')}
+          {field('Имя', 'firstname')}
+          {field('Отчество', 'middlename')}
+          {radio_group('Пол', 'gender', [('Мужской', 'm'), ('Женский', 'f')])}
+          {field('Дата рождения', 'birthday', 'date')}
+          {field('Гражданство', 'citizenship')}
+          {field('Телефон', 'phone', 'tel')}
+          {field('Email', 'email', 'email')}
+          {radio_group('Статус образования', 'edustatus', [('В процессе обучения', 'student'), ('Завершил обучение', 'graduated')])}
+          {field('Учебное заведение', 'university')}
+          {field('Специальность', 'specialty')}
+          {field('Курс обучения', 'course')}
+          {radio_group('Наличие опыта работы', 'workexp', [('Да', 'yes'), ('Нет', 'no')])}
+        </div>
+        <div class="apply-form__grid" data-cond="workexp=yes" hidden>
+          {field('Место работы', 'workplace')}
+          {field('Должность', 'workposition')}
+          {field('Период работы', 'workperiod')}
+        </div>
+        <label class="field"><span class="field__label">Дополнительная информация*</span>
+          <textarea class="field__input field__textarea" name="about" required></textarea>
+          <span class="field__hint">Здесь можно написать про курсы, стажировку или что-то важное о себе, если работали и учитесь.</span>
+        </label>
+        {AGREE}
+        <div class="apply-form__foot">
+          <button class="btn btn--accent" type="submit">отправить отклик</button>
+        </div>
+      </div>
+      {_apply_success('Ответим на почту, как только закончим его рассматривать.')}
+    </form>
+  </div>
+</div>'''
+
+
 def render_vacancy_detail(v: dict) -> str:
     """Карточка вакансии (варфрейм desktop/offers.card): секции текста + «Где работать»
-    + адрес + дата и «откликнуться», раскрывающая инлайн-форму с email."""
+    + адрес + дата; «откликнуться» открывает анкету отклика (1:17360)."""
     title = escape(v['title'])
-    n = VAC['items'].index(v) + 1
     requirements = [
         'Опыт работы: ' + escape(v['experience']).lower() + ' — или готовность быстро освоить профиль;',
         'Профильное техническое или экономическое образование (для рабочих позиций — среднее специальное);',
@@ -357,29 +431,11 @@ def render_vacancy_detail(v: dict) -> str:
 
       <footer class="vacancy-page__foot">
         <time class="vacancy-page__date">{CAL}{v['date']}</time>
-        <button class="pill-btn" type="button" data-reveal="#vac-apply-{n}">
-          <span class="pill-btn__label">откликнуться</span>
-          <span class="pill-btn__icon">{ARROW}</span>
-        </button>
+        {pill_btn('откликнуться', extra='data-modal-open="vac-apply"')}
       </footer>
-
-      <form id="vac-apply-{n}" class="vac-inline" data-mock-form hidden>
-        <div class="vac-inline__body" data-form-body>
-          <h2>Оставьте свою почту, чтобы мы могли связаться с вами</h2>
-          <div class="vac-inline__row">
-            <label class="field field--inline">
-              <input class="field__input" type="email" name="email" required placeholder="email@email.ru" aria-label="Email">
-            </label>
-            {pill_btn('свяжитесь со мной')}
-          </div>
-        </div>
-        <div class="vac-inline__success" data-form-success hidden>
-          <h2>Спасибо, мы получили Ваш отклик!</h2>
-          <p>Ответим на почту, как только закончим его рассматривать.</p>
-          <a class="btn btn--outline" href="vacancies.html">к списку вакансий</a>
-        </div>
-      </form>
     </article>
+
+    {VACANCY_APPLY_MODAL}
   </div>
 </section>'''
 
@@ -633,7 +689,8 @@ INNER_PAGES = [
         'title': 'Вакансии — Портал карьеры Интер РАО',
         'crumbs': [('Главная', 'index-1.html'), ('Вакансии', None)],
         'frag': 'vacancies.html',
-        'replaces': {'<!-- VACANCY_CARDS -->': vacancy_cards(), '{{TOTAL}}': str(VAC['total'])},
+        'replaces': {'<!-- VACANCY_CARDS -->': vacancy_cards(), '{{TOTAL}}': str(VAC['total']),
+                     '<!-- VACANCY_APPLY_MODAL -->': VACANCY_APPLY_MODAL},
     },
     {
         'out': 'vacancy.html',
@@ -641,6 +698,7 @@ INNER_PAGES = [
         'crumbs': [('Главная', 'index-1.html'), ('Вакансии', 'vacancies.html'),
                    ('Ведущий инженер по эксплуатации энергоблоков', None)],
         'frag': 'vacancy.html',
+        'replaces': {'<!-- VACANCY_APPLY_MODAL -->': VACANCY_APPLY_MODAL},
     },
     {
         'out': 'vacancy-apply.html',
@@ -665,8 +723,12 @@ INNER_PAGES = [
             '{{TAB_INTERNSHIP_ACTIVE}}': ' is-active',
             '{{TAB_INTERNSHIP_SELECTED}}': 'true',
             '{{CHIP_ALL_ACTIVE}}': '',
-            '<!-- INTERNSHIP_CARDS -->': internship_cards(True),
-            '<!-- INTERNSHIP_DIR_MODALS -->': '\n'.join(internship_dir_modal(i, True) for i in INT['internship']['items']),
+            '{{SET_PRACTICE_HIDDEN}}': 'hidden',
+            '{{SET_INTERNSHIP_HIDDEN}}': '',
+            '<!-- INTERNSHIP_CARDS -->': internship_cards(False),
+            '<!-- INTERNSHIP_CARDS_ALT -->': internship_cards(True),
+            '<!-- INTERNSHIP_DIR_MODALS -->': '\n'.join(internship_dir_modal(i, False) for i in INT['practice']['items']),
+            '<!-- INTERNSHIP_DIR_MODALS_ALT -->': '\n'.join(internship_dir_modal(i, True) for i in INT['internship']['items']),
             '<!-- INTERNSHIP_APPLY_MODAL -->': INTERNSHIP_APPLY_MODAL,
             '<!-- INTERNSHIP_ADV_IMG -->': INT['internship']['advantages_companies']['image'],
             '<!-- INTERNSHIP_ADV_TEXT -->': INT['internship']['advantages_companies']['text'],
@@ -694,8 +756,12 @@ INNER_PAGES = [
             '{{TAB_INTERNSHIP_ACTIVE}}': '',
             '{{TAB_INTERNSHIP_SELECTED}}': 'false',
             '{{CHIP_ALL_ACTIVE}}': ' is-active',
+            '{{SET_PRACTICE_HIDDEN}}': '',
+            '{{SET_INTERNSHIP_HIDDEN}}': 'hidden',
             '<!-- INTERNSHIP_CARDS -->': internship_cards(False),
+            '<!-- INTERNSHIP_CARDS_ALT -->': internship_cards(True),
             '<!-- INTERNSHIP_DIR_MODALS -->': '\n'.join(internship_dir_modal(i, False) for i in INT['practice']['items']),
+            '<!-- INTERNSHIP_DIR_MODALS_ALT -->': '\n'.join(internship_dir_modal(i, True) for i in INT['internship']['items']),
             '<!-- INTERNSHIP_APPLY_MODAL -->': INTERNSHIP_APPLY_MODAL,
             '<!-- INTERNSHIP_ADV_IMG -->': INT['practice']['advantages_companies']['image'],
             '<!-- INTERNSHIP_ADV_TEXT -->': INT['practice']['advantages_companies']['text'],

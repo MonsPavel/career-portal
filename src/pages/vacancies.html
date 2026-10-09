@@ -29,10 +29,15 @@
         <div class="vac-side__group">
           <label class="vac-side__dd">
             <select name="direction" aria-label="Направления">
-              <option selected>Все направления</option>
-              <option>Энергетика и электротехника</option>
+              <option value="" selected>Все направления</option>
+              <option>Электроэнергетика</option>
+              <option>Теплоэнергетика</option>
               <option>Информационные технологии</option>
               <option>Экономика и управление</option>
+              <option>Машиностроение</option>
+              <option>Юриспруденция</option>
+              <option>Техносферная безопасность</option>
+              <option>Промышленное и гражданское строительство</option>
             </select>
             <svg class="vacancy-search__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 6l5 4 5-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </label>
@@ -41,11 +46,13 @@
         <div class="vac-side__group">
           <label class="vac-side__dd">
             <select name="segment" aria-label="Сервисы">
-              <option selected>Все сервисы</option>
+              <option value="" selected>Все сервисы</option>
               <option>Генерация</option>
-              <option>Теплогенерация</option>
-              <option>Энергосбыт</option>
+              <option>Инжиниринг</option>
+              <option>Розничный бизнес</option>
               <option>Сервисы</option>
+              <option>Энергомашиностроение</option>
+              <option>Корпоративный центр</option>
             </select>
             <svg class="vacancy-search__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 6l5 4 5-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </label>
@@ -54,10 +61,18 @@
         <div class="vac-side__group">
           <label class="vac-side__dd">
             <select name="company" aria-label="Компания">
-              <option selected>Все компании</option>
+              <option value="" selected>Все компании</option>
+              <option>ПАО «Интер РАО»</option>
               <option>АО «Интер РАО – Электрогенерация»</option>
-              <option>АО «Интер РАО – Энергосбыт»</option>
+              <option>АО «Мосэнергосбыт»</option>
+              <option>ООО «Интер РАО – ИТ»</option>
+              <option>ООО «Интер РАО – Цифровые решения»</option>
               <option>АО «Интер РАО – Инжиниринг»</option>
+              <option>ПАО «Уральский турбинный завод»</option>
+              <option>АО «БашРТС»</option>
+              <option>АО «Интер РАО – ТГК-11»</option>
+              <option>ПАО «Саратовэнерго»</option>
+              <option>АО «Томская генерация»</option>
             </select>
             <svg class="vacancy-search__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 6l5 4 5-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </label>
@@ -66,11 +81,16 @@
         <div class="vac-side__group">
           <label class="vac-side__dd">
             <select name="position" aria-label="Должность">
-              <option selected>Все должности</option>
+              <option value="" selected>Все должности</option>
+              <option>Ведущий</option>
               <option>Инженер</option>
               <option>Специалист</option>
               <option>Менеджер</option>
-              <option>Рабочий персонал</option>
+              <option>Аналитик</option>
+              <option>Оператор</option>
+              <option>Электромонтёр</option>
+              <option>Слесарь</option>
+              <option>Юрист</option>
             </select>
             <svg class="vacancy-search__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 6l5 4 5-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </label>
@@ -78,10 +98,9 @@
 
         <fieldset class="vac-side__group vac-side__radios">
           <legend class="vac-side__label">Опыт</legend>
-          <label class="radio"><input type="radio" name="exp">Без опыта</label>
-          <label class="radio"><input type="radio" name="exp">От 1 до 3 лет</label>
-          <label class="radio"><input type="radio" name="exp">От 3 до 6 лет</label>
-          <label class="radio"><input type="radio" name="exp">От 6 лет</label>
+          <label class="radio"><input type="radio" name="exp" value="Без опыта">Без опыта</label>
+          <label class="radio"><input type="radio" name="exp" value="От 1 года">От 1 года</label>
+          <label class="radio"><input type="radio" name="exp" value="От 3 лет">От 3 лет</label>
         </fieldset>
 
         <div class="vac-side__group">
@@ -139,5 +158,7 @@
         </nav>
       </div>
     </div>
+
+    <!-- VACANCY_APPLY_MODAL -->
   </div>
 </section>

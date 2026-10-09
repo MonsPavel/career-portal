@@ -53,5 +53,21 @@
       if (e.key !== 'Escape') return;
       document.querySelectorAll('.modal:not([hidden])').forEach(close);
     });
+
+    // [data-cond="name=value"] — блок виден, только если отмечен radio name=value
+    // (условные ветки анкеты: «Наличие опыта работы — Да» раскрывает поля места работы)
+    document.querySelectorAll('[data-cond]').forEach(function (el) {
+      var pair = el.getAttribute('data-cond').split('=');
+      var form = el.closest('form');
+      if (!form) return;
+      function update() {
+        var radio = form.querySelector('input[type="radio"][name="' + pair[0] + '"][value="' + pair[1] + '"]');
+        el.hidden = !(radio && radio.checked);
+      }
+      form.querySelectorAll('input[type="radio"][name="' + pair[0] + '"]').forEach(function (r) {
+        r.addEventListener('change', update);
+      });
+      update();
+    });
   });
 })();

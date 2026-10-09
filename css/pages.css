@@ -148,6 +148,7 @@
 .vac-rows { display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; }
 
 .vac-row {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1053,16 +1054,13 @@
   text-transform: uppercase;
   letter-spacing: 0.02em;
   color: var(--color-primary);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .adv-marquee__line--bar { font-size: 18px; }
 
 .adv-marquee__line--sm { font-size: 13px; font-weight: var(--fw-small); }
 
-.adv-marquee__line--xl { font-size: 40px; padding: 16px 20px; letter-spacing: 0; }
+.adv-marquee__line--xl { font-size: 40px; padding: 16px 20px; letter-spacing: 0; white-space: normal; line-height: 1.15; }
 
 .adv-marquee__body { display: flex; flex-direction: column; gap: 20px; }
 

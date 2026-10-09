@@ -135,7 +135,9 @@ def internship_dir_modal(i: dict, with_schedule: bool) -> str:
     suffix = 'i' if with_schedule else 'p'
     tasks = ''.join(
         f'''<div class="faq__item">
-  <button class="faq__q" type="button" aria-expanded="false"><span>{t}</span></button>
+  <button class="faq__q" type="button">{t}
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 6l5 4 5-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
   <div class="faq__a"><div class="faq__a-inner">
     <p>{t}</p>
     <ul class="dir-modal__skills">{''.join(f'<li>{s}</li>' for s in skills)}</ul>
@@ -668,10 +670,10 @@ def student_subnav(active_label: str) -> str:
         active_class = ' is-active' if is_active else ''
         current = ' aria-current="page"' if is_active else ''
         links.append(
-            f'<a class="intern-menu__item{active_class}" href="{href}"{current}>{label}</a>'
+            f'<a class="tabs-pill__tab{active_class}" href="{href}"{current}>{label}</a>'
         )
     return (
-        '<nav class="intern-menu" aria-label="Разделы школьникам и студентам">\n'
+        '<nav class="tabs-pill" aria-label="Разделы школьникам и студентам">\n'
         + '\n'.join(links)
         + '\n</nav>'
     )

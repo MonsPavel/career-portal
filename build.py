@@ -78,21 +78,137 @@ def render_vacancy_card(v: dict) -> str:
 
 
 def render_internship_card(i: dict, with_schedule: bool = False) -> str:
-    paid = '<span class="tag tag--orange">Оплачиваемая</span>' if i.get('paid') else ''
+    source = INT['internship']['items'] if with_schedule else INT['practice']['items']
+    idx = source.index(i)
+    paid = '<span class="tag tag--orange">оплачиваемая</span>' if i.get('paid') else ''
     sched = f'<span class="tag tag--blue">{i["schedule"]}</span>' if with_schedule and i.get('schedule') else ''
-    return f'''<article class="card card--hover card--filled intern-card">
-  <img class="intern-card__photo" src="{i['image']}" alt="" loading="lazy">
+    return f'''<button class="dir-card card card--hover" type="button" data-modal-open="intern-dir-{idx + 1}">
+  <div class="dir-card__tags">{paid}{sched}</div>
+  <h3 class="dir-card__title">{i['title']}</h3>
+  <p class="dir-card__short">{i['short']}</p>
+</button>'''
+
+
+def render_internship_related(i: dict, with_schedule: bool = False) -> str:
+    """Связанная практика/стажировка в статье: карточка-ссылка (без модалок)."""
+    paid = '<span class="tag tag--orange">оплачиваемая</span>' if i.get('paid') else ''
+    href = 'internships.html' if with_schedule else 'practices.html'
+    return f'''<a class="card card--hover intern-card" href="{href}" style="text-decoration: none;">
   <div class="intern-card__body">
+    <div class="intern-card__tags">{paid}</div>
     <h3 class="intern-card__title">{i['title']}</h3>
     <p class="intern-card__short">{i['short']}</p>
-    <div class="intern-card__tags">{paid}{sched}</div>
-    <div class="intern-card__meta">
-      <span class="intern-card__company">{i['company']}</span>
-      <span class="intern-card__city">{i['city']}</span>
-    </div>
-    <a class="intern-card__more" href="internship.html">подробнее {ARROW}</a>
   </div>
-</article>'''
+</a>'''
+
+
+DIR_TASKS = [
+    ('Ведение оперативных переключений и контроль параметров оборудования',
+     ['знание схемы объекта', 'работа с оперативной документацией', 'внимательность к деталям']),
+    ('Подготовка рабочего места и допуск бригад к ремонту',
+     ['организационные навыки', 'знание норм охраны труда']),
+    ('Анализ показателей работы установки за отчётный период',
+     ['работа с таблицами', 'аналитическое мышление']),
+    ('Участие в приёмо-сдаточных испытаниях нового оборудования',
+     ['техническая грамотность', 'работа в команде']),
+]
+
+
+def internship_dir_modal(i: dict, with_schedule: bool) -> str:
+    source = INT['internship']['items'] if with_schedule else INT['practice']['items']
+    idx = source.index(i)
+    tasks = ''.join(
+        f'''<div class="faq__item">
+  <button class="faq__q" type="button" aria-expanded="false"><span>{t}</span></button>
+  <div class="faq__a"><div class="faq__a-inner">
+    <p>{t}</p>
+    <ul class="dir-modal__skills">{''.join(f'<li>{s}</li>' for s in skills)}</ul>
+  </div></div>
+</div>''' for t, skills in DIR_TASKS)
+    return f'''<div class="modal" id="intern-dir-{idx + 1}" hidden>
+  <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="intern-dir-{idx + 1}-title">
+    <button class="modal__close" type="button" data-modal-close aria-label="Закрыть">&times;</button>
+    <h2 class="modal__title" id="intern-dir-{idx + 1}-title">{i['title']}</h2>
+    <div class="dir-modal">
+      <img class="dir-modal__photo" src="{i['image']}" alt="" loading="lazy">
+      <p class="dir-modal__text">{i['short']}</p>
+    </div>
+    <div class="dir-modal__tasks" data-faq>
+      <h3>Примеры задач, над которыми ты будешь работать:</h3>
+      {tasks}
+    </div>
+    <div class="dir-modal__foot">
+      <button class="btn btn--accent" type="button" data-modal-open="intern-apply">подать заявку</button>
+    </div>
+  </div>
+</div>'''
+
+
+INTERNSHIP_APPLY_MODAL = '''<div class="modal" id="intern-apply" hidden>
+  <div class="modal__dialog modal__dialog--form" role="dialog" aria-modal="true" aria-labelledby="intern-apply-title">
+    <button class="modal__close" type="button" data-modal-close aria-label="Закрыть">&times;</button>
+    <h2 class="modal__title" id="intern-apply-title">Анкета отклика</h2>
+    <form class="apply-form" data-mock-form>
+      <div class="apply-form__body" data-form-body>
+        <div class="apply-form__grid">
+          <label class="field"><span class="field__label">Фамилия*</span>
+            <input class="field__input" name="lastname" required></label>
+          <label class="field"><span class="field__label">Имя*</span>
+            <input class="field__input" name="firstname" required></label>
+          <label class="field"><span class="field__label">Отчество*</span>
+            <input class="field__input" name="middlename" required></label>
+          <fieldset class="field field--radios"><legend class="field__label">Пол*</legend>
+            <label class="radio"><input type="radio" name="gender" value="m" required>Мужской</label>
+            <label class="radio"><input type="radio" name="gender" value="f">Женский</label>
+          </fieldset>
+          <label class="field"><span class="field__label">Дата рождения*</span>
+            <input class="field__input" name="birthday" type="date" required></label>
+          <label class="field"><span class="field__label">Телефон*</span>
+            <input class="field__input" name="phone" type="tel" required></label>
+          <label class="field"><span class="field__label">Email*</span>
+            <input class="field__input" name="email" type="email" required></label>
+          <label class="field"><span class="field__label">Гражданство*</span>
+            <input class="field__input" name="citizenship" required></label>
+          <label class="field"><span class="field__label">Образование*</span>
+            <input class="field__input" name="education" required></label>
+          <label class="field"><span class="field__label">Учебное заведение*</span>
+            <input class="field__input" name="university" required></label>
+          <label class="field"><span class="field__label">Факультет*</span>
+            <input class="field__input" name="faculty" required></label>
+          <label class="field"><span class="field__label">Год окончания обучения*</span>
+            <input class="field__input" name="gradyear" required></label>
+        </div>
+        <label class="field"><span class="field__label">Дополнительная информация*</span>
+          <textarea class="field__input field__textarea" name="about" required></textarea>
+          <span class="field__hint">Здесь можно написать про курсы, специальности или что-то важное о себе.</span>
+        </label>
+        <div class="field">
+          <span class="field__label">Резюме (файлом/ссылкой)</span>
+          <label class="drop-zone">
+            <input type="file" name="resume" accept=".docx,.pdf">
+            <span class="drop-zone__hint">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 13V3m0 0L6 7m4-4 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 13v2.5A1.5 1.5 0 0 0 5.5 17h9a1.5 1.5 0 0 0 1.5-1.5V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              Перетащите файл
+            </span>
+          </label>
+          <span class="field__hint">Максимальный размер файла до 4 Мб. Разрешённые форматы: .docx .pdf</span>
+        </div>
+        <label class="checkbox">
+          <input type="checkbox" name="agreement" required>
+          Я даю согласие на обработку персональных данных
+        </label>
+        <div class="apply-form__foot">
+          <button class="btn btn--accent" type="submit">отправить отклик</button>
+        </div>
+      </div>
+      <div class="apply-form__success" data-form-success hidden>
+        <h3>Спасибо, мы получили Ваш отклик!</h3>
+        <p>Ответим на почту, как только закончим его рассматривать.</p>
+        <a class="btn btn--outline" href="index-1.html">вернуться на главную</a>
+      </div>
+    </form>
+  </div>
+</div>'''
 
 
 def render_event_card(e: dict) -> str:
@@ -313,21 +429,34 @@ def internship_cards(with_schedule: bool) -> str:
 
 
 def steps_html(steps: list) -> str:
+    """Горизонтальный таймлайн этапов (варфрейм «Как попасть на практику»)."""
+    n = len(steps)
     return '\n'.join(
-        f'<div class="step"><div class="step__num">{i+1}</div><div class="step__body">'
-        f'<div class="step__title">{s["title"]}</div><div class="step__text">{s["text"]}</div></div></div>'
-        for i, s in enumerate(steps))
+        f'<div class="timeline__stage">'
+        f'<div class="timeline__dot" style="--i:{i}">{i + 1}</div>'
+        f'<div class="timeline__title">{s["title"]}</div>'
+        f'<div class="timeline__text">{s["text"]}</div></div>'
+        for i, s in enumerate(steps)) + (
+        f'<div class="timeline__track" aria-hidden="true" style="--n:{n}"></div>')
+
+
+INTERN_PHOTOS = ['assets/images/students-photo-1.jpg', 'assets/images/students-photo-2.jpg',
+                 'assets/images/students-photo-3.jpg', 'assets/images/tag-photo-1.png']
 
 
 def interns_html(interns: list) -> str:
-    return '\n'.join(
-        f'''<article class="card card--hover intern-card">
-  <div class="intern-card__body">
-    <div class="intern__name">{p['name']}</div>
-    <div class="intern__tags">{''.join(f'<span class="tag tag--blue">{t}</span>' for t in p['tags'])}</div>
-    <p class="intern-card__short">{p['short']}</p>
-  </div>
-</article>''' for p in interns)
+    """Карточки стажёров/практикантов с фото (варфрейм: карусель знакомств)."""
+    cards = []
+    for i, p in enumerate(interns):
+        photo = p.get('photo') or INTERN_PHOTOS[i % len(INTERN_PHOTOS)]
+        tags = ''.join(f'<span class="tag tag--blue">{t}</span>' for t in p['tags'])
+        cards.append(f'''<article class="intern-person card card--hover">
+  <div class="intern-person__photo-wrap"><img class="intern-person__photo" src="{photo}" alt="" loading="lazy"></div>
+  <div class="intern-person__name">{p['name']}</div>
+  <div class="intern-person__tags">{tags}</div>
+  <p class="intern-person__short">{p['short']}</p>
+</article>''')
+    return '\n'.join(cards)
 
 
 def offer_card(o: dict) -> str:
@@ -531,7 +660,14 @@ INNER_PAGES = [
             '{{PAGE_TITLE|lower}}': 'стажировки',
             '{{PAGE_TITLE_ACC}}': 'стажировку',
             '{{PAGE_SUBTITLE}}': INT['internship']['subtitle'],
+            '{{TAB_PRACTICE_ACTIVE}}': '',
+            '{{TAB_PRACTICE_SELECTED}}': 'false',
+            '{{TAB_INTERNSHIP_ACTIVE}}': ' is-active',
+            '{{TAB_INTERNSHIP_SELECTED}}': 'true',
+            '{{CHIP_ALL_ACTIVE}}': '',
             '<!-- INTERNSHIP_CARDS -->': internship_cards(True),
+            '<!-- INTERNSHIP_DIR_MODALS -->': '\n'.join(internship_dir_modal(i, True) for i in INT['internship']['items']),
+            '<!-- INTERNSHIP_APPLY_MODAL -->': INTERNSHIP_APPLY_MODAL,
             '<!-- INTERNSHIP_ADV_IMG -->': INT['internship']['advantages_companies']['image'],
             '<!-- INTERNSHIP_ADV_TEXT -->': INT['internship']['advantages_companies']['text'],
             '<!-- INTERNSHIP_ADVANTAGES -->': '\n'.join(adv_card(a) for a in INT['internship']['advantages']),
@@ -553,7 +689,14 @@ INNER_PAGES = [
             '{{PAGE_TITLE|lower}}': 'практики',
             '{{PAGE_TITLE_ACC}}': 'практику',
             '{{PAGE_SUBTITLE}}': INT['practice']['subtitle'],
+            '{{TAB_PRACTICE_ACTIVE}}': ' is-active',
+            '{{TAB_PRACTICE_SELECTED}}': 'true',
+            '{{TAB_INTERNSHIP_ACTIVE}}': '',
+            '{{TAB_INTERNSHIP_SELECTED}}': 'false',
+            '{{CHIP_ALL_ACTIVE}}': ' is-active',
             '<!-- INTERNSHIP_CARDS -->': internship_cards(False),
+            '<!-- INTERNSHIP_DIR_MODALS -->': '\n'.join(internship_dir_modal(i, False) for i in INT['practice']['items']),
+            '<!-- INTERNSHIP_APPLY_MODAL -->': INTERNSHIP_APPLY_MODAL,
             '<!-- INTERNSHIP_ADV_IMG -->': INT['practice']['advantages_companies']['image'],
             '<!-- INTERNSHIP_ADV_TEXT -->': INT['practice']['advantages_companies']['text'],
             '<!-- INTERNSHIP_ADVANTAGES -->': '\n'.join(adv_card(a) for a in INT['practice']['advantages']),
@@ -648,8 +791,8 @@ INNER_PAGES = [
         'frag': 'article.html',
         'replaces': {
             '<!-- ARTICLE_RELATED_VACANCIES -->': '\n'.join(render_vacancy_card(v) for v in VAC['items'][:3]),
-            '<!-- ARTICLE_RELATED_PRACTICES -->': internship_cards(False),
-            '<!-- ARTICLE_RELATED_INTERNSHIPS -->': internship_cards(True),
+            '<!-- ARTICLE_RELATED_PRACTICES -->': '\n'.join(render_internship_related(i, False) for i in INT['practice']['items'][:3]),
+            '<!-- ARTICLE_RELATED_INTERNSHIPS -->': '\n'.join(render_internship_related(i, True) for i in INT['internship']['items'][:3]),
             '<!-- ARTICLE_RELATED_EDUCAT -->': '\n'.join(offer_card(o) for o in EDU['offers'][:3]),
         },
     },

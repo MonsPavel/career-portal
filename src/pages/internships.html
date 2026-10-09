@@ -1,43 +1,52 @@
-<section class="section" style="padding-top: 0;">
+<section class="section" style="padding-bottom: 0;">
   <div class="container">
-    <div class="intern-hero">
+    <div class="cover-hero">
       <h1 class="page-title">{{PAGE_TITLE}}</h1>
       <p class="page-subtitle">{{PAGE_SUBTITLE}}</p>
+      <a class="btn btn--primary" href="#directions">смотреть {{PAGE_TITLE|lower}}</a>
     </div>
 
     <!-- STUDENT_SUBNAV -->
   </div>
 </section>
 
-<section class="section">
+<section class="section" style="padding-top: 24px;">
   <div class="container">
-    <h2 class="section__title">Найдите свою {{PAGE_TITLE_ACC}}</h2>
+    <div class="tabs-pill" role="tablist" aria-label="Практика или стажировка">
+      <a class="tabs-pill__tab{{TAB_PRACTICE_ACTIVE}}" href="practices.html" role="tab" aria-selected="{{TAB_PRACTICE_SELECTED}}">практика</a>
+      <a class="tabs-pill__tab{{TAB_INTERNSHIP_ACTIVE}}" href="internships.html" role="tab" aria-selected="{{TAB_INTERNSHIP_SELECTED}}">стажировка</a>
+    </div>
+  </div>
+</section>
 
-    <div class="intern-filters">
-      <label class="vacancy-search__select-wrap">
-        <select class="vacancy-search__select" name="region" aria-label="Регион">
-          <option value="" selected>Регион</option>
-          <option>Москва</option><option>Санкт-Петербург</option><option>Свердловская область</option>
+<section class="section" id="directions">
+  <div class="container">
+    <div class="dir-head">
+      <h2 class="section__title" style="margin-bottom: 0;">Выбери свой город и направление</h2>
+      <label class="vac-side__dd">
+        <select name="city" aria-label="Город">
+          <option selected>все города</option>
+          <option>Москва</option>
+          <option>Санкт-Петербург</option>
+          <option>Екатеринбург</option>
+          <option>Омск</option>
         </select>
-        <svg class="vacancy-search__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 6l5 4 5-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </label>
-      <label class="vacancy-search__select-wrap">
-        <select class="vacancy-search__select" name="city" aria-label="Город">
-          <option value="" selected>Город</option>
-          <option>Москва</option><option>Санкт-Петербург</option><option>Екатеринбург</option>
-        </select>
-        <svg class="vacancy-search__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 6l5 4 5-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </label>
-      <label class="vacancy-search__select-wrap">
-        <select class="vacancy-search__select" name="study" aria-label="Направление подготовки">
-          <option value="" selected>Направление подготовки</option>
-          <option>Энергетика и электротехника</option><option>Машиностроение</option><option>Экономика и управление</option>
-        </select>
-        <svg class="vacancy-search__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 6l5 4 5-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </label>
     </div>
 
-    <div class="cards-grid cards-grid--2">
+    <div class="chip-row">
+      <a class="chip{{CHIP_ALL_ACTIVE}}" href="internships.html">все направления</a>
+      <a class="chip" href="internships.html">экономика и финансы</a>
+      <a class="chip" href="internships.html">атомная энергетика и энергостроительство</a>
+      <a class="chip" href="internships.html">электроэнергетика и электрика</a>
+      <a class="chip" href="internships.html">химические технологии</a>
+      <a class="chip" href="internships.html">теплоэнергетика и теплотехника</a>
+      <a class="chip" href="internships.html">конструирование</a>
+      <a class="chip" href="internships.html">автоматизация технологических процессов и производств</a>
+      <a class="chip" href="internships.html">общие направления</a>
+    </div>
+
+    <div class="cards-grid cards-grid--3">
       <!-- INTERNSHIP_CARDS -->
     </div>
   </div>
@@ -45,10 +54,17 @@
 
 <section class="section">
   <div class="container">
-    <h2 class="section__title">Преимущества компаний</h2>
-    <div class="company-hero company-hero--wide" style="margin-bottom: 0;">
-      <img class="company-hero__photo" src="<!-- INTERNSHIP_ADV_IMG -->" alt="">
-      <p class="company-hero__text" style="margin: 0;"><!-- INTERNSHIP_ADV_TEXT --></p>
+    <div class="adv-marquee">
+      <div class="adv-marquee__type" aria-hidden="true">
+        <span class="adv-marquee__line adv-marquee__line--bar">наше преимущество наше преимущество</span>
+        <span class="adv-marquee__line adv-marquee__line--sm">наше преимущество наше преимущество наше преимущество</span>
+        <span class="adv-marquee__line adv-marquee__line--xl">наше преимущество наше преимущество</span>
+        <span class="adv-marquee__line adv-marquee__line--bar">наше преимущество</span>
+      </div>
+      <div class="adv-marquee__body">
+        <img class="adv-marquee__photo" src="<!-- INTERNSHIP_ADV_IMG -->" alt="">
+        <p class="adv-marquee__text"><!-- INTERNSHIP_ADV_TEXT --></p>
+      </div>
     </div>
   </div>
 </section>
@@ -65,7 +81,7 @@
 <section class="section">
   <div class="container">
     <h2 class="section__title">Как попасть на {{PAGE_TITLE_ACC}}</h2>
-    <div class="steps">
+    <div class="timeline">
       <!-- INTERNSHIP_STEPS -->
     </div>
   </div>
@@ -83,7 +99,7 @@
 <section class="section">
   <div class="container">
     <h2 class="section__title">Наши мероприятия</h2>
-    <div class="cards-grid cards-grid--3">
+    <div class="events-feature">
       <!-- INTERNSHIP_EVENTS -->
     </div>
   </div>
@@ -95,3 +111,7 @@
     <!-- INTERNSHIP_FAQ -->
   </div>
 </section>
+
+<!-- INTERNSHIP_DIR_MODALS -->
+
+<!-- INTERNSHIP_APPLY_MODAL -->

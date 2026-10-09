@@ -122,7 +122,7 @@ body.vi.vi-theme--bb { background: #9DD1FF; }
 
 /* перекраска всех элементов, кроме панели настроек и графики;
    .production__body исключён — на десктопе это прозрачный слой-композиция поверх фото */
-body.vi.vi-theme--bb *:not(.vi-bar):not(.vi-bar *):not(svg):not(path):not(circle):not(rect):not(img):not(video):not(.production__body) {
+body.vi.vi-theme--bb *:not(.vi-bar):not(.vi-bar *):not(svg):not(path):not(circle):not(rect):not(img):not(video):not(.production__body):not(.modal):not(.modal *) {
   background-color: #9DD1FF !important;
   color: #063462 !important;
   box-shadow: none !important;
@@ -139,7 +139,7 @@ body.vi.vi-theme--bb .btn--accent {
 
 /* Бежевая тема: бежевый фон, коричневый текст */
 body.vi.vi-theme--beige { background: #F5E7CE; }
-body.vi.vi-theme--beige *:not(.vi-bar):not(.vi-bar *):not(svg):not(img):not(video):not(.production__body) {
+body.vi.vi-theme--beige *:not(.vi-bar):not(.vi-bar *):not(svg):not(img):not(video):not(.production__body):not(.modal):not(.modal *) {
   background-color: #F5E7CE !important;
   color: #4A3728 !important;
   border-color: #4A3728 !important;
@@ -156,7 +156,7 @@ body.vi.vi-theme--beige .btn--accent {
 
 /* Зелёная тема: зелёный текст на тёмно-коричневом */
 body.vi.vi-theme--green { background: #3B2716; }
-body.vi.vi-theme--green *:not(.vi-bar):not(.vi-bar *):not(svg):not(img):not(video):not(.production__body) {
+body.vi.vi-theme--green *:not(.vi-bar):not(.vi-bar *):not(svg):not(img):not(video):not(.production__body):not(.modal):not(.modal *) {
   background-color: #3B2716 !important;
   color: #4DFF00 !important;
   box-shadow: none !important;

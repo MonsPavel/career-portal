@@ -85,7 +85,11 @@
           if (search) search.value = '';
           document.querySelectorAll('.vac-side [name]').forEach(function (el) {
             if (el.type === 'radio' || el.type === 'checkbox') el.checked = false;
-            else if (el.tagName === 'SELECT') el.selectedIndex = 0;
+            else if (el.tagName === 'SELECT') {
+              el.selectedIndex = 0;
+              // подпись кастомного дропдауна обновляется только по событию change
+              el.dispatchEvent(new Event('change', { bubbles: true }));
+            }
           });
           Object.keys(picked).forEach(function (k) { if (picked[k]) picked[k].hidden = true; });
           apply();

@@ -151,9 +151,9 @@ def internship_dir_modal(i: dict, with_schedule: bool) -> str:
       <img class="dir-modal__photo" src="{i['image']}" alt="" loading="lazy">
       <p class="dir-modal__text">{i['short']}</p>
     </div>
-    <div class="dir-modal__tasks" data-faq>
+    <div class="dir-modal__tasks">
       <h3>Примеры задач, над которыми ты будешь работать:</h3>
-      {tasks}
+      <div class="faq faq--card" data-faq>{tasks}</div>
     </div>
     <div class="dir-modal__foot">
       <button class="btn btn--accent" type="button" data-modal-open="intern-apply">подать заявку</button>

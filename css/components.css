@@ -283,6 +283,14 @@
   overflow: hidden;
 }
 
+/* модификатор: пункты-карточки с обводкой (модалка направления) */
+.faq--card .faq__item {
+  background: var(--color-surface);
+  border: 1px solid #D6D6D6;
+}
+
+.faq--card .faq__q { font-weight: var(--fw-small); }
+
 .faq__q {
   display: flex;
   align-items: center;

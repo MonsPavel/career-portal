@@ -10,117 +10,280 @@
 .cards-grid--3 { grid-template-columns: repeat(3, 1fr); }
 .cards-grid--4 { grid-template-columns: repeat(4, 1fr); gap: 24px; }
 
-/* ---------------------------------------------------------------- вакансии: список */
+/* ---------------------------------------------------------------- вакансии: список (варфрейм desktop/offers) */
 
-.vac-toolbar {
+.page-head--split {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   gap: 24px;
-  margin-bottom: 24px;
 }
 
-.vac-toolbar__count { font-size: var(--fs-body); font-weight: var(--fw-body-bold); color: var(--color-primary); }
+.page-head__note { flex: none; font-size: var(--fs-body); color: var(--color-text-muted); }
 
-.vac-toolbar__sort { display: flex; align-items: center; gap: 12px; }
-
-.vac-toolbar__sort-label { font-size: var(--fs-small-regular); color: var(--color-text-muted); }
-
-.vac-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-bottom: 40px;
+.vac-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 48px;
+  align-items: start;
 }
 
-.vac-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 36px; }
-
-.vac-card {
-  position: relative;
+.vac-side {
+  position: sticky;
+  top: 24px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  padding: 24px;
+  gap: 20px;
 }
 
-.vac-card__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.vac-side__group { display: flex; flex-direction: column; gap: 8px; }
 
-.vac-card__title { font-size: var(--fs-body); font-weight: var(--fw-body-bold); line-height: 1.3; color: var(--color-text); }
+.vac-side__label { font-size: var(--fs-small-regular); color: var(--color-text-muted); }
 
-.vac-card__title a { color: inherit; }
-.vac-card__title a::after { content: ''; position: absolute; inset: 0; border-radius: var(--radius-card); }
-.vac-card__title a:focus-visible::after { outline: 3px solid var(--color-primary); outline-offset: 2px; }
-.vac-card:hover .vac-card__title a { color: var(--color-primary); }
-
-.vac-card__date { flex: 0 0 auto; font-size: var(--fs-small-regular); color: var(--color-text-muted); }
-
-.vac-card__tags { display: flex; flex-wrap: wrap; gap: 8px; }
-
-.vac-card__short { font-size: var(--fs-small-regular); line-height: 1.45; color: var(--color-text-muted); }
-
-.vac-card__meta {
+.vac-side__picked {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 1px solid #D6D6D6;
+  border-radius: var(--radius-small);
   font-size: var(--fs-small-regular);
+  font-weight: var(--fw-small);
+  color: var(--color-text);
 }
 
-.vac-card__company { position: relative; z-index: 1; font-weight: var(--fw-small); color: var(--color-primary); }
-.vac-card__company:hover { color: var(--color-accent); }
-.vac-card__city { color: var(--color-text-muted); }
+.vac-side__x {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: 0;
+  padding: 0;
+  background: none;
+  border-radius: 50%;
+  font-size: 16px;
+  line-height: 1;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
 
-.vac-card__foot {
+.vac-side__x:hover { color: var(--color-accent); }
+
+.vac-side .vacancy-search__select { height: 44px; width: 100%; }
+
+.vac-side__radios { border: 0; padding: 0; margin: 0; }
+
+.vac-side__radios legend { margin-bottom: 8px; padding: 0; }
+
+.radio {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: auto;
+  gap: 10px;
+  font-size: var(--fs-small-regular);
+  color: var(--color-text);
+  cursor: pointer;
 }
 
-.vac-card__salary { font-size: 18px; font-weight: var(--fw-body-bold); color: var(--color-primary); }
+.radio input { width: 18px; height: 18px; accent-color: var(--color-primary); }
 
-.vac-card__foot .btn { position: relative; z-index: 1; }
-
-/* ---------------------------------------------------------------- карточка вакансии */
-
-.vacancy { display: grid; grid-template-columns: 1fr 400px; gap: 48px; align-items: start; }
-
-.vacancy__main { display: flex; flex-direction: column; gap: 32px; }
-
-.vacancy__head { display: flex; flex-direction: column; gap: 16px; }
-
-.vacancy__title { font-size: var(--fs-h2); font-weight: var(--fw-h2); line-height: var(--lh-h2); letter-spacing: -0.02em; color: var(--color-primary); }
-
-.vacancy__salary { font-size: var(--fs-h3); font-weight: 500; color: var(--color-text); }
-
-.vacancy__tags { display: flex; flex-wrap: wrap; gap: 8px; }
-
-.vacancy__company {
+.vac-side__reset {
+  align-self: flex-start;
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  border: 0;
+  padding: 0;
+  background: none;
+  font-size: var(--fs-small-regular);
+  color: var(--color-text-muted);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.vac-side__reset:hover { color: var(--color-accent); }
+
+.vac-side__promo { display: flex; flex-direction: column; gap: 16px; padding: 20px; }
+
+.vac-side__promo p { margin: 0; font-size: var(--fs-small-regular); line-height: 1.45; color: var(--color-text); }
+
+.vac-find { display: flex; gap: 12px; margin-bottom: 24px; }
+
+.vac-find__input {
+  flex: 1;
+  height: 48px;
+  padding: 0 20px;
+  border: 1px solid #D6D6D6;
+  border-radius: var(--radius-pill);
   font-size: var(--fs-body);
-  font-weight: var(--fw-body-bold);
+  color: var(--color-text);
+  background: var(--color-surface);
+}
+
+.vac-find__input::placeholder { color: var(--color-text-muted); }
+
+.chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 16px;
+  border: 1px solid #D6D6D6;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-small-regular);
+  color: var(--color-text);
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+
+.chip:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+.chip.is-active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-text-on-dark);
+}
+
+.vac-rows { display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; }
+
+.vac-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 24px 28px;
+}
+
+.vac-row__main { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+
+.vac-row__title { margin: 0; font-size: 20px; font-weight: var(--fw-body-bold); line-height: 1.3; color: var(--color-text); }
+
+.vac-row__title a { color: inherit; }
+
+.vac-row__title a:hover { color: var(--color-primary); }
+
+.vac-row__place {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-small-regular);
+  color: var(--color-text-muted);
+}
+
+.vac-row__place svg { color: var(--color-primary); }
+
+.vac-row__short {
+  margin: 0;
+  font-size: var(--fs-small-regular);
+  line-height: 1.45;
+  color: var(--color-text-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.vac-row__date {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-small-regular);
+  color: var(--color-text-muted);
+}
+
+/* Пилюля с круглой стрелкой (варфрейм: «откликнуться →») */
+
+.pill-btn {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  height: 44px;
+  padding: 0 6px 0 20px;
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: var(--fw-small);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+
+.pill-btn__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-text-on-dark);
+  transition: background var(--transition);
+}
+
+.pill-btn:hover { background: var(--color-surface-blue-50); }
+
+.pill-btn:hover .pill-btn__icon { background: var(--color-accent); }
+
+.pill-btn--sm { height: 40px; gap: 8px; padding: 0 5px 0 16px; }
+
+.pill-btn--sm .pill-btn__icon { width: 30px; height: 30px; }
+
+/* ---------------------------------------------------------------- карточка вакансии (варфрейм desktop/offers.card) */
+
+.vacancy-page { display: flex; flex-direction: column; gap: 40px; }
+
+.vacancy-page__head { display: flex; flex-direction: column; gap: 12px; }
+
+.vacancy-page__title {
+  margin: 0;
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-h2);
+  line-height: var(--lh-h2);
+  letter-spacing: -0.02em;
   color: var(--color-primary);
 }
 
-.vacancy__company:hover { color: var(--color-accent); }
+.vacancy-page__salary { font-size: 18px; color: var(--color-text-muted); }
 
-.vacancy__section h2 {
-  margin-bottom: 16px;
+.vacancy-page__place,
+.vacancy-page__addr {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-body);
+  color: var(--color-text-muted);
+}
+
+.vacancy-page__place svg,
+.vacancy-page__addr svg { color: var(--color-primary); flex: none; }
+
+.vacancy-page__section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.vacancy-page__section h2 {
+  margin: 0;
   font-size: var(--fs-h4);
   font-weight: var(--fw-h4);
   color: var(--color-primary);
 }
 
-.vacancy__section p { font-size: var(--fs-body); line-height: 1.45; color: var(--color-text); }
+.vacancy-page__section p { margin: 0; font-size: var(--fs-body); line-height: 1.45; color: var(--color-text); }
 
-.vacancy__section ul { display: flex; flex-direction: column; gap: 8px; }
+.vacancy-page__section ul { display: flex; flex-direction: column; gap: 8px; margin: 0; }
 
-.vacancy__section li { position: relative; padding-left: 20px; font-size: var(--fs-body); line-height: 1.45; color: var(--color-text); }
+.vacancy-page__section li { position: relative; padding-left: 20px; font-size: var(--fs-body); line-height: 1.45; color: var(--color-text); }
 
-.vacancy__section li::before {
+.vacancy-page__section li::before {
   content: '';
   position: absolute;
   left: 0;
@@ -131,23 +294,8 @@
   background: var(--color-accent);
 }
 
-.vacancy__aside {
-  position: sticky;
-  top: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 24px;
-  background: var(--color-surface-blue-50);
-  border-radius: var(--radius-card);
-}
-
-.vacancy__aside-title { font-size: var(--fs-h4); font-weight: var(--fw-h4); color: var(--color-primary); }
-
-.vacancy__address { display: flex; flex-direction: column; gap: 4px; font-size: var(--fs-small-regular); color: var(--color-text); }
-
-.vacancy__map {
-  height: 220px;
+.vacancy-page__map {
+  height: 320px;
   border-radius: var(--radius-card);
   background: var(--color-surface-blue-100)
     url('../assets/images/hero-city-1.png') center/cover no-repeat;
@@ -156,7 +304,7 @@
   overflow: hidden;
 }
 
-.vacancy__map::after {
+.vacancy-page__map::after {
   content: 'Карта: интерактивная заглушка (подключается Яндекс.Карты)';
   position: absolute;
   inset: auto 16px 16px;
@@ -167,7 +315,57 @@
   color: var(--color-text-muted);
 }
 
-.vacancy__aside .btn { width: 100%; }
+.vacancy-page__addr { margin: 0; }
+
+.vacancy-page__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.vacancy-page__date {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-small-regular);
+  color: var(--color-text-muted);
+}
+
+/* Инлайн-отклик по email (варфрейм: «Оставьте свою почту…») */
+
+.vac-inline {
+  padding: 32px;
+  background: var(--color-surface-blue-50);
+  border-radius: var(--radius-card);
+}
+
+.vac-inline__body h2,
+.vac-inline__success h2 {
+  margin: 0 0 20px;
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-h4);
+  color: var(--color-primary);
+}
+
+.vac-inline__row { display: flex; gap: 16px; align-items: stretch; max-width: 640px; }
+
+.vac-inline__row .field { flex: 1; }
+
+.vac-inline__row .field__input { height: 44px; border-radius: var(--radius-pill); }
+
+.vac-inline__success p { margin: 0 0 20px; font-size: var(--fs-body); line-height: 1.45; color: var(--color-text); }
+
+@media (max-width: 1200px) {
+  .vac-layout { grid-template-columns: 1fr; gap: 32px; }
+  .vac-side { position: static; }
+}
+
+@media (max-width: 760px) {
+  .vac-row { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .vac-inline__row { flex-direction: column; }
+  .vacancy-page__foot { flex-direction: column; align-items: flex-start; }
+}
 
 /* ---------------------------------------------------------------- формы */
 
@@ -746,3 +944,10 @@
 @media (max-width: 359px) {
   .intern-hero .page-subtitle { min-height: 9.45em; }
 }
+
+/* Сайдбарные дропдауны фильтров (обычный dd, не пилюля) */
+.vac-side__dd { display: block; }
+.vac-side__dd .dd__trigger { height: 44px; border: 1px solid #D6D6D6; background: var(--color-surface); }
+.vac-side__dd .dd__trigger:hover { border-color: var(--color-primary); background: var(--color-surface); }
+.vac-side__dd .dd__chevron { position: absolute; right: 16px; top: 14px; color: var(--color-text-muted); }
+.vac-side__dd .dd__label { padding-right: 28px; }

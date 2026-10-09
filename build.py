@@ -26,7 +26,7 @@ JS_ORDER = [
     f'src/blocks/{b}/{b}.js' for b in [
         'header', 'production', 'directions', 'search-screen',
     ]
-] + ['js/forms.js', 'js/faq.js', 'js/tracks.js', 'js/dropdowns.js', 'js/vi.js']
+] + ['js/forms.js', 'js/faq.js', 'js/tracks.js', 'js/dropdowns.js', 'js/modals.js', 'js/vi.js']
 
 # ---------------------------------------------------------------- утилиты
 
@@ -45,27 +45,35 @@ ARROW = ('<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidde
          '<path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" stroke-width="2" '
          'stroke-linecap="round" stroke-linejoin="round"/></svg>')
 
+PLACE_PIN = ('<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">'
+             '<path d="M8 14.5s5-4.12 5-8a5 5 0 1 0-10 0c0 3.88 5 8 5 8Z" stroke="currentColor" '
+             'stroke-width="1.5"/><circle cx="8" cy="6.3" r="1.8" stroke="currentColor" stroke-width="1.5"/></svg>')
+
+CAL = ('<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">'
+       '<rect x="2" y="3.5" width="12" height="10.5" rx="2" stroke="currentColor" stroke-width="1.5"/>'
+       '<path d="M2 7h12M5.5 1.5v3.5M10.5 1.5v3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>')
+
+
+def pill_btn(text: str, href: str = '', extra: str = '') -> str:
+    """Контурная пилюля с круглой стрелкой (варфрейм: «откликнуться →»)."""
+    tag = 'button' if not href else 'a'
+    attrs = f'type="submit"' if not href else f'href="{href}"'
+    return (f'<{tag} class="pill-btn"{attrs} {extra}>'
+            f'<span class="pill-btn__label">{text}</span>'
+            f'<span class="pill-btn__icon">{ARROW}</span></{tag}>')
+
 
 def render_vacancy_card(v: dict) -> str:
-    detail_href = vacancy_href(v)
-    apply_href = vacancy_href(v, apply_form=True)
-    pin = '<span class="tag tag--navy">закреплена</span>' if v.get('pinned') else ''
-    acc = '<span class="tag tag--green">доступно людям с инвалидностью</span>' if v.get('accessible') else ''
-    return f'''<article class="vac-card card card--hover">
-  <div class="vac-card__head">
-    <h3 class="vac-card__title"><a href="{detail_href}">{escape(v['title'])}</a></h3>
-    <time class="vac-card__date">{v['date']}</time>
+    """Строка списка вакансий (варфрейм desktop/offers): заголовок, объект, тизер, дата, «откликнуться»."""
+    href = vacancy_href(v)
+    return f'''<article class="vac-row card card--hover">
+  <div class="vac-row__main">
+    <h2 class="vac-row__title"><a href="{href}">{escape(v['title'])}</a></h2>
+    <span class="vac-row__place">{PLACE_PIN}{escape(v['place'])}</span>
+    <p class="vac-row__short">{escape(v['short'])}</p>
+    <time class="vac-row__date">{CAL}{v['date']}</time>
   </div>
-  <div class="vac-card__tags">{pin}<span class="tag tag--gray">{v['experience']}</span>{acc}</div>
-  <p class="vac-card__short">{v['short']}</p>
-  <div class="vac-card__meta">
-    <a class="vac-card__company" href="company.html">{v['company']}</a>
-    <span class="vac-card__city">{v['city']}</span>
-  </div>
-  <div class="vac-card__foot">
-    <span class="vac-card__salary">{v['salary']}</span>
-    <a class="btn btn--primary" href="{apply_href}">откликнуться</a>
-  </div>
+  {pill_btn('откликнуться', href)}
 </article>'''
 
 
@@ -186,49 +194,76 @@ def vacancy_href(v: dict, apply_form: bool = False) -> str:
 
 
 def render_vacancy_detail(v: dict) -> str:
-    """Деталка для карточек без отдельного редакционного описания."""
+    """Карточка вакансии (варфрейм desktop/offers.card): секции текста + «Где работать»
+    + адрес + дата и «откликнуться», раскрывающая инлайн-форму с email."""
     title = escape(v['title'])
-    company = escape(v['company'])
+    n = VAC['items'].index(v) + 1
+    requirements = [
+        'Опыт работы: ' + escape(v['experience']).lower() + ' — или готовность быстро освоить профиль;',
+        'Профильное техническое или экономическое образование (для рабочих позиций — среднее специальное);',
+        'Знание нормативной документации и правил охраны труда в энергетике;',
+        'Ответственность, внимательность и готовность работать в команде.',
+    ]
+    conditions = [
+        'оформление по ТК РФ, белая заработная плата, годовая премия;',
+        'ДМС с расширенным покрытием и программа телемедицины;',
+        'корпоративное обучение и программы повышения квалификации;',
+        'компенсация питания и занятий спортом.',
+    ]
+    req_html = ''.join(f'<li>{r}</li>' for r in requirements)
+    cond_html = ''.join(f'<li>{c}</li>' for c in conditions)
     return f'''<section class="section">
   <div class="container">
-    <div class="vacancy">
-      <div class="vacancy__main">
-        <div class="vacancy__head">
-          <h1 class="vacancy__title">{title}</h1>
-          <span class="vacancy__salary">{escape(v['salary'])}</span>
-          <div class="vacancy__tags">
-            <span class="tag tag--gray">{escape(v['experience'])}</span>
-            <span class="tag tag--blue">{escape(v['direction'])}</span>
-            <span class="tag tag--gray">{escape(v['specialization'])}</span>
-          </div>
-          <a class="vacancy__company" href="company.html">{company}</a>
-        </div>
-        <div class="vacancy__section">
-          <h2>Что предстоит</h2>
-          <p>{escape(v['short'])}</p>
-        </div>
-        <div class="vacancy__section">
-          <h2>О вакансии</h2>
-          <ul>
-            <li>Компания: {company}</li>
-            <li>Направление: {escape(v['direction'])}</li>
-            <li>Специализация: {escape(v['specialization'])}</li>
-            <li>Опыт: {escape(v['experience'])}</li>
-          </ul>
-        </div>
+    <article class="vacancy-page">
+      <header class="vacancy-page__head">
+        <h1 class="vacancy-page__title">{title}</h1>
+        <div class="vacancy-page__salary">{escape(v['salary'])} до вычета налога</div>
+        <span class="vacancy-page__place">{PLACE_PIN}{escape(v['place'])}</span>
+      </header>
+
+      <div class="vacancy-page__section">
+        <h2>Что предстоит</h2>
+        <p>{escape(v['short'])} Работа ведётся на объекте {escape(v['place'])} в составе оперативной команды подразделения, с наставником на период адаптации.</p>
       </div>
-      <aside class="vacancy__aside">
-        <div class="vacancy__aside-title">Место работы</div>
-        <div class="vacancy__address">
-          <span>{escape(v['city'])}</span>
-          <span>{escape(v['region'])}</span>
+      <div class="vacancy-page__section">
+        <h2>Требования</h2>
+        <ul>{req_html}</ul>
+      </div>
+      <div class="vacancy-page__section">
+        <h2>Условия</h2>
+        <ul>{cond_html}</ul>
+      </div>
+      <div class="vacancy-page__section">
+        <h2>Где предстоит работать</h2>
+        <div class="vacancy-page__map" role="img" aria-label="Карта: {escape(v['place'])}"></div>
+        <p class="vacancy-page__addr"><b>Адрес:</b> {PLACE_PIN}{escape(v['address'])}</p>
+      </div>
+
+      <footer class="vacancy-page__foot">
+        <time class="vacancy-page__date">{CAL}{v['date']}</time>
+        <button class="pill-btn" type="button" data-reveal="#vac-apply-{n}">
+          <span class="pill-btn__label">откликнуться</span>
+          <span class="pill-btn__icon">{ARROW}</span>
+        </button>
+      </footer>
+
+      <form id="vac-apply-{n}" class="vac-inline" data-mock-form hidden>
+        <div class="vac-inline__body" data-form-body>
+          <h2>Оставьте свою почту, чтобы мы могли связаться с вами</h2>
+          <div class="vac-inline__row">
+            <label class="field field--inline">
+              <input class="field__input" type="email" name="email" required placeholder="email@email.ru" aria-label="Email">
+            </label>
+            {pill_btn('свяжитесь со мной')}
+          </div>
         </div>
-        <a class="btn btn--accent" href="{vacancy_href(v, apply_form=True)}">откликнуться</a>
-        <p style="font-size: var(--fs-micro); color: var(--color-text-muted); margin: 0;">
-          Нажимая «откликнуться», вы заполните анкету и согласитесь на обработку персональных данных.
-        </p>
-      </aside>
-    </div>
+        <div class="vac-inline__success" data-form-success hidden>
+          <h2>Спасибо, мы получили Ваш отклик!</h2>
+          <p>Ответим на почту, как только закончим его рассматривать.</p>
+          <a class="btn btn--outline" href="vacancies.html">к списку вакансий</a>
+        </div>
+      </form>
+    </article>
   </div>
 </section>'''
 

@@ -10,6 +10,15 @@
 .cards-grid--3 { grid-template-columns: repeat(3, 1fr); }
 .cards-grid--4 { grid-template-columns: repeat(4, 1fr); gap: 24px; }
 
+/* Панель фильтров внутренних страниц (целевое обучение, мероприятия) */
+.vac-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
 /* ---------------------------------------------------------------- вакансии: список (варфрейм desktop/offers) */
 
 .page-head--split {
@@ -953,6 +962,10 @@
 .cover-hero .page-subtitle { margin: 0; max-width: 640px; }
 
 .cover-hero .btn { margin-top: 16px; }
+
+nav.tabs-pill {
+  margin-bottom: 48px;
+}
 
 .tabs-pill {
   display: grid;

@@ -93,17 +93,12 @@ def render_internship_card(i: dict, with_schedule: bool = False) -> str:
     source = INT['internship']['items'] if with_schedule else INT['practice']['items']
     idx = source.index(i)
     suffix = 'i' if with_schedule else 'p'
-    badge_parts = []
-    if i.get('paid'):
-        badge_parts.append('оплачиваемая')
-    if with_schedule and i.get('schedule'):
-        short = {'Гибридный график': 'гибрид'}.get(i['schedule'], i['schedule'].lower())
-        badge_parts.append(short)
-    badge = f'<div class="dir-card__tags"><span class="tag tag--orange">{" · ".join(badge_parts)}</span></div>' if badge_parts else ''
+    paid = '<span class="tag tag--orange">оплачиваемая</span>' if i.get('paid') else ''
+    sched = f'<span class="tag tag--blue">{i["schedule"]}</span>' if with_schedule and i.get('schedule') else ''
     return (f'<button class="dir-card card card--hover" type="button" '
             f'data-modal-open="intern-dir-{suffix}-{idx + 1}" '
             f'data-direction="{i.get("direction", "")}" data-city="{i["city"]}">\n'
-            f'  {badge}\n'
+            f'  <div class="dir-card__tags">{paid}{sched}</div>\n'
             f'  <h3 class="dir-card__title">{i["title"]}</h3>\n'
             f'  <p class="dir-card__short">{i["short"]}</p>\n'
             f'</button>')
@@ -274,8 +269,8 @@ def _apply_success(note: str) -> str:
 
 AGREE = '''<label class="checkbox">
           <input type="checkbox" name="agreement" required>
-          Ознакомлен(а) с <a href="#" style="color: inherit;">Политикой конфиденциальности</a>.
-          Продолжая формирование анкеты-резюме, я соглашаюсь на обработку персональных данных.
+          <span>Ознакомлен(а) с <a href="#">Политикой конфиденциальности</a>.
+          Продолжая формирование анкеты-резюме, я соглашаюсь на обработку персональных данных.</span>
         </label>'''
 
 
@@ -712,7 +707,6 @@ INNER_PAGES = [
         'title': 'Стажировки — Портал карьеры Интер РАО',
         'crumbs': [('Главная', 'index-1.html'), ('Школьникам и студентам', None), ('Стажировки', None)],
         'frag': 'internships.html',
-        'student_subnav': 'Стажировки',
         'replaces': {
             '{{PAGE_TITLE}}': 'Стажировки',
             '{{PAGE_TITLE|lower}}': 'стажировки',
@@ -745,7 +739,6 @@ INNER_PAGES = [
         'title': 'Практики — Портал карьеры Интер РАО',
         'crumbs': [('Главная', 'index-1.html'), ('Школьникам и студентам', None), ('Практики', None)],
         'frag': 'internships.html',
-        'student_subnav': 'Практики',
         'replaces': {
             '{{PAGE_TITLE}}': 'Практики',
             '{{PAGE_TITLE|lower}}': 'практики',

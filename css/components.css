@@ -206,6 +206,12 @@
   cursor: pointer;
 }
 
+.checkbox > span { flex: 1; min-width: 0; }
+
+.checkbox a { color: var(--color-primary); }
+
+.checkbox a:hover { color: var(--color-accent); }
+
 /* Радио (переключатель) */
 .radio-row { display: flex; gap: 24px; flex-wrap: wrap; }
 

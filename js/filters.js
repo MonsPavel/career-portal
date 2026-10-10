@@ -75,7 +75,7 @@
       });
       document.querySelectorAll('.vac-side__picked .vac-side__x').forEach(function (x) {
         x.addEventListener('click', function () {
-          x.closest('.vac-side__picked').hidden = true;
+          x.closest('.vac-side__group').hidden = true;
           apply();
         });
       });
@@ -91,7 +91,7 @@
               el.dispatchEvent(new Event('change', { bubbles: true }));
             }
           });
-          Object.keys(picked).forEach(function (k) { if (picked[k]) picked[k].hidden = true; });
+          Object.keys(picked).forEach(function (k) { if (picked[k]) picked[k].closest('.vac-side__group').hidden = true; });
           apply();
         });
       }
@@ -112,6 +112,9 @@
     var dirFilter = '';
     var citySelect = document.querySelector('[data-filter-select="city"]');
 
+    // высота зоны карточек фиксируется по самому высокому виденному набору,
+    // чтобы переключение табов не сдвигало контент ниже
+    var setBaseH = 0;
     function render() {
       sets.forEach(function (set) {
         set.hidden = set.dataset.set !== active;
@@ -121,6 +124,14 @@
           card.hidden = !(okDir && okCity);
         });
       });
+      var visibleSet = sets[active === 'practice' ? 0 : 1] || document.querySelector('.dir-set[data-set="' + active + '"]');
+      if (visibleSet) {
+        var h = visibleSet.getBoundingClientRect().height;
+        if (h > setBaseH) {
+          setBaseH = Math.ceil(h);
+          sets.forEach(function (s2) { s2.style.minHeight = setBaseH + 'px'; });
+        }
+      }
       var words = WORDS[active];
       document.querySelectorAll('[data-word]').forEach(function (el) {
         el.textContent = words[el.dataset.word];

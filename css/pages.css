@@ -42,10 +42,10 @@
   top: 24px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
-.vac-side__group { display: flex; flex-direction: column; gap: 8px; }
+.vac-side__group { display: flex; flex-direction: column; gap: 4px; }
 
 .vac-side__label { font-size: var(--fs-small-regular); color: var(--color-text-muted); }
 
@@ -940,6 +940,9 @@
 
 /* Сайдбарные дропдауны фильтров (обычный dd, не пилюля) */
 .vac-side__dd { display: block; }
+
+/* скрытый нативный селект держит высоту строки (иначе триггер налезает на соседний лейбл) */
+.vac-side__dd select { height: 44px; }
 .vac-side__dd .dd__trigger { height: 44px; border: 1px solid #D6D6D6; background: var(--color-surface); }
 .vac-side__dd .dd__trigger:hover { border-color: var(--color-primary); background: var(--color-surface); }
 .vac-side__dd .dd__chevron { position: absolute; right: 16px; top: 14px; color: var(--color-text-muted); }
@@ -997,6 +1000,10 @@ nav.tabs-pill {
   background: var(--color-primary);
   color: var(--color-text-on-dark);
 }
+
+/* Оба набора карточек (практика/стажировка) живут на одной странице — фиксируем
+   высоту зоны, чтобы переключение табов не сдвигало контент ниже */
+.dir-set { min-height: 424px; }
 
 .dir-head {
   display: flex;
@@ -1242,6 +1249,7 @@ nav.tabs-pill {
 .apply-form__success p { margin: 0 0 24px; font-size: var(--fs-body); line-height: 1.45; color: var(--color-text); }
 
 @media (max-width: 1024px) {
+  .dir-set { min-height: 0; }
   .adv-marquee { grid-template-columns: 1fr; }
   .timeline { grid-template-columns: repeat(2, 1fr); }
   .timeline__track { display: none; }

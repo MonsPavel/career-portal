@@ -48,14 +48,6 @@
 .cta-mail__email:hover { opacity: 0.75; }
 
 /* Хвост «облачка» под карточкой: белый прямоугольник + персиковый треугольник из макета */
-.cta-mail__tail {
-  display: flex;
-  justify-content: center;
-  min-height: 32px;
-  margin: 0 auto;
-  line-height: 0;
-}
-
 @media (max-width: 767px) {
   .cta-mail__title { font-size: 24px; }
   .cta-mail__email { font-size: 24px; align-self: flex-start; }

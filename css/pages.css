@@ -967,6 +967,7 @@
 .cover-hero .btn { margin-top: 16px; }
 
 nav.tabs-pill {
+  margin-top: 24px;
   margin-bottom: 48px;
 }
 
@@ -1077,7 +1078,7 @@ nav.tabs-pill {
 
 .adv-marquee__line--sm { font-size: 13px; font-weight: var(--fw-small); }
 
-.adv-marquee__line--xl { font-size: 40px; padding: 16px 20px; letter-spacing: 0; white-space: normal; line-height: 1.15; }
+.adv-marquee__line--xl { font-size: 40px; letter-spacing: 0; white-space: normal; line-height: 1.15; }
 
 .adv-marquee__body { display: flex; flex-direction: column; gap: 20px; }
 

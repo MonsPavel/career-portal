@@ -865,12 +865,6 @@ INNER_PAGES = [
         'frag': 'career-track.html',
         'student_subnav': 'Карьерный трек',
         'replaces': {
-            '<!-- TRACK_BANNER -->': (
-                f'''<div class="banner-card">
-                <img class="banner-card__photo" src="{TRK['banners'][0]['image']}" alt="">
-                <div class="banner-card__body"><h2 class="banner-card__title">{TRK['banners'][0]['title']}</h2>
-                <p class="banner-card__text">{TRK['banners'][0]['text']}</p>
-                <a class="btn btn--primary" href="#tracks">узнать подробнее</a></div></div>'''),
             '<!-- TRACK_TAB_BUTTONS -->': '\n'.join(
                 f'<button class="btn btn--outline tab-btn{" is-active" if i == 0 else ""}" type="button" data-track-tab>{t["name"]}</button>'
                 for i, t in enumerate(TRK['tabs'])),

@@ -67,6 +67,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
+  white-space: nowrap;
   height: 52px;
   padding: 12px 28px;
   border-radius: var(--radius-pill);

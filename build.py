@@ -665,6 +665,7 @@ STUDENT_SUBNAV_ITEMS = [
 
 def student_subnav(active_label: str) -> str:
     links = []
+    options = []
     for label, href in STUDENT_SUBNAV_ITEMS:
         is_active = label == active_label
         active_class = ' is-active' if is_active else ''
@@ -672,10 +673,21 @@ def student_subnav(active_label: str) -> str:
         links.append(
             f'<a class="tabs-pill__tab{active_class}" href="{href}"{current}>{label}</a>'
         )
+        selected = ' selected' if is_active else ''
+        options.append(f'<option value="{href}"{selected}>{label}</option>')
     return (
         '<nav class="tabs-pill" aria-label="Разделы школьникам и студентам">\n'
         + '\n'.join(links)
-        + '\n</nav>'
+        + '\n</nav>\n'
+        '<div class="subnav-select">\n'
+        '  <span class="subnav-select__label">Раздел</span>\n'
+        '  <label class="subnav-select__wrap vacancy-search__select-wrap">\n'
+        '    <select class="vacancy-search__select" data-subnav aria-label="Раздел: Школьникам и студентам">\n'
+        + '\n'.join(options)
+        + '\n    </select>\n'
+        '    <svg class="vacancy-search__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 6l5 4 5-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>\n'
+        '  </label>\n'
+        '</div>'
     )
 
 # ---------------------------------------------------------------- внутренние страницы

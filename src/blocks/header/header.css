@@ -122,21 +122,143 @@
   .header__logo img { width: 84px; }
 }
 
+/* ---------------------------------------------------------------- кнопка-бургер (только мобильные) */
+.header__burger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 2px solid var(--color-primary);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.header__burger:hover { background: #FFFFFF; }
+
+.header__burger-icon { flex: 0 0 auto; }
+.header__burger-icon--close { display: none; }
+.header__burger[aria-expanded="true"] .header__burger-icon--open { display: none; }
+.header__burger[aria-expanded="true"] .header__burger-icon--close { display: block; }
+
 @media (max-width: 767px) {
+  /* на внутренних страницах header статичный — без этого контекста
+     абсолютное мобильное меню позиционируется относительно всей страницы */
+  .header, .page--inner .header { position: relative; top: auto; left: auto; right: auto; }
   .header__inner { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-right: 16px; padding-left: 16px; }
   .header__logo { order: 1; }
-  .header__menu--left { order: 2; min-width: 0; justify-content: flex-end; }
-  .header__link--toggle { max-width: 160px; white-space: normal; text-align: right; }
-  .header__chevron { flex: 0 0 auto; }
-  .header__menu--right { display: none; }
-  .header__menu--left .header__link:not(.header__link--toggle),
-  .header__menu--right .header__link:not(.header__link--search) {
-    display: none;
-  }
+  /* десктопное меню на мобильных заменяет бургер */
+  .header__menu { display: none; }
+  .header__burger { order: 2; display: inline-flex; }
   .header__dropdown {
     left: 0;
     width: min(312px, calc(100vw - 32px));
   }
+}
+
+/* ---------------------------------------------------------------- мобильное меню */
+.header__mobile { display: none; }
+
+@media (max-width: 767px) {
+  .header__mobile {
+    display: block;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 16px;
+    right: 16px;
+    padding: 8px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-page-head-border);
+    border-radius: 14px;
+    box-shadow: 0 18px 42px rgba(0, 40, 86, 0.16), 0 3px 10px rgba(0, 40, 86, 0.06);
+    z-index: 50;
+    max-height: calc(100dvh - 100% - 16px);
+    overflow-y: auto;
+  }
+
+  .header__mobile[hidden] { display: none; }
+
+  .header__mobile:not([hidden]) {
+    animation: header-dropdown-in 180ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .header__mobile-group {
+    margin: 10px 12px 2px;
+    font-size: var(--fs-micro);
+    font-weight: var(--fw-small);
+    color: var(--color-text-muted);
+  }
+
+  .header__mobile-link {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--color-primary);
+    transition: background var(--transition);
+  }
+
+  .header__mobile-link--sub {
+    padding-left: 28px;
+    font-weight: 400;
+    color: var(--color-text);
+  }
+
+  .header__mobile-link:hover,
+  .header__mobile-link:focus-visible,
+  .header__mobile-link[aria-current="page"] {
+    background: var(--color-surface-blue-50);
+  }
+
+  .header__mobile-link:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: -2px;
+  }
+
+  .header__mobile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--color-page-head-border);
+  }
+
+  .header__mobile-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 8px 12px;
+    border: 0;
+    border-radius: 8px;
+    background: var(--color-surface-blue-50);
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: background var(--transition);
+  }
+
+  .header__mobile-action:hover { background: var(--color-surface-blue-100); }
+
+  .header__mobile-action--vi {
+    border: 2px solid var(--color-primary);
+    background: transparent;
+    color: var(--color-primary);
+  }
+
+  .header__mobile-action--vi:hover { background: var(--color-surface-blue-50); }
 }
 
 /* Кнопка «Версия для слабовидящих» — заметная пилюля с крупной иконкой */

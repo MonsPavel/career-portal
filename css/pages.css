@@ -355,24 +355,29 @@
   .vac-side { position: static; }
 }
 
-/* Табы на мобильных: горизонтальная лента без переносов */
+/* Поднавигация разделов «Школьникам и студентам»: на десктопе — табы-таблетки,
+   на мобильных — селект «Раздел», чтобы не ломать вёрстку на узком экране */
+.subnav-select { display: none; }
+
 @media (max-width: 760px) {
-  .tabs-pill {
+  nav.tabs-pill { display: none; }
+
+  .subnav-select {
     display: flex;
-    overflow-x: auto;
-    scrollbar-width: none;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+    margin-bottom: 36px;
   }
 
-  .tabs-pill::-webkit-scrollbar { display: none; }
-
-  .tabs-pill__tab {
+  .subnav-select__label {
     flex: 0 0 auto;
-    white-space: nowrap;
-    height: 44px;
-    padding: 0 18px;
+    font-size: var(--fs-micro);
+    font-weight: var(--fw-small);
+    color: var(--color-text-muted);
   }
 
-  nav.tabs-pill { margin-top: 20px; margin-bottom: 36px; }
+  .subnav-select__wrap { flex: 1 1 auto; }
 }
 
 @media (max-width: 760px) {
